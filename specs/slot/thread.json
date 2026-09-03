@@ -1,0 +1,9 @@
+{
+  "guid": "09795c0d-9980-4a77-8587-edbd4b027240",
+  "name": "specs-slot",
+  "type": "workItem",
+  "state": "open",
+  "isPartOf": "74e67341-176d-4a0c-81af-d018cbfd5baa",
+  "body": "Slot spec. Signed integer band, zero at the viewer plane, two sentinel tracks (backdrop, interface).",
+  "sourceVerified": false
+}

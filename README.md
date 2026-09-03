@@ -1,8 +1,19 @@
 # loom-weave-godot
 
+## Card
+
+**Just did.** Tree seeded: operation root, `specs` scope, four spec work items.
+**Next.** Slot spec. Its artifact node lands beside `specs/slot`.
+**Context.** Renderer build, render loop, continuous PDCA. Node: `specs/slot`, open.
+
 First weave: Godot.
 
 No renderer code in this repo yet.
+
+Tree: `thread.json` at the root, type `operation`. Operations do not
+end; the render loop is continuous. Each spec, once written, gains an
+`artifact` node beside its `workItem`. Validate with the four checkers
+in `loom-warp`.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 
