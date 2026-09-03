@@ -2,7 +2,7 @@
 
 ## Card
 
-**Just did.** Tree seeded: operation root, `specs` scope, four spec work items.
+**Just did.** Root `actualStart` set. Tree: operation root, `specs` scope, four spec work items.
 **Next.** Slot spec. Its artifact node lands beside `specs/slot`.
 **Context.** Renderer build, render loop, continuous PDCA. Node: `specs/slot`, open.
 
