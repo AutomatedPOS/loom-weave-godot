@@ -11,9 +11,9 @@
 
 First weave: Godot.
 
-No renderer code in this repo yet.
-
 Run `./run.sh`. It clones `loom` into `_incoming/loom` if needed and opens the Godot window. Godot 4.3+ on `PATH` or at `$HOME/.local/bin/godot`.
+
+Web: `./export.sh` then `wrangler pages deploy build/web --project-name loom-weave-godot`. Needs Cloudflare API token.
 
 The first weave is this window: a status view of Loom's own tree. Cards sit on depth slots (root in front, deeper nodes back). The bar is the interface track. Click a card to read it.
 
