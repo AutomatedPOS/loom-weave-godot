@@ -1,0 +1,11 @@
+# Weave only. Do not wrangler pages deploy.
+# Do not point this file at dord.dev / www — those are worker dord.
+name = "dord-dev"
+compatibility_date = "2026-09-03"
+
+[assets]
+directory = "./build/web"
+
+[[routes]]
+pattern = "loom.dord.dev"
+custom_domain = true

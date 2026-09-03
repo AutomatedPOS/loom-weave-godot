@@ -4,7 +4,10 @@ First weave: Godot.
 
 Run `./run.sh`. It clones `loom` into `_incoming/loom` if needed and opens the Godot window. Godot 4.3+ on `PATH` or at `$HOME/.local/bin/godot`.
 
-Web: `./export.sh`. Live hosts are Workers with `custom_domain`: `dord` on `dord.dev` / `www.dord.dev`, `dord-dev` on `loom.dord.dev`. Do not `wrangler pages deploy`. That command republishes a taken-down Pages project.
+Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
+`CLOUDFLARE_API_TOKEN`). That updates worker `dord-dev` on
+`loom.dord.dev` only. Do not `wrangler pages deploy`. Do not deploy
+worker `dord` (apex / www).
 
 The first weave is this window: a black screen. The interface track
 holds one settings gear, bottom-right, subdued gray. Cards are off.
