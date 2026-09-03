@@ -16,4 +16,5 @@ if [[ ! -f "$TREE/thread.json" ]]; then
   git clone --depth 1 https://github.com/AutomatedPOS/loom.git "$TREE"
 fi
 export LOOM_TREE="$TREE"
+"$GODOT" --headless --path "$ROOT" --import --quit >/dev/null
 exec "$GODOT" --path "$ROOT" --audio-driver Dummy "$@"
