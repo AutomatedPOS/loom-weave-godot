@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Slot spec landed at artifacts/slot-spec/. specs/slot is done.",
-  "next": "Cycle one of the Weaver PDCA loop. The first screen stays unruled until instantiation one is on screen.",
+  "justDid": "Instantiation one is on screen. Godot reads the loom tree as a working status view. Click a card to put it in the bar.",
+  "next": "Cycle two. Keep the first screen unruled; this window is the thing to react to.",
   "sourceVerified": false
 }
