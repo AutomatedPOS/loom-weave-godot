@@ -1,0 +1,9 @@
+{
+  "guid": "7af09ba9-80da-4a35-8067-77dc2226d82f",
+  "name": "loadout",
+  "type": "workItem",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "body": "Cycle three Do. Waits on the plan. Gear opens configuration for chat, TTS, and transcription. Save locally. Export and import a loadout file. No secrets in the deploy.",
+  "sourceVerified": false
+}

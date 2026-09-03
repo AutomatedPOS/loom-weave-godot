@@ -58,5 +58,5 @@ just-did line, status line, or paper card is a fail.
 
 ## After
 
-The first screen is ruled. Later turns can put content back on slots
-or open what the gear means. Not before this Check.
+The first screen is ruled. Act closed 2026-09-03: owner confirmed
+the live weave on a tablet. Cycle three Plan is the loadout.
