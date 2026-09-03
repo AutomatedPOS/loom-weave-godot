@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Do includes commit and push. Owner reviews from a tablet. Issue do-includes-push is open.",
-  "next": "Later turns push during Do. First screen stays ruled. Live weave still needs a Cloudflare token.",
+  "justDid": "Owner asked to deploy for tablet test. Git is on the remote. Cloudflare token from the earlier sitting is 9109 invalid.",
+  "next": "A valid CLOUDFLARE_API_TOKEN on this seat. Then ./deploy-weave.sh to dord-dev only.",
   "sourceVerified": false
 }
