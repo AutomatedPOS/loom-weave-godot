@@ -4,9 +4,13 @@ First weave: Godot.
 
 Run `./run.sh`. It clones `loom` into `_incoming/loom` if needed and opens the Godot window. Godot 4.3+ on `PATH` or at `$HOME/.local/bin/godot`.
 
-Web: `./export.sh`. Live hosts are Workers with `custom_domain`: `dord` on `dord.dev` / `www.dord.dev`, `dord-dev` on `loom.dord.dev`. Do not `wrangler pages deploy`. That command republishes a taken-down Pages project.
+Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
+`CLOUDFLARE_API_TOKEN`). That updates worker `dord-dev` on
+`loom.dord.dev` only. Do not `wrangler pages deploy`. Do not deploy
+worker `dord` (apex / www).
 
-The first weave is this window: a status view of Loom's own tree. Cards sit on depth slots (root in front, deeper nodes back). The bar is the interface track. Click a card to read it.
+The first weave is this window: a black screen. The interface track
+holds one settings gear, bottom-right, subdued gray. Cards are off.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in
@@ -15,7 +19,9 @@ that produced it points across at the file. Validate with the four
 checkers in `loom-warp`.
 
 The render loop is PDCA. A spec is the plan step of a turn, not a
-plan of its own.
+plan of its own. Cycle two Plan is `plans/cycle-two`. The Do is
+`first-screen`: black backdrop, no card forms, settings gear on the
+interface track.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 
@@ -27,6 +33,5 @@ Artifacts owed from the 2026-09-03 act-one walk:
 4. Demo seed list — Apollo galaxy (mission 13 built, rest grayed),
    Enron galaxy (RICE at the core).
 
-Turn one points at `loom`, not at Apollo: a working status view of the
-tree Loom keeps on itself. The Apollo read-only web export stays owed,
-later.
+Turn one put a status view of Loom's own tree on screen. Cycle two
+took the cards off. The Apollo read-only web export stays owed, later.

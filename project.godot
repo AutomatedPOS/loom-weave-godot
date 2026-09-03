@@ -4,7 +4,7 @@ config_version=5
 [application]
 
 config/name="loom-weave-godot"
-config/description="First weave. Status view of Loom's own tree."
+config/description="First weave. Black screen. Settings gear on the interface track."
 run/main_scene="res://weave/Main.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.svg"
@@ -20,4 +20,4 @@ window/stretch/aspect="expand"
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.102, 0.094, 0.078, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

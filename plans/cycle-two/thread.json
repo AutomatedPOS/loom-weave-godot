@@ -1,0 +1,12 @@
+{
+  "guid": "8bfc2cad-25fe-4c62-a4fc-d51111877c01",
+  "name": "plans-cycle-two",
+  "type": "plan",
+  "actualStart": "2026-09-03",
+  "actualEnd": "2026-09-03",
+  "state": "done",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/cycle-two-plan/cycle-two-plan.md",
+  "body": "Weaver PDCA cycle two. Plan step: rule the first screen. Black backdrop, cards off, settings gear on the interface track, bottom-right, subdued gray.",
+  "sourceVerified": false
+}
