@@ -1,0 +1,11 @@
+{
+  "guid": "5eeaae31-89f3-4a8b-a603-c92b8572a012",
+  "name": "first-screen",
+  "type": "workItem",
+  "actualStart": "2026-09-03",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../weave/Main.tscn",
+  "body": "Cycle two Do. Black backdrop. No card forms. Interface track holds one subdued gray settings gear, bottom-right.",
+  "sourceVerified": false
+}

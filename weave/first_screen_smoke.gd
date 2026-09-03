@@ -1,0 +1,43 @@
+extends SceneTree
+
+
+func _init() -> void:
+	var packed := load("res://weave/Main.tscn")
+	if packed == null:
+		push_error("no Main.tscn")
+		quit(1)
+		return
+	var main: Control = packed.instantiate()
+	root.add_child(main)
+
+	var backdrop := main.get_node_or_null("Backdrop") as ColorRect
+	if backdrop == null:
+		push_error("no Backdrop")
+		quit(1)
+		return
+	if backdrop.color != Color(0, 0, 0, 1):
+		push_error("backdrop is not black: %s" % backdrop.color)
+		quit(1)
+		return
+
+	if main.get_node_or_null("Slots") != null:
+		push_error("Slots still on the first screen")
+		quit(1)
+		return
+	if main.get_node_or_null("Interface/Bar") != null:
+		push_error("interface bar still on the first screen")
+		quit(1)
+		return
+
+	var gear := main.get_node_or_null("Interface/Gear")
+	if gear == null:
+		push_error("no Interface/Gear")
+		quit(1)
+		return
+	if gear.get_script() == null:
+		push_error("Gear has no script")
+		quit(1)
+		return
+
+	print("SMOKE first-screen black + gear")
+	quit(0)
