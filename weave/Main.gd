@@ -5,7 +5,7 @@ const INTERFACE := Color(0.055, 0.047, 0.039)
 const INTERFACE_INK := Color(0.77, 0.71, 0.60)
 const RULE := Color(0.77, 0.36, 0.15)
 
-var loader := TreeLoader.new()
+var loader = preload("res://weave/TreeLoader.gd").new()
 var selected: Dictionary = {}
 
 @onready var _cards: Control = $Slots
@@ -85,7 +85,7 @@ func _layout_cards() -> void:
 		var y: float = top + float(d) * row_h + 8.0
 		for i in count:
 			var n: Dictionary = row[i]
-			var card := ThreadCard.new()
+			var card = preload("res://weave/ThreadCard.gd").new()
 			var x: float = vp.x * 0.04 + (float(i) + 0.5) * (vp.x * 0.92 / float(maxi(count, 1)))
 			card.setup(n, slot, card_size)
 			card.position = Vector2(x - card_size.x * 0.5, y)
