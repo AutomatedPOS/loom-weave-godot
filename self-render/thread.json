@@ -2,8 +2,11 @@
   "guid": "88000f0c-8fef-469c-8958-c430994f23fe",
   "name": "self-render",
   "type": "workItem",
-  "state": "open",
+  "actualStart": "2026-09-03",
+  "actualEnd": "2026-09-03",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "body": "Turn one of the render loop. Reads loom's own tree as a working status view. Not the Apollo hook.",
+  "representedBy": "../weave/Main.tscn",
+  "body": "Turn one of the render loop. Reads loom's own tree as a working status view. Not the Apollo hook. Instantiation one is on screen.",
   "sourceVerified": false
 }

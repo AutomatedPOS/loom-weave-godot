@@ -4,14 +4,18 @@
 
 ## Card
 
-**Just did.** Slot spec landed at artifacts/slot-spec/. specs/slot is done.
-**Next.** Cycle one of the Weaver PDCA loop. The first screen stays unruled until instantiation one is on screen.
+**Just did.** Instantiation one is on screen. Godot reads the loom tree as a working status view. Click a card to put it in the bar.
+**Next.** Cycle two. Keep the first screen unruled; this window is the thing to react to.
 
 <!-- card:end -->
 
 First weave: Godot.
 
 No renderer code in this repo yet.
+
+Run `./run.sh`. It clones `loom` into `_incoming/loom` if needed and opens the Godot window. Godot 4.3+ on `PATH` or at `$HOME/.local/bin/godot`.
+
+The first weave is this window: a status view of Loom's own tree. Cards sit on depth slots (root in front, deeper nodes back). The bar is the interface track. Click a card to read it.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in
