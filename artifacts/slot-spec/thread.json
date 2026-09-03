@@ -1,0 +1,9 @@
+{
+  "guid": "8ec96e51-2961-4261-bb93-7b4bb9c32745",
+  "name": "artifacts-slot-spec",
+  "type": "artifact",
+  "actualEnd": "2026-09-03",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "slot-spec.md",
+  "sourceVerified": false
+}
