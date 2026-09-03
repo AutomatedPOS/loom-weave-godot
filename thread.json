@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Tablet freeze: wasm was gzipped twice. Worker now serves index.wasm as gzip once.",
-  "next": "Owner hard-refreshes https://loom.dord.dev/. Black screen and gear.",
+  "justDid": "Patched Godot web loader: no instantiateStreaming on gzip wasm. Redeploying dord-dev.",
+  "next": "Owner opens https://loom.dord.dev/ again. Splash should clear to black and the gear.",
   "sourceVerified": false
 }
