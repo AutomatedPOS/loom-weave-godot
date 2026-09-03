@@ -5,5 +5,8 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
+  "justDid": "Slot spec landed at artifacts/slot-spec/. specs/slot is done.",
+  "next": "Loom self-render, turn one of the render loop. Tracked at self-render.",
+  "waitingOn": "A ruling on what the first screen shows. Do not draw a picture yet.",
   "sourceVerified": false
 }
