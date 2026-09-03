@@ -1,0 +1,9 @@
+{
+  "guid": "f4de4360-d7e3-41c4-a1b9-fab99b28c9c5",
+  "name": "artifacts-findings",
+  "type": "artifact",
+  "actualEnd": "2026-09-03",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "findings.md",
+  "sourceVerified": false
+}

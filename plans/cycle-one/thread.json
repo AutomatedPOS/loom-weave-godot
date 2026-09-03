@@ -1,0 +1,11 @@
+{
+  "guid": "881a3313-ab38-4686-9418-b1de5c88340b",
+  "name": "plans-cycle-one",
+  "type": "plan",
+  "actualStart": "2026-09-03",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/cycle-one-plan/cycle-one-plan.md",
+  "body": "Weaver PDCA cycle one. Plan step: HTTPS site, Godot web export, black screen enough. Domain is owner. Daydream before Do.",
+  "sourceVerified": false
+}

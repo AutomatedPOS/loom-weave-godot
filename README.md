@@ -4,8 +4,8 @@
 
 ## Card
 
-**Just did.** Slot spec landed at artifacts/slot-spec/. specs/slot is done.
-**Next.** Cycle one of the Weaver PDCA loop. The first screen stays unruled until instantiation one is on screen.
+**Just did.** Cycle-one plan and daydream packet landed. Findings notebook opened. Instantiation one sits open.
+**Next.** Daydream the packet. Findings come back to the interface before the Do.
 
 <!-- card:end -->
 
@@ -20,7 +20,13 @@ that produced it points across at the file. Validate with the four
 checkers in `loom-warp`.
 
 The render loop is PDCA. A spec is the plan step of a turn, not a
-plan of its own.
+plan of its own. Cycle one Plan is `plans/cycle-one`. The daydream
+packet is `artifacts/daydream-cycle-one/`. Findings land in
+`artifacts/findings/`. The Do is `instantiation-one`: HTTPS site,
+Godot web export, black screen enough. Domain is owner.
+
+This operation seat is the cycle-one interface. It writes the tree,
+runs the checkers, and files findings. The daydream does not.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 
@@ -32,6 +38,5 @@ Artifacts owed from the 2026-09-03 act-one walk:
 4. Demo seed list — Apollo galaxy (mission 13 built, rest grayed),
    Enron galaxy (RICE at the core).
 
-Turn one points at `loom`, not at Apollo: a working status view of the
-tree Loom keeps on itself. The Apollo read-only web export stays owed,
-later.
+`self-render` still points at `loom`, not at Apollo. It waits on
+instantiation one. The Apollo read-only web export stays owed, later.
