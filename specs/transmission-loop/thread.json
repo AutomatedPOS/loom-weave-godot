@@ -1,0 +1,9 @@
+{
+  "guid": "8d836ec3-c409-4130-9ff2-f312130d2ce8",
+  "name": "specs-transmission-loop",
+  "type": "workItem",
+  "state": "open",
+  "isPartOf": "74e67341-176d-4a0c-81af-d018cbfd5baa",
+  "body": "Transmission loop spec. Capture, encode, extract, transmit, wave, weave. Two-tier local and remote.",
+  "sourceVerified": false
+}
