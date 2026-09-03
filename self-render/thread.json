@@ -4,6 +4,6 @@
   "type": "workItem",
   "state": "open",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "body": "Turn one of the render loop. Reads loom's own tree as a working status view. Not the Apollo hook.",
+  "body": "Reads loom's own tree as a working status view. Not the Apollo hook. Waits on instantiation one. Not the cycle-one Do.",
   "sourceVerified": false
 }
