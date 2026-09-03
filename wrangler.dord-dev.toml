@@ -3,7 +3,10 @@
 # custom_domain stays on the worker already. This token can upload
 # scripts, not zone routes.
 name = "dord-dev"
+main = "workers/serve.mjs"
 compatibility_date = "2026-09-03"
 
 [assets]
 directory = "./build/web"
+binding = "ASSETS"
+run_worker_first = ["/index.wasm"]
