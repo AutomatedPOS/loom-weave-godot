@@ -5,8 +5,7 @@
 ## Card
 
 **Just did.** Slot spec landed at artifacts/slot-spec/. specs/slot is done.
-**Next.** Loom self-render, turn one of the render loop. Tracked at self-render.
-**Waiting on.** A ruling on what the first screen shows. Do not draw a picture yet.
+**Next.** Cycle one of the Weaver PDCA loop. The first screen stays unruled until instantiation one is on screen.
 
 <!-- card:end -->
 
