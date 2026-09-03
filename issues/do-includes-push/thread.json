@@ -1,0 +1,10 @@
+{
+  "guid": "b233f0d6-1d94-4170-889b-212efce84248",
+  "name": "do-includes-push",
+  "type": "issue",
+  "actualStart": "2026-09-03",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "body": "The Do of a Weaver turn includes commit and push. The owner reviews from a tablet. Unpushed work is invisible. Check waits until the commit is on the remote.",
+  "sourceVerified": false
+}

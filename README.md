@@ -21,7 +21,8 @@ checkers in `loom-warp`.
 The render loop is PDCA. A spec is the plan step of a turn, not a
 plan of its own. Cycle two Plan is `plans/cycle-two`. The Do is
 `first-screen`: black backdrop, no card forms, settings gear on the
-interface track.
+interface track. The Do includes commit and push. Check waits until
+the commit is on the remote. The owner reviews from a tablet.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 
