@@ -48,5 +48,6 @@ for path in sorted(root.iterdir()):
 (root / "_headers").write_text("\n".join(headers).rstrip() + "\n", encoding="utf-8")
 print("wrote", root / "_headers")
 PY
+python3 "$ROOT/scripts/patch_web_export.py" "$ROOT/build/web/index.js"
 echo "export ok: $ROOT/build/web"
 ls -lh "$ROOT/build/web"
