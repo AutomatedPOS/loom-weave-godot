@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "dord-dev uploaded. loom.dord.dev HTML and JS match the black first screen. Refresh is the Check.",
-  "next": "Owner refreshes https://loom.dord.dev/. First screen should be black with the gear.",
+  "justDid": "Tablet freeze: wasm was gzipped twice. Worker now serves index.wasm as gzip once.",
+  "next": "Owner hard-refreshes https://loom.dord.dev/. Black screen and gear.",
   "sourceVerified": false
 }

@@ -5,6 +5,8 @@
 name = "dord-dev"
 main = "workers/serve.mjs"
 compatibility_date = "2026-09-03"
+workers_dev = false
+preview_urls = false
 
 [assets]
 directory = "./build/web"
