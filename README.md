@@ -1,14 +1,5 @@
 # loom-weave-godot
 
-<!-- card:start -->
-
-## Card
-
-**Just did.** Instantiation one is on screen. Godot reads the loom tree as a working status view. Click a card to put it in the bar.
-**Next.** Cycle two. Keep the first screen unruled; this window is the thing to react to.
-
-<!-- card:end -->
-
 First weave: Godot.
 
 Run `./run.sh`. It clones `loom` into `_incoming/loom` if needed and opens the Godot window. Godot 4.3+ on `PATH` or at `$HOME/.local/bin/godot`.
