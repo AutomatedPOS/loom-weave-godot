@@ -1,1 +1,8 @@
 sessions/
+.godot/
+trees/
+_incoming/
+*.translation
+*.import
+export_presets.cfg
+
