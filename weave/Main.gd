@@ -30,6 +30,8 @@ func _ready() -> void:
 
 
 func _loom_path() -> String:
+	if FileAccess.file_exists("res://data/loom/thread.json"):
+		return "res://data/loom"
 	var env := OS.get_environment("LOOM_TREE")
 	if env != "" and FileAccess.file_exists(env.path_join("thread.json")):
 		return env
@@ -43,7 +45,7 @@ func _loom_path() -> String:
 	for g in guesses:
 		if FileAccess.file_exists(g.path_join("thread.json")):
 			return g
-	return here.path_join("trees/loom")
+	return "res://data/loom"
 
 
 func _paint_interface(n: Dictionary) -> void:
