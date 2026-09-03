@@ -1,4 +1,5 @@
 sessions/
+.wrangler/
 .godot/
 trees/
 _incoming/

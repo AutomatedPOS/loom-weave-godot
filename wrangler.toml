@@ -1,3 +1,4 @@
+# Do not wrangler pages deploy. That mints the taken-down Pages project.
+# Live: worker dord on dord.dev / www.dord.dev; worker dord-dev on loom.dord.dev.
 name = "loom-weave-godot"
 compatibility_date = "2026-09-03"
-pages_build_output_dir = "build/web"
