@@ -1,10 +1,14 @@
 # loom-weave-godot
 
+<!-- card:start -->
+
 ## Card
 
-**Just did.** Slot spec landed at `artifacts/slot-spec/`. `specs/slot` done.
-**Next.** Loom self-render: a working status view reading loom's own tree. Turn one of the render loop.
-**Context.** Render loop, continuous PDCA, turn one. Node: `self-render`, open.
+**Just did.** Slot spec landed at artifacts/slot-spec/. specs/slot is done.
+**Next.** Loom self-render, turn one of the render loop. Tracked at self-render.
+**Waiting on.** A ruling on what the first screen shows. Do not draw a picture yet.
+
+<!-- card:end -->
 
 First weave: Godot.
 
