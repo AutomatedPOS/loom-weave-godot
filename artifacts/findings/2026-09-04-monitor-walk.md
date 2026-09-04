@@ -116,3 +116,9 @@ The bind was not the work. Plan is `artifacts/monitor-plan/`.
 Do of the first visible is this turn: spine, PDCA line, tree,
 detail. Cycle three stays at Check. PR 12 is this branch, not
 a merge homework.
+
+### 2026-09-04 — Live weave uploaded
+
+`./deploy-weave.sh` uploaded worker `dord-dev`. Version
+`666bcdf1-ca52-4a3e-8a46-2a978dfca6de`. Apex left alone.
+Hard refresh on `loom.dord.dev` is the Check of this Do.
