@@ -4,7 +4,7 @@ config_version=5
 [application]
 
 config/name="loom-weave-godot"
-config/description="First weave. Black screen. Gear opens the loadout."
+config/description="First weave. Monitor on a black backdrop. Gear opens the loadout."
 run/main_scene="res://weave/Main.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.svg"

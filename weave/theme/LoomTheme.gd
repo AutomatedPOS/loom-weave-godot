@@ -83,6 +83,11 @@ static func _buttons(t: Theme) -> void:
 	for state in [&"normal", &"hover", &"pressed", &"focus", &"disabled"]:
 		t.set_stylebox(state, LoomTokens.V_GEAR, StyleBoxEmpty.new())
 
+	# Tree rows and spine crumbs. Live ink, ghost dim.
+	var row_lit := well_box(LoomTokens.SPACE_2)
+	_row_type(t, LoomTokens.V_ROW, LoomTokens.INK, row_lit)
+	_row_type(t, LoomTokens.V_ROW_DIM, LoomTokens.DIM, row_lit)
+
 
 static func _panels(t: Theme) -> void:
 	var surface := StyleBoxFlat.new()
@@ -92,6 +97,22 @@ static func _panels(t: Theme) -> void:
 	surface.set_corner_radius_all(LoomTokens.RADIUS)
 	t.set_stylebox(&"panel", &"PanelContainer", surface)
 	t.set_stylebox(&"panel", &"ScrollContainer", StyleBoxEmpty.new())
+
+
+static func _row_type(t: Theme, variation: StringName, ink: Color, hover: StyleBox) -> void:
+	t.add_type(variation)
+	t.set_type_variation(variation, &"Button")
+	t.set_stylebox(&"normal", variation, StyleBoxEmpty.new())
+	t.set_stylebox(&"hover", variation, hover)
+	t.set_stylebox(&"pressed", variation, hover)
+	t.set_stylebox(&"focus", variation, StyleBoxEmpty.new())
+	t.set_stylebox(&"disabled", variation, StyleBoxEmpty.new())
+	for name in [&"font_color", &"font_hover_color", &"font_pressed_color",
+			&"font_focus_color", &"font_hover_pressed_color"]:
+		t.set_color(name, variation, ink)
+	t.set_color(&"font_disabled_color", variation, LoomTokens.DIM)
+	t.set_font_size(&"font_size", variation, LoomTokens.TEXT_MD)
+	t.set_constant(&"h_separation", variation, LoomTokens.SPACE_2)
 
 
 ## A sunken field or button face: well fill, edge border, side padding.

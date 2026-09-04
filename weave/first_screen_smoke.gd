@@ -51,5 +51,11 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	print("SMOKE first-screen black + gear")
+	var monitor := main.get_node_or_null("Interface/Monitor")
+	if monitor == null:
+		push_error("no Interface/Monitor")
+		quit(1)
+		return
+
+	print("SMOKE first-screen black + monitor + gear")
 	quit(0)

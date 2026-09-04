@@ -26,7 +26,13 @@ func _init() -> void:
 	if panel_box == null or panel_box.bg_color != LoomTokens.SURFACE or panel_box.border_color != LoomTokens.EDGE:
 		_fail("PanelContainer box is not the surface")
 		return
-	for pair in [[LoomTokens.V_TITLE, &"Label"], [LoomTokens.V_MUTED, &"Label"], [LoomTokens.V_GEAR, &"Button"]]:
+	for pair in [
+		[LoomTokens.V_TITLE, &"Label"],
+		[LoomTokens.V_MUTED, &"Label"],
+		[LoomTokens.V_GEAR, &"Button"],
+		[LoomTokens.V_ROW, &"Button"],
+		[LoomTokens.V_ROW_DIM, &"Button"],
+	]:
 		if t.get_type_variation_base(pair[0]) != pair[1]:
 			_fail("variation %s does not extend %s" % [pair[0], pair[1]])
 			return

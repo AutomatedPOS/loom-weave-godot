@@ -42,3 +42,10 @@ This seat opened `https://loom.dord.dev/`. Black field, gear
 bottom-right, no cards, no bar, no chat. Gear opened the loadout.
 Dummy chat endpoint and model saved. Hard refresh kept them. No
 vendor on screen. Owner tablet Check still stands.
+
+### 2026-09-04 — Paste does not work
+
+Owner cannot paste an API key into the loadout on the live
+weave. That was the intent of this cycle. No JS clipboard
+path. Issue `credential-paste`. Fix is in the Cloud Code
+handoff, not this seat.

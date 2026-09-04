@@ -9,16 +9,18 @@ Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
 `loom.dord.dev` only. Do not `wrangler pages deploy`. Do not deploy
 worker `dord` (apex / www).
 
-The first weave is this window: a black screen. The interface track
-holds one settings gear, bottom-right, subdued gray. The gear opens
-the loadout. Cards are off.
+The first weave is this window: a black backdrop, the monitor on
+it, and one settings gear bottom-right. The monitor is read-only:
+path spine, PDCA line, this repo's tree. The gear opens the
+loadout. Cards stay off.
 
 Every colour, size, and font size the interface uses is a token in
 `weave/theme/Tokens.gd`. `weave/theme/LoomTheme.gd` builds the one
 Theme from them. Do not style a node by hand; add a token or a type
 variation. Smoke: `godot --headless --path . --import --quit`, then
-`-s weave/first_screen_smoke.gd`, `-s weave/loadout_smoke.gd`, and
-`-s weave/theme_smoke.gd`. Each prints `SMOKE` and exits zero.
+`-s weave/first_screen_smoke.gd`, `-s weave/loadout_smoke.gd`,
+`-s weave/theme_smoke.gd`, and `-s weave/monitor_smoke.gd`. Each
+prints `SMOKE` and exits zero.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in

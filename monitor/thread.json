@@ -1,0 +1,18 @@
+{
+  "guid": "019c07bc-c247-4bb3-880d-bc60ef595c89",
+  "name": "monitor",
+  "type": "workItem",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../weave/Monitor.gd",
+  "body": "First visible monitor. Path spine, PDCA line, this repo's tree, read-only node detail. Gear and loadout stay.",
+  "next": "Owner Check: look at the window. Spine and PDCA line should name loadout CHECK, gear-panel CHECK, and monitor DO.",
+  "props": [
+    {
+      "name": "pdca",
+      "value": "do"
+    }
+  ],
+  "sourceVerified": false
+}

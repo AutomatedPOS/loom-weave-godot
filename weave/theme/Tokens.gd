@@ -53,6 +53,8 @@ const PANEL_H_MAX := 760
 const V_TITLE := &"TitleLabel"
 const V_MUTED := &"MutedLabel"
 const V_GEAR := &"GearButton"
+const V_ROW := &"TreeRowButton"
+const V_ROW_DIM := &"TreeRowDimButton"
 
 
 ## Where the loadout panel's bottom edge sits: above the gear, one gap up.
