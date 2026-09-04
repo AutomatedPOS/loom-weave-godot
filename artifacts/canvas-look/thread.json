@@ -1,0 +1,10 @@
+{
+  "guid": "c1d04b75-b3bb-4d00-a992-a417a2c7a52e",
+  "name": "artifacts-canvas-look",
+  "type": "artifact",
+  "actualEnd": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "canvas-look.md",
+  "body": "Visual brief for the canvas. Why the shipped monitor was rejected, in specifics. Draw the screen as an image and get the owner's word before touching weave/. Landscape frame: three left rails, the field, right ports, timeline along the bottom, transparent clock in a corner. The close-out ritual is what the first screen has to answer first.",
+  "sourceVerified": false
+}

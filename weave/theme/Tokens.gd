@@ -70,6 +70,27 @@ const BUS_UP := 24         # the horizontal run sits this far above its child ro
 const SIGN_ANGLE := 30     # degrees a sign turns when the row is tighter than the sign
 const PLACARD_W := 488     # the focused node's placard, bottom left
 
+# --- canvas: rails, field, ports, seat, timeline ------------------------------
+const TEXT_XL := 24        # the close-out lines on the seat, the clock
+const TOUCH_H := 48        # a tablet target: a rail chip, a port
+const RAIL_W := 144        # the rails on the left and the ports on the right
+const FIELD_TOP := 64      # the field starts here; the clock sits above it
+const FRAME_STEP := 32     # one slot further in is one frame inset
+const SEAT_W := 736        # the seat window, slot 0
+const SEAT_H := 392
+const SEAT_GUTTER := 72    # the seat's own rails and ports, one gutter each side
+const SEAT_HEAD := 104     # the title row; the close-out starts under it
+const CLOSEOUT_STEP := 96  # one close-out block to the next, two lines deep
+const SOCKET_STEP := 40    # one socket to the next on the seat's edge
+const CHIP_W := 120        # a docked chip
+const CHIP_H := 32
+const TILE_W := 128        # a closed window behind the seat
+const TILE_H := 40
+const TILE_MORE_W := 56    # the overflow tile
+const TIMELINE_H := 56     # the band along the bottom
+const TIMELINE_DAYS := 4   # days on the scale until zoom lands
+const HANDLE_W := 12       # the selected period's handles
+
 # --- Theme type variations. Set control.theme_type_variation to one. -------
 const V_TITLE := &"TitleLabel"
 const V_MUTED := &"MutedLabel"

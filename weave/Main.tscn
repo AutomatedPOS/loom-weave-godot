@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://loomweavemain"]
+[gd_scene load_steps=6 format=3 uid="uid://loomweavemain"]
 
 [ext_resource type="Script" path="res://weave/Main.gd" id="1_main"]
 [ext_resource type="Script" path="res://weave/Monitor.gd" id="2_monitor"]
+[ext_resource type="Script" path="res://weave/Canvas.gd" id="5_canvas"]
 [ext_resource type="Script" path="res://weave/SettingsGear.gd" id="3_gear"]
 [ext_resource type="Script" path="res://weave/LoadoutPanel.gd" id="4_panel"]
 
@@ -28,6 +29,7 @@ mouse_filter = 2
 layer = 64
 
 [node name="Monitor" type="Control" parent="Interface"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +38,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_monitor")
+
+[node name="Canvas" type="Control" parent="Interface"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("5_canvas")
 
 [node name="Gear" type="Button" parent="Interface"]
 script = ExtResource("3_gear")

@@ -72,8 +72,8 @@ is a window. The window is a field.
 Ports on the right edge take things off the field.
 
 Discard is a port. It is not a bin, not a gesture, not a modifier
-key. You move a thing to the right and out through whichever port you
-mean, and one of the ports is oblivion. Save and discard are the
+key. You move a thing to the right and out through whichever port
+you mean, and one of the ports is oblivion. Save and discard are the
 same motion with different targets.
 
 This keeps the grammar symmetric — things enter left, leave right —
