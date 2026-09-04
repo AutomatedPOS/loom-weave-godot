@@ -7,7 +7,7 @@
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/LoadoutPanel.gd",
   "body": "Cycle three Do. Gear opens configuration for chat, speech, and hear. Save locally. Export and import a loadout file. No secrets in the deploy. No vendor.",
-  "waitingOn": "Owner tablet Check on loom.dord.dev.",
+  "waitingOn": "Credential paste on the live weave. Interface handoff owns the fix.",
   "props": [
     {
       "name": "pdca",
