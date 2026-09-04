@@ -85,7 +85,7 @@ func _walk(dir: String) -> void:
 		if name.begins_with("."):
 			name = da.get_next()
 			continue
-		if da.current_is_dir():
+		if da.current_is_dir() and name not in ["data", "build", "_incoming", "trees"]:
 			_walk(dir.path_join(name))
 		name = da.get_next()
 	da.list_dir_end()

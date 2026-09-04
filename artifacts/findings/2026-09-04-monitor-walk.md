@@ -27,8 +27,10 @@ Owner sitting outside. First screen stays black.
 - Purpose: Seth goes deep and loses breadth. The monitor keeps
   the trunk on screen.
 
-Seth names the landing paths. This sitting does not mint a
-`monitor/` node, a spec folder, or a memory-checker home.
+Owner, later the same sitting: take the dream and turn it into
+code. Paths named here: `monitor/`, `plans/monitor/`,
+`artifacts/monitor-plan/`, `weave/Monitor.gd`. Memory checker
+still unnamed.
 
 ## Where this sitting is
 
@@ -104,8 +106,13 @@ Done: `self-render`, `first-screen`, slot spec, the three plans.
 
 ## Not this sitting
 
-- Nothing on the first screen.
 - No schema edit in loom-warp.
 - No deploy. Apex left alone.
 - No pick on refresh.
-- No second chew inside cycle three. This is a bind, not a turn.
+
+## 2026-09-04 — Owner asked for the screen
+
+The bind was not the work. Plan is `artifacts/monitor-plan/`.
+Do of the first visible is this turn: spine, PDCA line, tree,
+detail. Cycle three stays at Check. PR 12 is this branch, not
+a merge homework.
