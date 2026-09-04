@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Cycle two Act closed. Live weave is black with the gear. Cycle three Plan landed: loadout.",
-  "next": "React to artifacts/cycle-three-plan. Do of loadout waits. Do not pick a vendor.",
+  "justDid": "Cycle two sitting closed. Owner called it a successful completion. Live weave is black with the gear.",
+  "next": "New chat binds to sessions/03-cycle-three.md. Do of loadout waits. Do not pick a vendor.",
   "sourceVerified": false
 }
