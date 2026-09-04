@@ -97,7 +97,7 @@ func _build() -> void:
 	scroll.add_child(col)
 
 	col.add_child(_label("loadout", LoomTokens.V_TITLE))
-	col.add_child(_label("point each after deploy. nothing is in the base.", LoomTokens.V_MUTED))
+	col.add_child(_label("defaults are pointed. paste a credential.", LoomTokens.V_MUTED))
 
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", LoomTokens.SPACE_2)
@@ -148,6 +148,7 @@ func _write_fields(src: Dictionary) -> void:
 
 func _on_save() -> void:
 	loadout.data = _read_fields()
+	_share_one_credential()
 	_write_fields(loadout.data)
 	var err := loadout.save()
 	if err != OK:
@@ -266,6 +267,21 @@ func _on_web_file_chosen(_args: Array) -> void:
 
 func _on_web_file_read(_args: Array) -> void:
 	_import_text(str(_web_reader.result))
+
+
+## One pasted key covers the empty credential fields. Different
+## keys still win if they typed more than one.
+func _share_one_credential() -> void:
+	var filled: Array[String] = []
+	for cap in Loadout.CAPS:
+		if loadout.get_field(cap, "credential") != "":
+			filled.append(cap)
+	if filled.size() != 1:
+		return
+	var key := loadout.get_field(filled[0], "credential")
+	for cap in Loadout.CAPS:
+		if loadout.get_field(cap, "credential") == "":
+			loadout.set_field(cap, "credential", key)
 
 
 func _note(msg: String) -> void:

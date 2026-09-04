@@ -11,6 +11,27 @@ func _init() -> void:
 		push_error("fresh loadout is not empty")
 		quit(1)
 		return
+	var starter := Loadout.new()
+	if starter.load_local():
+		push_error("missing store reported a save")
+		quit(1)
+		return
+	if starter.get_field("chat", "credential") != "":
+		push_error("starter leaked a credential")
+		quit(1)
+		return
+	if starter.get_field("chat", "endpoint") == "" or starter.get_field("chat", "model") == "":
+		push_error("starter did not point chat")
+		quit(1)
+		return
+	if not starter.get_field("chat", "endpoint").begins_with("https://"):
+		push_error("starter chat endpoint has no scheme")
+		quit(1)
+		return
+	if starter.get_field("speech", "model") == "" or starter.get_field("hear", "model") == "":
+		push_error("starter did not point speech or hear")
+		quit(1)
+		return
 	a.set_field("chat", "endpoint", "https://example.invalid/v1")
 	a.set_field("chat", "credential", "secret-test")
 	a.set_field("speech", "model", "voice-a")
@@ -133,6 +154,40 @@ func _scene_checks(b: Loadout) -> void:
 				quit(1)
 				return
 
+	b.clear_local()
+	var fresh: Control = packed.instantiate()
+	root.add_child(fresh)
+	await process_frame
+	var blank := fresh.get_node_or_null("Interface/Panel") as LoadoutPanel
+	if blank == null:
+		push_error("no panel after clear")
+		quit(1)
+		return
+	blank.toggle()
+	var pointed: Dictionary = Loadout.default_data()["chat"]
+	var chat_ep := blank.field_edit("chat", "endpoint")
+	if chat_ep == null or chat_ep.text != str(pointed.get("endpoint", "")):
+		push_error("cleared panel did not show starter endpoint")
+		quit(1)
+		return
+	if blank.field_edit("chat", "model").text != str(pointed.get("model", "")):
+		push_error("cleared panel did not show starter model")
+		quit(1)
+		return
+	if blank.field_edit("chat", "credential").text != "":
+		push_error("starter credential was not blank")
+		quit(1)
+		return
+	blank.field_edit("chat", "credential").text = "only-key"
+	blank._on_save()
+	if blank.field_edit("speech", "credential").text != "only-key":
+		push_error("one key did not fill speech")
+		quit(1)
+		return
+	if blank.field_edit("hear", "credential").text != "only-key":
+		push_error("one key did not fill hear")
+		quit(1)
+		return
 	b.clear_local()
 	print("SMOKE loadout save/export/import + hidden panel")
 	quit(0)

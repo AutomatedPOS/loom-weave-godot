@@ -3,10 +3,12 @@ extends RefCounted
 
 ## User loadout. Nothing here is in the deploy.
 const STORE := "user://loadout.json"
+const DEFAULTS_PATH := "res://weave/loadout_defaults.json"
 const VERSION := 1
 const CAPS := ["chat", "speech", "hear"]
 const FIELDS := ["endpoint", "credential", "model"]
 const SECRET_FIELDS := ["credential"]
+const POINTED_FIELDS := ["endpoint", "model"]
 
 var data: Dictionary = {}
 
@@ -30,6 +32,29 @@ static func empty_data() -> Dictionary:
 		"speech": empty_cap(),
 		"hear": empty_cap(),
 	}
+
+
+## Endpoints and models filled. Credentials stay blank. Used when
+## there is no saved loadout, so a key is enough to point.
+static func default_data() -> Dictionary:
+	var out := empty_data()
+	if not FileAccess.file_exists(DEFAULTS_PATH):
+		return out
+	var fa := FileAccess.open(DEFAULTS_PATH, FileAccess.READ)
+	if fa == null:
+		return out
+	var json := JSON.new()
+	if json.parse(fa.get_as_text()) != OK or typeof(json.data) != TYPE_DICTIONARY:
+		return out
+	var src: Dictionary = json.data
+	for cap in CAPS:
+		var block: Dictionary = out[cap]
+		var raw: Variant = src.get(cap, {})
+		if typeof(raw) != TYPE_DICTIONARY:
+			continue
+		for field in POINTED_FIELDS:
+			block[field] = str(raw.get(field, ""))
+	return out
 
 
 func cap_block(cap: String) -> Dictionary:
@@ -93,14 +118,14 @@ func save() -> Error:
 
 func load_local() -> bool:
 	if not FileAccess.file_exists(STORE):
-		data = empty_data()
+		data = default_data()
 		return false
 	var fa := FileAccess.open(STORE, FileAccess.READ)
 	if fa == null:
-		data = empty_data()
+		data = default_data()
 		return false
 	if not from_text(fa.get_as_text()):
-		data = empty_data()
+		data = default_data()
 		return false
 	return true
 

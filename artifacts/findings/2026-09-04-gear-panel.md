@@ -103,6 +103,14 @@ Linux seat. Nothing was deployed.
 has no ink. Under Xvfb + opengl3 the image was already upright.
 Copy: `artifacts/gear-panel-plan/after-capture-upright.png`.
 
+### 2026-09-04 — Starter endpoints and models
+
+A first open with no save now fills endpoint and model for chat,
+speech, and hear from `weave/loadout_defaults.json`. Credentials
+stay blank. One pasted key copies into the empty credential
+fields on Save. A saved file still wins; blanks in a save stay
+blank. UI copy does not name a host.
+
 ### 2026-09-04 — 3.4 ThreadCard
 
 `weave/ThreadCard.gd` is referenced by nothing and still carries
