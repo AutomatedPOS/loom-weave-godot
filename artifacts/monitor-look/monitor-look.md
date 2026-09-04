@@ -290,3 +290,16 @@ Four answers, each one line.
 2. Depth down, as sketched, or depth right as the default.
 3. The placard: in, or out as not a visualization.
 4. A font family, or the default a while longer.
+
+## 11. Beat — 2026-09-04, landed
+
+The look is on the window. Grok's handoff barred Grok from the
+interface and named this seat, so the import in section 8 became a
+Do. Three things differ from the packet above, all from the handoff:
+the spine starts at this operation and walks to the focused node,
+with no galaxy and no iteration station; a node with no date
+anywhere under it is the ghost, since nothing in the tree carries
+planned dates yet; and only the trunk shows until a branch is
+focused. The placard stayed. The accent stayed orange. Pan, zoom,
+the ghost toggle, depth right, and a font are still open. See
+`artifacts/findings/2026-09-04-interface-handoff.md`.

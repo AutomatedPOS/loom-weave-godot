@@ -30,8 +30,6 @@ func _init() -> void:
 		[LoomTokens.V_TITLE, &"Label"],
 		[LoomTokens.V_MUTED, &"Label"],
 		[LoomTokens.V_GEAR, &"Button"],
-		[LoomTokens.V_ROW, &"Button"],
-		[LoomTokens.V_ROW_DIM, &"Button"],
 	]:
 		if t.get_type_variation_base(pair[0]) != pair[1]:
 			_fail("variation %s does not extend %s" % [pair[0], pair[1]])
