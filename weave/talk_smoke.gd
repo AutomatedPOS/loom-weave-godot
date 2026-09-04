@@ -102,5 +102,6 @@ func _init() -> void:
 		_fail("backdrop left black")
 		return
 
+	talk.free()
 	print("SMOKE talk wav + error kinds + live theme patch + hidden chat")
 	quit(0)

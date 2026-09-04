@@ -42,39 +42,27 @@ func boot() -> bool:
 			var parsed: Variant = _parse_object(fa.get_as_text())
 			if typeof(parsed) == TYPE_DICTIONARY:
 				if _ingest_merged(parsed, shipped, false):
-					saved = _dup(preview)
+					saved = _dup_dict(preview)
 					_publish()
 					return true
 				_reset_log()
 	if not _ingest_merged({}, shipped, false):
 		return false
-	saved = _dup(preview)
+	saved = _dup_dict(preview)
 	_publish()
 	return true
 
 
 func ingest(raw: Dictionary) -> bool:
-	var prior := _dup(preview)
-	var prior_res := _dup(resolved)
-	var prior_css := _dup(css_vars)
 	if not _ingest_merged(raw, shipped, false):
-		preview = prior
-		resolved = prior_res
-		css_vars = prior_css
 		return false
 	_publish()
 	return true
 
 
 func apply_patch(delta: Dictionary) -> bool:
-	var prior := _dup(preview)
-	var prior_res := _dup(resolved)
-	var prior_css := _dup(css_vars)
-	var base := preview if not preview.is_empty() else shipped
+	var base: Dictionary = preview if not preview.is_empty() else shipped
 	if not _ingest_merged(delta, base, true):
-		preview = prior
-		resolved = prior_res
-		css_vars = prior_css
 		return false
 	_publish()
 	return true
@@ -85,7 +73,7 @@ func save() -> Error:
 	if fa == null:
 		return FileAccess.get_open_error()
 	fa.store_string(JSON.stringify(preview, "\t"))
-	saved = _dup(preview)
+	saved = _dup_dict(preview)
 	return OK
 
 
@@ -117,7 +105,7 @@ func get_font(key: String) -> String:
 
 
 func theme_for_prompt() -> Dictionary:
-	return _dup(preview)
+	return _dup_dict(preview)
 
 
 func _load_shipped() -> bool:
@@ -134,10 +122,10 @@ func _ingest_merged(incoming: Dictionary, base: Dictionary, is_patch: bool) -> b
 	last_error = ""
 	if not _schema_check(incoming, is_patch):
 		return false
-	var cleaned := _whitelist(incoming)
-	var merged := _dup(base)
+	var cleaned: Dictionary = _whitelist(incoming)
+	var merged: Dictionary = _dup_dict(base)
 	if merged.is_empty():
-		merged = _dup(shipped)
+		merged = _dup_dict(shipped)
 	_ensure_defaults(merged)
 	_merge_theme(merged, cleaned)
 	if not _refs_only(merged):
@@ -269,7 +257,7 @@ func _ensure_defaults(merged: Dictionary) -> void:
 	var prim: Dictionary = merged["primitives"]
 	var ship_p: Dictionary = shipped.get("primitives", {})
 	if not prim.has("color"):
-		prim["color"] = _dup(ship_p.get("color", {}))
+		prim["color"] = _dup_dict(ship_p.get("color", {}))
 	else:
 		var col: Dictionary = prim["color"]
 		var ship_c: Dictionary = ship_p.get("color", {})
@@ -278,9 +266,9 @@ func _ensure_defaults(merged: Dictionary) -> void:
 				col[k] = ship_c[k]
 	for arr_k in ["space", "radius", "size"]:
 		if not prim.has(arr_k):
-			prim[arr_k] = _dup(ship_p.get(arr_k, []))
+			prim[arr_k] = _dup_arr(ship_p.get(arr_k, []))
 	if not prim.has("font"):
-		prim["font"] = _dup(ship_p.get("font", {}))
+		prim["font"] = _dup_dict(ship_p.get("font", {}))
 	else:
 		var font: Dictionary = prim["font"]
 		var ship_f: Dictionary = ship_p.get("font", {})
@@ -290,14 +278,14 @@ func _ensure_defaults(merged: Dictionary) -> void:
 	var sem_def: Dictionary = shipped_defaults.get("semantic", shipped.get("semantic", {}))
 	var com_def: Dictionary = shipped_defaults.get("components", shipped.get("components", {}))
 	if not merged.has("semantic"):
-		merged["semantic"] = _dup(sem_def)
+		merged["semantic"] = _dup_dict(sem_def)
 	else:
 		var sem: Dictionary = merged["semantic"]
 		for k in sem_def.keys():
 			if not sem.has(k):
 				sem[k] = sem_def[k]
 	if not merged.has("components"):
-		merged["components"] = _dup(com_def)
+		merged["components"] = _dup_dict(com_def)
 	else:
 		var com: Dictionary = merged["components"]
 		for k in com_def.keys():
@@ -327,7 +315,7 @@ func _merge_theme(dst: Dictionary, src: Dictionary) -> void:
 			dp["font"] = df
 		for arr_k in ["space", "radius", "size"]:
 			if sp.has(arr_k):
-				dp[arr_k] = _dup(sp[arr_k])
+				dp[arr_k] = _dup_arr(sp[arr_k])
 		dst["primitives"] = dp
 	if src.has("semantic"):
 		var ds: Dictionary = dst.get("semantic", {})
@@ -431,7 +419,7 @@ func _primitive_literal(name: String, merged: Dictionary) -> Variant:
 			return font[key]
 		return null
 	for arr_k in ["space", "radius", "size"]:
-		var prefix := arr_k + "."
+		var prefix: String = str(arr_k) + "."
 		if name.begins_with(prefix):
 			var rest := name.substr(prefix.length())
 			if rest.is_valid_int():
@@ -595,7 +583,7 @@ func _write_css_root() -> void:
 
 func _parse_color(s: String) -> Variant:
 	var t := s.strip_edges()
-	if t.begins_with("#") and t.length() in [4, 5, 7, 9]:
+	if t.begins_with("#") and [4, 5, 7, 9].has(t.length()):
 		return Color.html(t)
 	return null
 
@@ -648,7 +636,15 @@ func _parse_object(text: String) -> Variant:
 	return json.data
 
 
-func _dup(v: Variant) -> Variant:
-	if typeof(v) == TYPE_DICTIONARY or typeof(v) == TYPE_ARRAY:
-		return JSON.parse_string(JSON.stringify(v))
-	return v
+func _dup_dict(v: Variant) -> Dictionary:
+	var parsed: Variant = JSON.parse_string(JSON.stringify(v))
+	if typeof(parsed) == TYPE_DICTIONARY:
+		return parsed
+	return {}
+
+
+func _dup_arr(v: Variant) -> Array:
+	var parsed: Variant = JSON.parse_string(JSON.stringify(v))
+	if typeof(parsed) == TYPE_ARRAY:
+		return parsed
+	return []

@@ -327,7 +327,7 @@ func _add_line(text: String, kind: String) -> void:
 		var warn := engine.get_color("state.warning") if engine else Color(1, 0.7, 0.2)
 		rt.add_theme_color_override("default_color", warn)
 		rt.add_theme_font_size_override("normal_font_size", 13)
-		rt.text = "[i]%s[/i]" % text.xml_escape()
+		rt.text = "[i]%s[/i]" % text.replace("[", "").replace("]", "")
 		_log.add_child(rt)
 	else:
 		var l := Label.new()
@@ -370,7 +370,7 @@ func _turn(user_text: String) -> void:
 		return
 	var calls: Array = res.get("tool_calls", [])
 	if not calls.is_empty():
-		var tool_msgs := await _run_tools(calls)
+		var tool_msgs: Array = await _run_tools(calls)
 		_messages.append({"role": "assistant", "content": str(res.get("text", "")), "tool_calls": calls})
 		for tm in tool_msgs:
 			_messages.append(tm)

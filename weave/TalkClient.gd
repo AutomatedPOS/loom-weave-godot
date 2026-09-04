@@ -312,6 +312,8 @@ func _transcript_text(data: Variant) -> String:
 
 func _classify_http(result: int, code: int, raw: PackedByteArray, ms: int = 0) -> Dictionary:
 	var body := raw.get_string_from_utf8().to_lower()
+	if result == HTTPRequest.RESULT_TIMEOUT:
+		return _fail("provider timeout", "timeout", ms)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		if result == HTTPRequest.RESULT_CANT_CONNECT or result == HTTPRequest.RESULT_CANT_RESOLVE:
 			return _fail("network unreachable", "offline", ms)
