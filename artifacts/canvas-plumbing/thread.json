@@ -1,0 +1,10 @@
+{
+  "guid": "92b599c6-662e-4764-ac39-1e8af7afd349",
+  "name": "artifacts-canvas-plumbing",
+  "type": "artifact",
+  "actualEnd": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "canvas-plumbing.md",
+  "body": "Contract for the three rosters, the persona pipe, attachment as the only operator, the shape as a query, and refill at time T from the dated tree. No data snapshot. No write.",
+  "sourceVerified": false
+}

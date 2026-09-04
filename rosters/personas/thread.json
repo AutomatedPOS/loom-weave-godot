@@ -1,0 +1,16 @@
+{
+  "guid": "e02bd852-910d-4d39-9f62-c37c1440610f",
+  "name": "rosters-personas",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "7ef39f2a-7c5b-4960-ae81-a6fd86646483",
+  "body": "Personas rail. Pulling one loads context. Each can be bound through the loadout and talked to. Not consumed by being pulled.",
+  "props": [
+    {
+      "name": "roster",
+      "value": "personas"
+    }
+  ],
+  "sourceVerified": false
+}

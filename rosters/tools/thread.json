@@ -1,0 +1,16 @@
+{
+  "guid": "e0fcf2b0-4162-43ce-bbfd-c3b0ed1d5e17",
+  "name": "rosters-tools",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "7ef39f2a-7c5b-4960-ae81-a6fd86646483",
+  "body": "Tools rail. A tool does a thing. Alone it is inert. No children: the owner has not named a tool.",
+  "props": [
+    {
+      "name": "roster",
+      "value": "tools"
+    }
+  ],
+  "sourceVerified": false
+}

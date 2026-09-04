@@ -1,0 +1,16 @@
+{
+  "guid": "e498b6ff-9124-4888-926b-146b2367c676",
+  "name": "rosters-processes",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "7ef39f2a-7c5b-4960-ae81-a6fd86646483",
+  "body": "Processes rail. A process is a verb run against an object. Children are processes the owner has authored. Empty except for brief, which was named.",
+  "props": [
+    {
+      "name": "roster",
+      "value": "processes"
+    }
+  ],
+  "sourceVerified": false
+}

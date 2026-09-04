@@ -1,0 +1,10 @@
+{
+  "guid": "39cacdb2-8a5e-4d3d-a9be-a235e5e7331b",
+  "name": "artifacts-canvas-plan",
+  "type": "artifact",
+  "actualEnd": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "canvas-plan.md",
+  "body": "Do list written against the canvas spec. The plan node itself is plans/canvas and points at the spec. This file is the plumbing order of work, not a second Plan.",
+  "sourceVerified": false
+}

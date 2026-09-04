@@ -41,13 +41,22 @@ func _run() -> void:
 		_fail("no seat")
 		return
 
-	# Rails: three rosters, every chip a touch target.
+	# Rails: three kinds. Chips that exist are touch targets. Tools is
+	# empty until the owner names one. Invented stand-ins are gone.
+	if canvas.rail_names(&"persona").find("Brains") < 0:
+		_fail("personas rail missed Brains")
+		return
+	if canvas.rail_names(&"process").find("Brief") < 0:
+		_fail("processes rail missed Brief")
+		return
+	if canvas.rail_names(&"process").find("Walk") >= 0:
+		_fail("invented process still on the rail")
+		return
+	if not canvas.rail_names(&"tool").is_empty():
+		_fail("tools rail was filled without an authored tool")
+		return
 	for kind in LoomCanvas.KINDS:
-		var names := canvas.rail_names(kind)
-		if names.is_empty():
-			_fail("rail %s is empty" % kind)
-			return
-		for name in names:
+		for name in canvas.rail_names(kind):
 			var r := canvas.chip_rect(kind, name)
 			if r.size.y < LoomTokens.TOUCH_H or r.size.x != LoomTokens.RAIL_W:
 				_fail("chip %s/%s is not a touch target: %s" % [kind, name, r])

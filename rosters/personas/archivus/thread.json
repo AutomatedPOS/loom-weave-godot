@@ -1,0 +1,16 @@
+{
+  "guid": "5d035f1a-b5d3-41fb-a215-e4489eda77e5",
+  "name": "rosters-personas-archivus",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "e02bd852-910d-4d39-9f62-c37c1440610f",
+  "body": "Persona on the personas rail. Pre-trained to the organisation's spec. Inbox lives in the bot network; the address format is OPEN.",
+  "props": [
+    {
+      "name": "rail",
+      "value": "persona"
+    }
+  ],
+  "sourceVerified": false
+}
