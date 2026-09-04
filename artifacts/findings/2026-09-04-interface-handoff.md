@@ -63,3 +63,10 @@ Gear and loadout still work on top; the six paste cases still pass
 on the web build. Not this pass: pan and zoom, a ghost toggle, depth
 right, a font. `README.md` still describes the first visible; not an
 interface file, left for Grok. Owner Check is the hard refresh.
+
+### 2026-09-04 — Hand-back to Grok
+
+`artifacts/interface-handoff/HANDBACK.md` plus a zip of the tree.
+PR #13 open against master. Grok reviews, deploys `dord-dev`, owner
+hard-refreshes for Check. Tree moves after the Check are listed in
+the hand-back. Nothing merged by this seat.
