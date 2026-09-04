@@ -1,0 +1,12 @@
+{
+  "guid": "148786d4-4d7b-47ec-ac7c-23e3ae1ad05d",
+  "name": "plans-monitor",
+  "type": "plan",
+  "actualStart": "2026-09-04",
+  "actualEnd": "2026-09-04",
+  "state": "done",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/monitor-plan/monitor-plan.md",
+  "body": "Weaver PDCA. Plan step of the monitor: read-only spine, PDCA line, this repo's tree. Walk packet 2026-09-04.",
+  "sourceVerified": false
+}

@@ -1,8 +1,9 @@
 extends Control
 
-## First screen. Black backdrop. Gear opens the loadout.
-## Hands the interface Theme to every Control on the Interface layer.
-## A CanvasLayer stops Theme propagation, so each root there gets it.
+## First screen. Black backdrop. Monitor is the read-only view.
+## Gear opens the loadout. Hands the interface Theme to every
+## Control on the Interface layer. A CanvasLayer stops Theme
+## propagation, so each root there gets it.
 
 @onready var _backdrop: ColorRect = $Backdrop
 @onready var _interface: CanvasLayer = $Interface

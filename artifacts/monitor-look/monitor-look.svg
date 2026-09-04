@@ -1,0 +1,90 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='900' viewBox='0 0 1440 900'>
+<rect width='1440' height='900' fill='#000000'/>
+<line x1='16' y1='22' x2='544' y2='22' stroke='rgba(107,107,112,0.45)' stroke-width='3' stroke-dasharray='8 8'/>
+<line x1='544' y1='22' x2='896' y2='22' stroke='#ed7321' stroke-width='3'/>
+<line x1='896' y1='22' x2='1208' y2='22' stroke='rgba(107,107,112,0.45)' stroke-width='3' stroke-dasharray='8 8'/>
+<circle cx='192' cy='22' r='6' fill='#000000' stroke='rgba(107,107,112,0.45)' stroke-width='2' stroke-dasharray='3 3'/>
+<circle cx='544' cy='22' r='6' fill='#adadb3'/>
+<circle cx='896' cy='22' r='6' fill='#adadb3'/>
+<circle cx='896' cy='22' r='10' fill='none' stroke='#ed7321' stroke-width='3'/>
+<circle cx='1248' cy='22' r='6' fill='#000000' stroke='rgba(107,107,112,0.45)' stroke-width='2' stroke-dasharray='3 3'/>
+<text x='192' y='44'  text-anchor='middle' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>01</text>
+<text x='192' y='60'  text-anchor='middle' fill='#6b6b70' font-size='12' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>GALAXY</text>
+<text x='544' y='44'  text-anchor='middle' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>02</text>
+<text x='544' y='60'  text-anchor='middle' fill='#6b6b70' font-size='12' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>LOOM</text>
+<text x='896' y='44'  text-anchor='middle' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>03</text>
+<text x='896' y='60'  text-anchor='middle' fill='#adadb3' font-size='12' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>LOOM-WEAVE-GODOT</text>
+<text x='1248' y='44'  text-anchor='middle' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>04</text>
+<text x='1248' y='60'  text-anchor='middle' fill='#6b6b70' font-size='12' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>—</text>
+<line x1='720' y1='200' x2='720' y2='336' stroke='#38383d' stroke-width='1'/>
+<line x1='96' y1='336' x2='1248' y2='336' stroke='#38383d' stroke-width='1'/>
+<line x1='96' y1='336' x2='96' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='192' y1='336' x2='192' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='288' y1='336' x2='288' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='384' y1='336' x2='384' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='480' y1='336' x2='480' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='576' y1='336' x2='576' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='672' y1='336' x2='672' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='768' y1='336' x2='768' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='864' y1='336' x2='864' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='960' y1='336' x2='960' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='1056' y1='336' x2='1056' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='1152' y1='336' x2='1152' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='1248' y1='336' x2='1248' y2='360' stroke='#38383d' stroke-width='1'/>
+<line x1='1248' y1='360' x2='1248' y2='496' stroke='#38383d' stroke-width='1'/>
+<line x1='960' y1='496' x2='1248' y2='496' stroke='#38383d' stroke-width='1'/>
+<line x1='960' y1='496' x2='960' y2='520' stroke='#38383d' stroke-width='1'/>
+<line x1='1056' y1='496' x2='1056' y2='520' stroke='#38383d' stroke-width='1'/>
+<line x1='1152' y1='496' x2='1152' y2='520' stroke='#38383d' stroke-width='1'/>
+<line x1='1248' y1='496' x2='1248' y2='520' stroke='#38383d' stroke-width='1'/>
+<path d='M 724 200 L 724 340 L 1248 340 L 1248 360 L 1248 496 L 960 496 L 960 520' fill='none' stroke='rgba(107,107,112,0.45)' stroke-width='2' stroke-dasharray='8 8'/>
+<path d='M 720 200 L 720 336 L 96 336 L 96 360 L 1152 360' fill='none' stroke='#ed7321' stroke-width='3' stroke-linejoin='round'/>
+<circle cx='720' cy='200' r='10' fill='#000000' stroke='#adadb3' stroke-width='3'/>
+<circle cx='720' cy='200' r='6' fill='#adadb3'/>
+<text x='738' y='204'  text-anchor='start' fill='#adadb3' font-size='12' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>03 LOOM-WEAVE-GODOT</text>
+<circle cx='96' cy='360' r='6' fill='#6b6b70'/>
+<text x='106' y='374' transform='rotate(30 106 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>ARTIFACTS-CYCLE-THREE-PLAN</text>
+<circle cx='192' cy='360' r='6' fill='#6b6b70'/>
+<text x='202' y='374' transform='rotate(30 202 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>ARTIFACTS-CYCLE-TWO-PLAN</text>
+<circle cx='288' cy='360' r='6' fill='#6b6b70'/>
+<text x='298' y='374' transform='rotate(30 298 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>ARTIFACTS-SLOT-SPEC</text>
+<circle cx='384' cy='360' r='6' fill='#adadb3'/>
+<text x='394' y='374' transform='rotate(30 394 374)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>DO-INCLUDES-PUSH</text>
+<circle cx='480' cy='360' r='6' fill='#6b6b70'/>
+<text x='490' y='374' transform='rotate(30 490 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>FIRST-SCREEN</text>
+<rect x='570' y='354' width='12' height='12' fill='#6b6b70'/>
+<text x='586' y='374' transform='rotate(30 586 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>PLANS-CYCLE-THREE</text>
+<rect x='666' y='354' width='12' height='12' fill='#6b6b70'/>
+<text x='682' y='374' transform='rotate(30 682 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>PLANS-CYCLE-TWO</text>
+<circle cx='768' cy='360' r='6' fill='#6b6b70'/>
+<text x='778' y='374' transform='rotate(30 778 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SELF-RENDER</text>
+<circle cx='864' cy='360' r='6' fill='#6b6b70'/>
+<text x='874' y='374' transform='rotate(30 874 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>ARTIFACTS-GEAR-PANEL-PLAN</text>
+<circle cx='960' cy='360' r='6' fill='#adadb3'/>
+<text x='970' y='374' transform='rotate(30 970 374)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>GEAR-PANEL</text>
+<circle cx='1056' cy='360' r='6' fill='#adadb3'/>
+<circle cx='1056' cy='360' r='10' fill='none' stroke='#ed7321' stroke-width='3'/>
+<text x='1066' y='374' transform='rotate(30 1066 374)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>LOADOUT</text>
+<rect x='1146' y='354' width='12' height='12' fill='#6b6b70'/>
+<text x='1162' y='374' transform='rotate(30 1162 374)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>PLANS-GEAR-PANEL</text>
+<circle cx='1248' cy='360' r='6' fill='#adadb3'/>
+<text x='1258' y='374' transform='rotate(30 1258 374)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SPECS</text>
+<circle cx='960' cy='520' r='6' fill='#000000' stroke='rgba(107,107,112,0.45)' stroke-width='2' stroke-dasharray='3 3'/>
+<text x='970' y='534' transform='rotate(30 970 534)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SPECS-ACT-ONE</text>
+<circle cx='1056' cy='520' r='6' fill='#adadb3'/>
+<text x='1066' y='534' transform='rotate(30 1066 534)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SPECS-DEMO-SEED</text>
+<circle cx='1152' cy='520' r='6' fill='#6b6b70'/>
+<text x='1162' y='534' transform='rotate(30 1162 534)' text-anchor='start' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SPECS-SLOT</text>
+<circle cx='1248' cy='520' r='6' fill='#adadb3'/>
+<text x='1258' y='534' transform='rotate(30 1258 534)' text-anchor='start' fill='#adadb3' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>SPECS-TRANSMISSION-LOOP</text>
+<rect x='16' y='752' width='488' height='132' fill='#0a0a0b' stroke='#38383d' stroke-width='1'/>
+<text x='32' y='782' fill='#adadb3' font-size='18' letter-spacing='1' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>03 · LOOM-WEAVE-GODOT</text>
+<text x='32' y='810' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>JUST DID</text>
+<text x='126' y='810' fill='#adadb3' font-size='13' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>cycle three Do is live. seat Check on loom.dord.dev passed.</text>
+<text x='32' y='832' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>NEXT</text>
+<text x='126' y='832' fill='#adadb3' font-size='13' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>owner tablet Check. same refresh. Act waits on that.</text>
+<text x='32' y='854' fill='#6b6b70' font-size='11' letter-spacing='0.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>WAITING ON</text>
+<text x='126' y='854' fill='#adadb3' font-size='13' font-family='Helvetica Neue, Helvetica, Arial, sans-serif'>the tablet.</text>
+<polygon points='1423.0,868.0 1418.2,872.2 1418.6,878.6 1412.2,878.2 1408.0,883.0 1403.8,878.2 1397.4,878.6 1397.8,872.2 1393.0,868.0 1397.8,863.8 1397.4,857.4 1403.8,857.8 1408.0,853.0 1412.2,857.8 1418.6,857.4 1418.2,863.8' fill='#adadb3'/>
+<circle cx='1408' cy='868' r='4.5' fill='#000000'/>
+</svg>

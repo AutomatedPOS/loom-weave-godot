@@ -1,0 +1,9 @@
+{
+  "guid": "9714ff95-8375-4978-aa20-c434fcc8f860",
+  "name": "artifacts-monitor-plan",
+  "type": "artifact",
+  "actualEnd": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "monitor-plan.md",
+  "sourceVerified": false
+}

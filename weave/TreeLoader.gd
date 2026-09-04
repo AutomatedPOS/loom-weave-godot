@@ -51,17 +51,21 @@ func kids(node: Dictionary) -> Array:
 
 
 func depth_of(node: Dictionary) -> int:
-	var d := 0
+	return path_of(node).size() - 1
+
+
+func path_of(node: Dictionary) -> Array:
+	var chain: Array = []
 	var cur := node
 	var seen := {}
 	while true:
+		chain.push_front(cur)
 		var parent: String = str(cur.get("isPartOf", ""))
 		if parent == "" or not by_guid.has(parent) or seen.has(parent):
 			break
 		seen[parent] = true
-		d += 1
 		cur = by_guid[parent]
-	return d
+	return chain
 
 
 func _walk(dir: String) -> void:
@@ -81,7 +85,7 @@ func _walk(dir: String) -> void:
 		if name.begins_with("."):
 			name = da.get_next()
 			continue
-		if da.current_is_dir():
+		if da.current_is_dir() and name not in ["data", "build", "_incoming", "trees"]:
 			_walk(dir.path_join(name))
 		name = da.get_next()
 	da.list_dir_end()

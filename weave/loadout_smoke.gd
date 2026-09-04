@@ -188,6 +188,55 @@ func _scene_checks(b: Loadout) -> void:
 		push_error("one key did not fill hear")
 		quit(1)
 		return
+	# Paste lands in the focused field, else the first empty credential.
+	# The status never echoes the pasted text.
+	var pasted := "dummy-key-not-secret"
+	blank.open()
+	for cap in Loadout.CAPS:
+		blank.field_edit(cap, "credential").text = ""
+	blank.field_edit("chat", "credential").release_focus()
+	blank.paste_text(pasted)
+	if blank.field_edit("chat", "credential").text != pasted:
+		push_error("paste with no focus missed the first empty credential")
+		quit(1)
+		return
+	if blank.status_text() != LoadoutPanel.PASTED:
+		push_error("paste status is %s" % blank.status_text())
+		quit(1)
+		return
+	if pasted in blank.status_text():
+		push_error("paste status echoed the text")
+		quit(1)
+		return
+	var model := blank.field_edit("speech", "model")
+	model.grab_focus()
+	model.text = "voice-"
+	model.caret_column = model.text.length()
+	blank.paste_text("b")
+	if model.text != "voice-b":
+		push_error("paste did not go to the focused field: %s" % model.text)
+		quit(1)
+		return
+	model.release_focus()
+	blank.paste_text("")
+	if blank.status_text() != LoadoutPanel.PASTE_EMPTY:
+		push_error("empty paste status is %s" % blank.status_text())
+		quit(1)
+		return
+	blank._on_save()
+	if blank.field_edit("hear", "credential").text != pasted:
+		push_error("pasted key did not share to hear")
+		quit(1)
+		return
+	var paste_button := false
+	for button in blank.find_children("*", "Button", true, false):
+		if button.text == "Paste":
+			paste_button = true
+	if not paste_button:
+		push_error("no Paste button")
+		quit(1)
+		return
+
 	b.clear_local()
-	print("SMOKE loadout save/export/import + hidden panel")
+	print("SMOKE loadout save/export/import/paste + hidden panel")
 	quit(0)
