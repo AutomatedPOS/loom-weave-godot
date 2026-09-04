@@ -1,0 +1,11 @@
+{
+  "guid": "c3e1a9d0-4b7f-4e2a-9c11-0a6d2f8b1e44",
+  "name": "artifacts-feature-enhancement-backlog",
+  "type": "artifact",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "feature-enhancement.md",
+  "body": "Parked FE-001 through FE-004. Nothing here blocks Pass 1. Routing rule is active: Grok writes implementation, Claude Code does interface on branches.",
+  "sourceVerified": false
+}

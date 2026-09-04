@@ -7,6 +7,14 @@ const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const TEETH := 8
 
 var _hover := false
+var engine: ThemeEngine
+
+
+func bind_theme(p_engine: ThemeEngine) -> void:
+	engine = p_engine
+	if engine and not engine.applied.is_connected(queue_redraw):
+		engine.applied.connect(queue_redraw)
+	queue_redraw()
 
 
 func _ready() -> void:
@@ -35,6 +43,8 @@ func _on_exit() -> void:
 
 func _draw() -> void:
 	var ink := INK_HOVER if _hover else INK
+	if engine:
+		ink = engine.get_color("text.primary") if _hover else engine.get_color("text.muted")
 	var c := size * 0.5
 	var r_tip := minf(size.x, size.y) * 0.48
 	var r_valley := r_tip * 0.70

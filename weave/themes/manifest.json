@@ -1,0 +1,58 @@
+{
+	"$schema": "fence.theme/v1",
+	"topLevel": ["$schema", "meta", "primitives", "semantic", "components"],
+	"meta": ["id", "name", "author", "base"],
+	"metaBase": ["dark", "light"],
+	"primitives": {
+		"color": [
+			"ink-000",
+			"ink-100",
+			"ink-200",
+			"ink-800",
+			"ink-900",
+			"brand-500",
+			"warn-500",
+			"danger-500"
+		],
+		"space": 8,
+		"radius": 5,
+		"font": ["display", "body", "mono"],
+		"size": 6
+	},
+	"semantic": [
+		"surface.base",
+		"surface.raised",
+		"surface.overlay",
+		"text.primary",
+		"text.muted",
+		"text.inverse",
+		"accent.default",
+		"accent.text",
+		"focus.ring",
+		"state.danger",
+		"state.warning",
+		"border.subtle",
+		"radius.control",
+		"space.gutter",
+		"font.heading",
+		"font.body"
+	],
+	"components": [
+		"menu.item.bg",
+		"menu.item.bg.hover",
+		"menu.item.bg.selected",
+		"menu.item.text",
+		"menu.item.text.selected",
+		"menu.panel.bg",
+		"menu.panel.border",
+		"menu.cursor.color"
+	],
+	"contrastPairs": [
+		["text.primary", "surface.base"],
+		["text.muted", "surface.base"],
+		["text.primary", "surface.raised"],
+		["accent.text", "accent.default"],
+		["menu.item.text", "menu.item.bg"],
+		["menu.item.text.selected", "menu.item.bg.selected"]
+	]
+}

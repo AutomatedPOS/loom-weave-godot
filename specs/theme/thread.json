@@ -1,0 +1,11 @@
+{
+  "guid": "fb3e7982-6550-4972-ab29-6f7135258f65",
+  "name": "specs-theme",
+  "type": "workItem",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "74e67341-176d-4a0c-81af-d018cbfd5baa",
+  "representedBy": "../../artifacts/theme-token-schema/theme-token-schema.md",
+  "body": "Theme token schema v1. Settled. Manifest, ingest, contrast, live apply.",
+  "sourceVerified": false
+}

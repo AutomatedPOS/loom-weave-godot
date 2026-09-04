@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Cycle three Do is live. This seat's Check on loom.dord.dev passed: gear opens the loadout, save survives hard refresh. No vendor. No chat shipped.",
-  "next": "Owner tablet Check. Same refresh. Act waits on that.",
+  "justDid": "Theme token schema v1 landed. Ingest fail-closed. Pass 1 plumbing is in: validate, talk window, apply_theme_patch. Backlog parked.",
+  "next": "Owner tablet Check of Tests A and B on a pointed loadout. Pass 1 stays open until those pass twice.",
   "sourceVerified": false
 }

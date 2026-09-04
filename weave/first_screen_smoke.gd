@@ -45,5 +45,11 @@ func _init() -> void:
 		quit(1)
 		return
 
+	var chat := main.get_node_or_null("Interface/Chat")
+	if chat != null and chat.visible:
+		push_error("chat is on the first screen")
+		quit(1)
+		return
+
 	print("SMOKE first-screen black + gear")
 	quit(0)

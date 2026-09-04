@@ -1,0 +1,31 @@
+{
+	"$schema": "fence.theme/v1",
+	"semantic": {
+		"surface.base": "{color.ink-100}",
+		"surface.raised": "{color.ink-200}",
+		"surface.overlay": "{color.ink-000}",
+		"text.primary": "{color.ink-900}",
+		"text.muted": "{color.ink-800}",
+		"text.inverse": "{color.ink-100}",
+		"accent.default": "{color.brand-500}",
+		"accent.text": "{color.ink-000}",
+		"focus.ring": "{color.brand-500}",
+		"state.danger": "{color.danger-500}",
+		"state.warning": "{color.warn-500}",
+		"border.subtle": "{color.ink-200}",
+		"radius.control": "{radius.2}",
+		"space.gutter": "{space.4}",
+		"font.heading": "{font.display}",
+		"font.body": "{font.body}"
+	},
+	"components": {
+		"menu.item.bg": "{surface.base}",
+		"menu.item.bg.hover": "{surface.raised}",
+		"menu.item.bg.selected": "{accent.default}",
+		"menu.item.text": "{text.primary}",
+		"menu.item.text.selected": "{accent.text}",
+		"menu.panel.bg": "{surface.raised}",
+		"menu.panel.border": "{border.subtle}",
+		"menu.cursor.color": "{accent.default}"
+	}
+}
