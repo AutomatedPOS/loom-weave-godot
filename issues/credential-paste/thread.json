@@ -3,9 +3,9 @@
   "name": "credential-paste",
   "type": "issue",
   "actualStart": "2026-09-04",
-  "state": "open",
+  "actualEnd": "2026-09-04",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "body": "Owner cannot paste an API key into the loadout on the live weave. Cycle three intent. Godot web LineEdit does not take the browser paste event. Fix is a JavaScript clipboard bridge plus a tablet-reachable Paste control. Secret fields must accept it. Never log the key.",
-  "waitingOn": "Interface handoff. Cloud Code / Claude Code owns weave/.",
+  "body": "Web paste bridge and Paste button shipped. Remaining tablet hole is tablet-credential-keyboard.",
   "sourceVerified": false
 }

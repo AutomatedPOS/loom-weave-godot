@@ -3,15 +3,16 @@
   "name": "monitor",
   "type": "workItem",
   "actualStart": "2026-09-04",
-  "state": "open",
+  "actualEnd": "2026-09-04",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/Monitor.gd",
-  "body": "First visible monitor. Path spine, PDCA line, this repo's tree, read-only node detail. Gear and loadout stay.",
-  "next": "Owner Check: hard refresh loom.dord.dev. Spine 01 LOOM-WEAVE-GODOT / 02 MONITOR. Right end GEAR-PANEL · CHECK, LOADOUT · CHECK, MONITOR · DO. Tap SPECS. Gear, Paste a key, Save, refresh, it is still there.",
+  "body": "Read-only transit map. Spine, PDCA words, ghost vs actual, placard. Owner accepted.",
+  "justDid": "Owner accepted the monitor. Act closed.",
   "props": [
     {
       "name": "pdca",
-      "value": "do"
+      "value": "act"
     }
   ],
   "sourceVerified": false

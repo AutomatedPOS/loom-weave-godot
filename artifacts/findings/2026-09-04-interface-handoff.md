@@ -100,3 +100,9 @@ Owner, Chrome on a tablet. Loadout credential: tap selects
 the field, no keyboard, cannot type. Then sometimes it
 works. Desktop is fine. Not paste. Issue
 `tablet-credential-keyboard`. Left for Act.
+
+### 2026-09-04 — Act closed
+
+Owner: happy, merge, close the loop. Next iteration is the
+tablet keyboard. `loadout`, `monitor`, `gear-panel`,
+`credential-paste`, `do-includes-push` are done.

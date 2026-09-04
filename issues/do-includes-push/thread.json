@@ -3,8 +3,9 @@
   "name": "do-includes-push",
   "type": "issue",
   "actualStart": "2026-09-03",
-  "state": "open",
+  "actualEnd": "2026-09-04",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "body": "Plan is planning. Do is the coding. Do ends with commit, push, and the weave on loom.dord.dev. Check is the owner looking. Bugs found in Check are annotated, not fixed in that sitting. Act is the next iteration, working the collection.",
+  "body": "Plan plans. Do codes, commits, pushes, weave on loom.dord.dev. Check is the owner look; marks only. Act is the next iteration, working the collection. Ruled.",
   "sourceVerified": false
 }

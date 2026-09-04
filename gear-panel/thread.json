@@ -3,15 +3,16 @@
   "name": "gear-panel",
   "type": "workItem",
   "actualStart": "2026-09-04",
-  "state": "open",
+  "actualEnd": "2026-09-04",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/theme/Tokens.gd",
-  "body": "Refinement pass Do. Tokens in weave/theme/Tokens.gd, Theme in weave/theme/LoomTheme.gd, LoadoutSection component, panel as PanelContainer, gear reads the Theme, web Import through the browser picker. Check is the owner's tablet: black screen, gear, loadout saves, Import opens a picker.",
-  "waitingOn": "Owner tablet Check on loom.dord.dev.",
+  "body": "Tokens, Theme, section component. Folded into the same owner Check as loadout.",
+  "justDid": "Owner accepted. Act closed.",
   "props": [
     {
       "name": "pdca",
-      "value": "check"
+      "value": "act"
     }
   ],
   "sourceVerified": false

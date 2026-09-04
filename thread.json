@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Check annotation: tablet Chrome tap selects a credential field and does not open the keyboard. Issue tablet-credential-keyboard. Not fixed this sitting.",
-  "next": "Owner Check continues. More marks welcome. Act works the collection.",
+  "justDid": "Act closed. Owner accepted loadout and monitor. Merging this loop. Next Do is tablet-credential-keyboard.",
+  "next": "Do of tablet-credential-keyboard. Tap on tablet Chrome must open the keyboard so a key can be typed.",
   "sourceVerified": false
 }

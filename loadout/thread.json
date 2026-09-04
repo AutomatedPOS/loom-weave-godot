@@ -3,15 +3,16 @@
   "name": "loadout",
   "type": "workItem",
   "actualStart": "2026-09-04",
-  "state": "open",
+  "actualEnd": "2026-09-04",
+  "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/LoadoutPanel.gd",
-  "body": "Cycle three Do. Gear opens configuration for chat, speech, and hear. Save locally. Export and import a loadout file. No secrets in the deploy. No vendor.",
-  "waitingOn": "Credential paste on the live weave. Interface handoff owns the fix.",
+  "body": "Cycle three. Gear opens chat, speech, and hear. Save, export, import. Paste control shipped. Tablet keyboard is a new issue.",
+  "justDid": "Owner accepted the loadout. Act closed.",
   "props": [
     {
       "name": "pdca",
-      "value": "check"
+      "value": "act"
     }
   ],
   "sourceVerified": false
