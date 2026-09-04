@@ -1,0 +1,11 @@
+{
+  "guid": "e9b2c4d1-7a53-4f80-91c6-3d0e5a8b2f17",
+  "name": "artifacts-pass-one",
+  "type": "artifact",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "pass-one.md",
+  "body": "Pass 1 acceptance. Round-trip talk and live theme change. Closes only when Tests A and B pass twice. Owner flips closed.",
+  "sourceVerified": false
+}

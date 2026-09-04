@@ -1,0 +1,10 @@
+{
+  "guid": "83352fda-6918-4356-a997-746c9da8a0e2",
+  "name": "artifacts-theme-token-schema",
+  "type": "artifact",
+  "actualStart": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "theme-token-schema.md",
+  "body": "Theme token schema v1. Three tiers. Manifest of legal keys. Ingest fail-closed. CSS variables on the root. Patches only.",
+  "sourceVerified": false
+}

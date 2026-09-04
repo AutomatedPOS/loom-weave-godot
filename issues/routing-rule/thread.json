@@ -1,0 +1,11 @@
+{
+  "guid": "a17d6c2e-8f40-4b9a-b3e5-2c91d0e4a6f8",
+  "name": "routing-rule",
+  "type": "issue",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/backlog/feature-enhancement.md",
+  "body": "Standing assignment rule. Grok is sole writer of implementation to main. Claude Code does interface and visual design on feature branches only. Seth merges. No auto-merge.",
+  "sourceVerified": false
+}
