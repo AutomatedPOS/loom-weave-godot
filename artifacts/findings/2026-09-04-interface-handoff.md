@@ -24,3 +24,14 @@ Issue `issues/credential-paste/`.
 `artifacts/interface-handoff/HANDOFF.md` plus a zip of the
 tree. Job 1 paste. Job 2 restyle the monitor to the walk.
 Hand back to Grok for deploy. No merge to master.
+
+### 2026-09-04 — Handoff taken, paste first
+
+Seat: Claude, cloud session. Branch
+`claude/site-interface-design-8hc1nt`. The zip's tree is on the
+branch as one commit; all four smokes passed before any change.
+Paste is in `LoadoutPanel.gd`: a page-side clipboard bridge, a Paste
+button beside Save Export Import, `paste_text` as the one landing.
+`BUTTON_MIN_W` went 88 to 72 so four buttons fit the panel width.
+Six browser cases pass in Chromium. Beat with detail on the
+cycle-three findings. Monitor restyle is next.

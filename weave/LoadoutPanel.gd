@@ -16,6 +16,16 @@ var _web_reader: JavaScriptObject
 var _web_change_cb: JavaScriptObject
 var _web_load_cb: JavaScriptObject
 
+# Web paste: a small bridge object in the page. See _web_paste_setup.
+var _web_paste: JavaScriptObject
+var _web_paste_text_cb: JavaScriptObject
+var _web_paste_fail_cb: JavaScriptObject
+
+const PASTED := "pasted. Save to keep it on this browser."
+const PASTE_EMPTY := "clipboard is empty"
+const PASTE_BLOCKED := "paste blocked by the browser. tap Paste again, or long-press a field."
+const PASTE_NO_FIELD := "focus a field, then Paste"
+
 
 func _ready() -> void:
 	visible = false
@@ -23,6 +33,8 @@ func _ready() -> void:
 	_place()
 	get_viewport().size_changed.connect(_place)
 	_reload_from_store()
+	if _is_web():
+		_web_paste_setup()
 
 
 func toggle() -> void:
@@ -105,6 +117,12 @@ func _build() -> void:
 	row.add_child(_button("Save", _on_save))
 	row.add_child(_button("Export", _on_export))
 	row.add_child(_button("Import", _on_import))
+	var paste := _button("Paste", _on_paste)
+	# Paste must not take focus from the field it is about to fill.
+	paste.focus_mode = Control.FOCUS_NONE
+	paste.button_down.connect(_on_paste_down)
+	paste.button_up.connect(_on_paste_up)
+	row.add_child(paste)
 
 	_status = _label("", LoomTokens.V_MUTED)
 	col.add_child(_status)
@@ -114,6 +132,8 @@ func _build() -> void:
 		section.setup(cap)
 		col.add_child(section)
 		_sections[cap] = section
+		for field in Loadout.FIELDS:
+			section.edit(field).gui_input.connect(_on_edit_input)
 
 
 func _label(text: String, variation: StringName) -> Label:
@@ -237,6 +257,142 @@ func _import_text(text: String) -> void:
 		return
 	_write_fields(loadout.data)
 	_note("imported. Save to keep it on this browser.")
+
+
+## Put clipboard text into the focused field, or the first empty
+## credential when no field has focus. Public: both paste paths and
+## the smoke test land here. Never logs the text.
+func paste_text(text: String) -> void:
+	if text == "":
+		_note(PASTE_EMPTY)
+		return
+	var target := _paste_target()
+	if target == null:
+		_note(PASTE_NO_FIELD)
+		return
+	var clean := text.strip_edges()
+	if target.has_focus():
+		target.insert_text_at_caret(clean)
+	else:
+		target.text = clean
+		target.grab_focus()
+		target.caret_column = target.text.length()
+	_note(PASTED)
+
+
+func _paste_target() -> LineEdit:
+	var owner := get_viewport().gui_get_focus_owner()
+	if owner is LineEdit and is_ancestor_of(owner):
+		return owner
+	for cap in Loadout.CAPS:
+		var edit := field_edit(cap, "credential")
+		if edit and edit.text.strip_edges() == "":
+			return edit
+	return null
+
+
+func _on_paste() -> void:
+	if _is_web():
+		if _web_paste:
+			_web_paste.request()
+		return
+	paste_text(DisplayServer.clipboard_get())
+
+
+## Godot's web LineEdit pastes a stale copy of the clipboard on
+## Ctrl/Cmd+V. The browser paste event carries the real text, so on
+## web that event feeds paste_text and the built-in action is dropped.
+func _on_edit_input(event: InputEvent) -> void:
+	if not _is_web():
+		return
+	if event is InputEventKey and event.is_action(&"ui_paste") and event.is_pressed():
+		accept_event()
+
+
+static func _is_web() -> bool:
+	return OS.has_feature("web") and Engine.has_singleton("JavaScriptBridge")
+
+
+# --- web paste: clipboard through JavaScriptBridge --------------------------
+#
+# Godot's key listener cancels the browser's own paste on keydown, so
+# the paste event never fires for Ctrl/Cmd+V. A keydown listener in
+# the page reads the clipboard inside that gesture instead. The Paste
+# button has no keyboard behind it on a tablet, so a pointerup listener
+# reads the clipboard inside the tap; button_down arms it, button_up
+# disarms it, and the button's own pressed signal is the fallback for
+# browsers that allow a read one frame later. A real paste event, from
+# an Edit menu, still lands, once, through the last listener.
+
+const WEB_PASTE_JS := """
+(function () {
+	if (window.loomPaste) { return; }
+	var p = { armed: false, busy: false, last: 0, onText: null, onFail: null };
+	function deliver(text) {
+		p.busy = false;
+		p.last = Date.now();
+		if (p.onText) { p.onText(String(text || "")); }
+	}
+	function fail(name) {
+		p.busy = false;
+		if (p.onFail) { p.onFail(String(name || "")); }
+	}
+	p.arm = function (on) { p.armed = !!on; };
+	p.request = function () {
+		if (p.busy) { return; }
+		if (!navigator.clipboard || !navigator.clipboard.readText) { fail("unsupported"); return; }
+		p.busy = true;
+		navigator.clipboard.readText().then(deliver, function (e) { fail(e && e.name); });
+	};
+	function gesture() { if (p.armed) { p.request(); } }
+	window.addEventListener("pointerup", gesture, true);
+	window.addEventListener("touchend", gesture, true);
+	window.addEventListener("keydown", function (evt) {
+		var v = evt.key === "v" || evt.key === "V" || evt.code === "KeyV";
+		if (v && (evt.ctrlKey || evt.metaKey) && !evt.altKey && !evt.repeat) { p.request(); }
+	}, true);
+	window.addEventListener("paste", function (evt) {
+		if (p.busy || Date.now() - p.last < 500) { return; }
+		var data = evt.clipboardData || window.clipboardData;
+		var text = data ? data.getData("text/plain") || data.getData("text") : "";
+		if (text) { evt.preventDefault(); deliver(text); }
+	}, true);
+	window.loomPaste = p;
+})();
+"""
+
+
+func _web_paste_setup() -> void:
+	JavaScriptBridge.eval(WEB_PASTE_JS, true)
+	_web_paste = JavaScriptBridge.get_interface("loomPaste")
+	if _web_paste == null:
+		return
+	_web_paste_text_cb = JavaScriptBridge.create_callback(_on_web_paste_text)
+	_web_paste_fail_cb = JavaScriptBridge.create_callback(_on_web_paste_fail)
+	_web_paste.onText = _web_paste_text_cb
+	_web_paste.onFail = _web_paste_fail_cb
+
+
+func _on_paste_down() -> void:
+	if _web_paste:
+		_web_paste.arm(true)
+
+
+func _on_paste_up() -> void:
+	if _web_paste:
+		_web_paste.arm(false)
+
+
+func _on_web_paste_text(args: Array) -> void:
+	if not visible:
+		return
+	paste_text(str(args[0]) if args.size() > 0 else "")
+
+
+func _on_web_paste_fail(_args: Array) -> void:
+	if not visible:
+		return
+	_note(PASTE_BLOCKED)
 
 
 # --- web import: browser file picker through JavaScriptBridge ---------------
