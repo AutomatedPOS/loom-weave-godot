@@ -9,8 +9,17 @@ half.
 ### 2026-09-04 — Packet landed
 
 Spec, walk findings, and `plans/canvas/` at the paths the packet
-named. Cycle four Plan is `artifacts/canvas-plan/`. Do is
+named. The plan node is guid `0c06c5de-3c59-4526-a0a8-81dafca13a80`
+and points at the spec, not at a second plan file. `artifacts/canvas-plan/`
+is the Do list this seat wrote against that spec. Do is
 `canvas-plumbing`.
+
+### 2026-09-04 — Plan node is the packet's
+
+First landing minted a guid and marked the plan done. Wrong. The
+packet's node is `active`, points at `canvas-spec.md`, and waited
+on primitives. Primitives are now researched. Close-out on that
+node was rewritten; identity was not.
 
 ### 2026-09-04 — Primitives, not invented
 

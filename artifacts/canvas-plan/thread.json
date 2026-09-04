@@ -5,6 +5,6 @@
   "actualEnd": "2026-09-04",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "canvas-plan.md",
-  "body": "Cycle four Plan. Canvas plumbing Do: primitives, rosters, persona pipe, attachment, shape store, timeline refill. Painting is the other half.",
+  "body": "Do list written against the canvas spec. The plan node itself is plans/canvas and points at the spec. This file is the plumbing order of work, not a second Plan.",
   "sourceVerified": false
 }

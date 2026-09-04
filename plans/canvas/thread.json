@@ -1,15 +1,14 @@
 {
-  "guid": "0baad4c5-bec7-4285-bdd2-323072e1359b",
+  "guid": "0c06c5de-3c59-4526-a0a8-81dafca13a80",
   "name": "plans-canvas",
   "type": "plan",
   "actualStart": "2026-09-04",
-  "actualEnd": "2026-09-04",
-  "state": "done",
+  "state": "active",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "representedBy": "../../artifacts/canvas-plan/canvas-plan.md",
-  "body": "Weaver PDCA cycle four. Plan step of the canvas: a surface the owner composes on. Plumbing is this seat. Painting is the other half. Shape is saved, never data.",
-  "justDid": "Wrote the cycle-four Plan from the canvas spec. Named the Do. Left every OPEN item open.",
-  "next": "Plumbing Do is this sitting. Painting is parallel and not this seat.",
+  "representedBy": "../../artifacts/canvas-spec/canvas-spec.md",
+  "body": "Weaver PDCA cycle four. Plan step: the canvas. The window stops being a tree renderer and becomes a surface the owner composes on. Two seats cut from one spec: Grok and Cursor take the plumbing, Claude Code takes the painting. The owner sets the scene.",
+  "justDid": "Plumbing planned and run against this spec. Process primitives researched, not invented. Three rosters, persona pipe, attachment, shape as a query, refill at T. weave/ not touched.",
+  "next": "Owner Check of the plumbing. Painting of the first screen is the other half.",
   "waitingOn": "Owner on the OPEN list. Painting of the first screen.",
   "sourceVerified": false
 }
