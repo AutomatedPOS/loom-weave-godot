@@ -236,6 +236,23 @@ func _scene_checks(b: Loadout) -> void:
 		push_error("no Paste button")
 		quit(1)
 		return
+	# IME overlay publishes every visible field. The keyboard opens
+	# from a page touchstart, not from a Godot focus() after the tap.
+	var ime_src := FileAccess.get_file_as_string("res://weave/LoadoutPanel.gd")
+	if ime_src.find("touchstart") < 0 or ime_src.find("loomIme") < 0:
+		push_error("IME lost the page gesture listener")
+		quit(1)
+		return
+	blank.open()
+	var ids := blank.ime_field_ids()
+	if ids.find("chat/credential") < 0 or ids.find("speech/model") < 0:
+		push_error("IME field list missed a loadout edit: %s" % ", ".join(ids))
+		quit(1)
+		return
+	if ids.size() > Loadout.CAPS.size() * Loadout.FIELDS.size():
+		push_error("IME field list grew past the loadout: %s" % ", ".join(ids))
+		quit(1)
+		return
 
 	b.clear_local()
 	print("SMOKE loadout save/export/import/paste + hidden panel")

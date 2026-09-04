@@ -25,7 +25,9 @@ var _web_paste_fail_cb: JavaScriptObject
 # keyboard opens. Godot's canvas LineEdit selects and does not type.
 var _web_ime: JavaScriptObject
 var _web_ime_text_cb: JavaScriptObject
+var _web_ime_pick_cb: JavaScriptObject
 var _ime_edit: LineEdit
+var _scroll: ScrollContainer
 
 const PASTED := "pasted. Save to keep it on this browser."
 const PASTE_EMPTY := "clipboard is empty"
@@ -54,6 +56,7 @@ func toggle() -> void:
 ## Opening shows what is in the fields now. Unsaved edits are kept.
 func open() -> void:
 	visible = true
+	_web_ime_sync.call_deferred()
 
 
 func close() -> void:
@@ -92,8 +95,8 @@ func _place() -> void:
 	offset_top = -(h + bottom)
 	offset_right = -inset
 	offset_bottom = -bottom
-	if _ime_edit:
-		_web_ime_show(_ime_edit)
+	if visible:
+		_web_ime_sync()
 
 
 func _reload_from_store() -> void:
@@ -109,14 +112,15 @@ func _build() -> void:
 		pad.add_theme_constant_override(side, LoomTokens.SPACE_4)
 	add_child(pad)
 
-	var scroll := ScrollContainer.new()
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	pad.add_child(scroll)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	pad.add_child(_scroll)
+	_scroll.get_v_scroll_bar().value_changed.connect(_on_ime_scroll)
 
 	var col := VBoxContainer.new()
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.add_theme_constant_override(&"separation", LoomTokens.SPACE_3)
-	scroll.add_child(col)
+	_scroll.add_child(col)
 
 	col.add_child(_label("loadout", LoomTokens.V_TITLE))
 	col.add_child(_label("defaults are pointed. paste a credential.", LoomTokens.V_MUTED))
@@ -146,6 +150,8 @@ func _build() -> void:
 			var e := section.edit(field)
 			e.gui_input.connect(_on_edit_input.bind(e))
 			e.focus_entered.connect(_web_ime_show.bind(e))
+			if _is_web():
+				e.virtual_keyboard_enabled = false
 
 
 func _label(text: String, variation: StringName) -> Label:
@@ -290,10 +296,14 @@ func paste_text(text: String) -> void:
 		target.grab_focus()
 		target.caret_column = target.text.length()
 	_web_ime_show(target)
+	if _web_ime:
+		_web_ime.set(target.text)
 	_note(PASTED)
 
 
 func _paste_target() -> LineEdit:
+	if _ime_edit and is_instance_valid(_ime_edit):
+		return _ime_edit
 	var owner := get_viewport().gui_get_focus_owner()
 	if owner is LineEdit and is_ancestor_of(owner):
 		return owner
@@ -331,6 +341,8 @@ func _on_edit_input(event: InputEvent, edit: LineEdit) -> void:
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		tap = true
 	if tap:
+		# Backup if the page hit-test missed. The keyboard opens
+		# from touchstart in loomIme, not from this Godot call.
 		_web_ime_show(edit)
 
 
@@ -424,18 +436,25 @@ func _on_web_paste_fail(_args: Array) -> void:
 #
 # The canvas LineEdit takes focus and draws a caret. Chrome on a
 # tablet does not open the virtual keyboard for a canvas. A page
-# <input> focused in the same tap does. Font size 16px; smaller
-# and mobile Chrome zooms or refuses the keyboard. The input sits
-# on the field. Keystrokes never get logged.
+# <input> focused inside the same touchstart does. Godot calling
+# focus() after it has eaten the tap is too late; that was the
+# first overlay, and the keyboard stayed down. Font size 16px;
+# smaller and mobile Chrome zooms or refuses. The input sits on
+# the field. Keystrokes never get logged.
 
 const WEB_IME_JS := """
 (function () {
-	if (window.loomIme) { return; }
+	if (window.loomIme && window.loomIme.v === 2) { return; }
+	if (window.loomIme && window.loomIme.teardown) { window.loomIme.teardown(); }
+	var leftover = document.querySelector("input[data-loom-ime]");
+	if (leftover && leftover.parentNode) { leftover.parentNode.removeChild(leftover); }
 	var input = document.createElement("input");
+	input.setAttribute("data-loom-ime", "1");
 	input.autocomplete = "off";
 	input.autocorrect = "off";
 	input.autocapitalize = "none";
 	input.spellcheck = false;
+	input.setAttribute("enterkeyhint", "done");
 	input.style.position = "fixed";
 	input.style.zIndex = "2147483647";
 	input.style.border = "none";
@@ -445,45 +464,137 @@ const WEB_IME_JS := """
 	input.style.borderRadius = "0";
 	input.style.fontSize = "16px";
 	input.style.fontFamily = "sans-serif";
+	input.style.touchAction = "manipulation";
 	input.style.left = "-9999px";
 	input.style.top = "0";
 	input.style.width = "1px";
 	input.style.height = "1px";
 	document.body.appendChild(input);
-	var p = { onText: null };
-	p.show = function (vx, vy, vw, vh, vpw, vph, text, secret, bg, fg) {
-		var c = document.querySelector("canvas");
-		if (!c) { return; }
-		var br = c.getBoundingClientRect();
-		var x = br.left + (vx / vpw) * br.width;
-		var y = br.top + (vy / vph) * br.height;
-		var w = (vw / vpw) * br.width;
-		var h = (vh / vph) * br.height;
-		input.style.background = bg;
-		input.style.color = fg;
-		input.style.caretColor = fg;
-		input.type = secret ? "password" : "text";
-		input.value = text || "";
-		input.style.left = x + "px";
-		input.style.top = y + "px";
-		input.style.width = Math.max(8, w) + "px";
-		input.style.height = Math.max(16, h) + "px";
-		input.focus();
-		var n = input.value.length;
-		try { input.setSelectionRange(n, n); } catch (e) {}
+	var p = {
+		v: 2, onText: null, onPick: null, armed: false, keep: false,
+		id: "", vpw: 1, vph: 1, bg: "#000", fg: "#fff", fields: []
 	};
+	function canvasBox() {
+		var c = document.querySelector("canvas");
+		return c ? c.getBoundingClientRect() : null;
+	}
+	function toCss(vx, vy, vw, vh) {
+		var br = canvasBox();
+		if (!br) { return null; }
+		return {
+			x: br.left + (vx / p.vpw) * br.width,
+			y: br.top + (vy / p.vph) * br.height,
+			w: (vw / p.vpw) * br.width,
+			h: (vh / p.vph) * br.height
+		};
+	}
+	function hit(cx, cy) {
+		for (var i = 0; i < p.fields.length; i++) {
+			var f = p.fields[i];
+			var r = toCss(f.x, f.y, f.w, f.h);
+			if (!r) { continue; }
+			if (cx >= r.x && cy >= r.y && cx <= r.x + r.w && cy <= r.y + r.h) { return f; }
+		}
+		return null;
+	}
+	function apply(f, takeText) {
+		var r = toCss(f.x, f.y, f.w, f.h);
+		if (!r) { return; }
+		input.style.background = p.bg;
+		input.style.color = p.fg;
+		input.style.caretColor = p.fg;
+		input.type = f.secret ? "password" : "text";
+		if (takeText || p.id !== f.id) { input.value = f.text || ""; }
+		input.style.left = r.x + "px";
+		input.style.top = r.y + "px";
+		input.style.width = Math.max(8, r.w) + "px";
+		input.style.height = Math.max(16, r.h) + "px";
+		p.id = f.id;
+		p.keep = true;
+		if (p.onPick) { p.onPick(String(f.id)); }
+	}
+	function focusInput() {
+		input.focus();
+		try { input.setSelectionRange(input.value.length, input.value.length); } catch (e) {}
+	}
+	p.layout = function (blob) {
+		var d;
+		try { d = JSON.parse(blob); } catch (e) { return; }
+		p.vpw = d.vpw || 1;
+		p.vph = d.vph || 1;
+		p.bg = d.bg || p.bg;
+		p.fg = d.fg || p.fg;
+		p.fields = d.fields || [];
+		if (p.keep && p.id) {
+			for (var i = 0; i < p.fields.length; i++) {
+				if (p.fields[i].id === p.id) { apply(p.fields[i], false); return; }
+			}
+			p.hide();
+		}
+	};
+	p.focusId = function (id) {
+		for (var i = 0; i < p.fields.length; i++) {
+			if (p.fields[i].id === id) { apply(p.fields[i], true); focusInput(); return; }
+		}
+	};
+	p.arm = function (on) { p.armed = !!on; if (!p.armed) { p.hide(); } };
 	p.hide = function () {
+		p.keep = false;
+		p.id = "";
 		input.blur();
 		input.style.left = "-9999px";
 		input.style.width = "1px";
 		input.style.height = "1px";
 	};
-	p.set = function (text) {
-		input.value = text || "";
-	};
+	p.set = function (text) { input.value = text || ""; };
+	function onDown(evt) {
+		if (!p.armed) { return; }
+		if (evt.target === input) { return; }
+		var t = (evt.touches && evt.touches[0]) ? evt.touches[0] : evt;
+		var f = hit(t.clientX, t.clientY);
+		if (f) {
+			apply(f, p.id !== f.id);
+			focusInput();
+			evt.preventDefault();
+			return;
+		}
+		p.hide();
+	}
+	function onCanvasFocus() { if (p.keep) { focusInput(); } }
+	function guardCanvas() {
+		var c = document.querySelector("canvas");
+		if (c && !c._loomImeGuard) {
+			c._loomImeGuard = true;
+			c.addEventListener("focus", onCanvasFocus);
+		}
+	}
+	var opts = { capture: true, passive: false };
+	window.addEventListener("touchstart", onDown, opts);
+	window.addEventListener("pointerdown", onDown, opts);
+	guardCanvas();
+	setTimeout(guardCanvas, 0);
 	input.addEventListener("input", function () {
 		if (p.onText) { p.onText(String(input.value || "")); }
 	});
+	input.addEventListener("blur", function () {
+		if (!p.keep) { return; }
+		setTimeout(function () {
+			if (!p.keep) { return; }
+			var a = document.activeElement;
+			if (a && a.tagName === "CANVAS") { focusInput(); }
+		}, 0);
+	});
+	p.teardown = function () {
+		window.removeEventListener("touchstart", onDown, true);
+		window.removeEventListener("pointerdown", onDown, true);
+		if (input.parentNode) { input.parentNode.removeChild(input); }
+		var c = document.querySelector("canvas");
+		if (c) {
+			c.removeEventListener("focus", onCanvasFocus);
+			c._loomImeGuard = false;
+		}
+		if (window.loomIme === p) { delete window.loomIme; }
+	};
 	window.loomIme = p;
 })();
 """
@@ -495,20 +606,79 @@ func _web_ime_setup() -> void:
 	if _web_ime == null:
 		return
 	_web_ime_text_cb = JavaScriptBridge.create_callback(_on_web_ime_text)
+	_web_ime_pick_cb = JavaScriptBridge.create_callback(_on_web_ime_pick)
 	_web_ime.onText = _web_ime_text_cb
+	_web_ime.onPick = _web_ime_pick_cb
+
+
+## Visible loadout fields, clipped to the scroll well. Public for smoke.
+func ime_field_ids() -> PackedStringArray:
+	var ids: PackedStringArray = []
+	for row in _ime_fields():
+		ids.append(str(row.get("id", "")))
+	return ids
+
+
+func _ime_fields() -> Array:
+	var out: Array = []
+	var clip := _scroll.get_global_rect() if _scroll else get_global_rect()
+	for cap in Loadout.CAPS:
+		for field in Loadout.FIELDS:
+			var e := field_edit(cap, field)
+			if e == null:
+				continue
+			var vis: Rect2 = e.get_global_rect().intersection(clip)
+			if vis.size.x < 8.0 or vis.size.y < 8.0:
+				continue
+			out.append({
+				"id": "%s/%s" % [cap, field],
+				"x": vis.position.x,
+				"y": vis.position.y,
+				"w": vis.size.x,
+				"h": vis.size.y,
+				"text": e.text,
+				"secret": e.secret,
+			})
+	return out
+
+
+func _ime_id(edit: LineEdit) -> String:
+	var section := edit.get_parent() as LoadoutSection
+	if section == null:
+		return ""
+	return "%s/%s" % [section.cap, edit.name]
+
+
+func _on_ime_scroll(_v: float) -> void:
+	_web_ime_sync()
+
+
+func _web_ime_sync() -> void:
+	if not _is_web() or _web_ime == null:
+		return
+	if not visible:
+		_web_ime.arm(false)
+		return
+	_web_ime.arm(true)
+	var vp := get_viewport().get_visible_rect().size
+	var payload := {
+		"vpw": vp.x,
+		"vph": vp.y,
+		"bg": _css_color(LoomTokens.WELL),
+		"fg": _css_color(LoomTokens.INK),
+		"fields": _ime_fields(),
+	}
+	_web_ime.layout(JSON.stringify(payload))
 
 
 func _web_ime_show(edit: LineEdit) -> void:
 	if not _is_web() or _web_ime == null or not visible or edit == null:
 		return
 	_ime_edit = edit
-	var r := edit.get_global_rect()
-	var vp := get_viewport().get_visible_rect().size
-	_web_ime.show(
-		r.position.x, r.position.y, r.size.x, r.size.y,
-		vp.x, vp.y, edit.text, edit.secret,
-		_css_color(LoomTokens.WELL), _css_color(LoomTokens.INK)
-	)
+	_web_ime_sync()
+	var id := _ime_id(edit)
+	if id != "":
+		_web_ime.focusId(id)
 
 
 func _css_color(c: Color) -> String:
@@ -518,7 +688,18 @@ func _css_color(c: Color) -> String:
 func _web_ime_hide() -> void:
 	_ime_edit = null
 	if _web_ime:
-		_web_ime.hide()
+		_web_ime.arm(false)
+
+
+func _on_web_ime_pick(args: Array) -> void:
+	if not visible or args.is_empty():
+		return
+	var parts := str(args[0]).split("/")
+	if parts.size() != 2:
+		return
+	var edit := field_edit(parts[0], parts[1])
+	if edit:
+		_ime_edit = edit
 
 
 func _on_web_ime_text(args: Array) -> void:

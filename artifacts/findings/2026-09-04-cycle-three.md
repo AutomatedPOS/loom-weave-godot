@@ -76,3 +76,15 @@ and does not open Chrome's keyboard. A page `<input>` is
 placed on the field in the same tap, 16px type, password
 when the field is secret. Text syncs back. Nothing logs
 the key. Desktop native unchanged. Check is a tablet tap.
+
+Live: `dord-dev` `e41b28fc-d798-4457-81cd-b1932f5696a9`.
+
+### 2026-09-04 — Gesture, not after the tap
+
+The first overlay called `input.focus()` from Godot after the
+canvas had eaten the tap. Mobile Chrome will not raise a
+keyboard for that. The page now has the field rects before
+the finger lands. `touchstart` / `pointerdown` in capture
+focus the input inside the gesture and keep the canvas from
+stealing it. Same 16px input, same secret mask, still no
+log of the key.

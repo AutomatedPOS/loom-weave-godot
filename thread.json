@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Do of tablet-credential-keyboard: web IME overlay. A tap focuses a real page input so the tablet keyboard opens.",
-  "next": "Owner Check on a tablet. Tap a credential. Keyboard must come up. Type a key. Save.",
+  "justDid": "Do of tablet-credential-keyboard: page input focuses on the tap itself, not after Godot eats it.",
+  "next": "Owner Check on a tablet. Hard refresh. Gear. Tap a credential. Keyboard must come up. Type a key. Save.",
   "sourceVerified": false
 }
