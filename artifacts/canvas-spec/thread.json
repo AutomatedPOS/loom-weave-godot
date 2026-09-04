@@ -1,0 +1,10 @@
+{
+  "guid": "dd44aa66-0a4e-4321-985f-d57561c9a9a9",
+  "name": "artifacts-canvas-spec",
+  "type": "artifact",
+  "actualEnd": "2026-09-04",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "canvas-spec.md",
+  "body": "Composition model for the weave. Three input rails on the left (personas, processes, tools), work in the middle, output ports on the right with discard as a port. Attachment is the only composition operator. Every window carries the field's slots, so composition recurses. Shape is saved, never data; the timeline refills a shape from the tree. Landscape only.",
+  "sourceVerified": false
+}
