@@ -81,11 +81,6 @@ func _build() -> void:
 	col.add_child(_label("loadout", 18, INK))
 	col.add_child(_label("point each after deploy. nothing is in the base.", 12, DIM))
 
-	_line_edits.clear()
-	col.add_child(_section("chat"))
-	col.add_child(_section("speech"))
-	col.add_child(_section("hear"))
-
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	col.add_child(row)
@@ -96,6 +91,11 @@ func _build() -> void:
 	_status = _label("", 12, DIM)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	col.add_child(_status)
+
+	_line_edits.clear()
+	col.add_child(_section("chat"))
+	col.add_child(_section("speech"))
+	col.add_child(_section("hear"))
 
 
 func _draw_frame() -> void:
