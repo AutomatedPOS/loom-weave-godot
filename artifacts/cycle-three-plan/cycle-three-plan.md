@@ -91,5 +91,5 @@ that is no longer black is a fail.
 
 ## After
 
-Do of `loadout` can start. Not before this Plan is the thing to
-react to. Do not invent a provider on the way.
+Act closed 2026-09-04: owner merged PR #7 and called Check fine.
+Cycle four Plan is talk. The loadout look is parked.

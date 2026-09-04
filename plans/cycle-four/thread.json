@@ -1,0 +1,11 @@
+{
+  "guid": "936680d0-306b-45c5-9746-8a1044ce1eae",
+  "name": "plans-cycle-four",
+  "type": "plan",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/cycle-four-plan/cycle-four-plan.md",
+  "body": "Weaver PDCA cycle four. Plan step: talk. Chat, TTS, and transcription use the loadout. Keys stay with the user. No vendor. Loadout look is parked.",
+  "sourceVerified": false
+}

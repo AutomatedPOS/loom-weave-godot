@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Cycle three Do is live. This seat's Check on loom.dord.dev passed: gear opens the loadout, save survives hard refresh. No vendor. No chat shipped.",
-  "next": "Owner tablet Check. Same refresh. Act waits on that.",
+  "justDid": "Cycle three Act closed. Owner merged PR #7 and called Check fine. Loadout is live. Keys stay on the browser and in the user's export file.",
+  "next": "Cycle four Plan is talk. Chat, TTS, and transcription use the loadout. Do waits. Loadout look is parked.",
   "sourceVerified": false
 }
