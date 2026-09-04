@@ -73,11 +73,16 @@ func _init() -> void:
 		push_error("panel visible on first screen")
 		quit(1)
 		return
-	if main.get_node_or_null("Interface/Gear") == null:
+	var gear := main.get_node_or_null("Interface/Gear")
+	if gear == null:
 		push_error("gear missing")
 		quit(1)
 		return
-	panel.open()
+	if not (gear is BaseButton):
+		push_error("gear is not a button")
+		quit(1)
+		return
+	panel.toggle()
 	if not panel.visible:
 		push_error("panel did not open")
 		quit(1)

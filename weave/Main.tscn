@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_main")
 
 [node name="Backdrop" type="ColorRect" parent="."]
@@ -26,7 +27,7 @@ color = Color(0, 0, 0, 1)
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 64
 
-[node name="Gear" type="Control" parent="Interface"]
+[node name="Gear" type="Button" parent="Interface"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

@@ -1,9 +1,7 @@
 class_name SettingsGear
-extends Control
+extends Button
 
 ## Interface-track chrome. A settings cog. Opens the loadout.
-signal pressed
-
 const INK := Color(0.68, 0.68, 0.70, 1)
 const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const TEETH := 8
@@ -12,8 +10,15 @@ var _hover := false
 
 
 func _ready() -> void:
+	flat = true
+	focus_mode = Control.FOCUS_NONE
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var empty := StyleBoxEmpty.new()
+	add_theme_stylebox_override("normal", empty)
+	add_theme_stylebox_override("hover", empty)
+	add_theme_stylebox_override("pressed", empty)
+	add_theme_stylebox_override("focus", empty)
 	mouse_entered.connect(_on_enter)
 	mouse_exited.connect(_on_exit)
 
@@ -26,12 +31,6 @@ func _on_enter() -> void:
 func _on_exit() -> void:
 	_hover = false
 	queue_redraw()
-
-
-func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		pressed.emit()
-		accept_event()
 
 
 func _draw() -> void:
