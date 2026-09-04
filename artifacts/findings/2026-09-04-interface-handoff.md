@@ -83,3 +83,13 @@ follows this beat.
 `./deploy-weave.sh` uploaded worker `dord-dev`. Version
 `c12b7fa6-58e5-4315-a8cd-7ec55980a3b7`. Apex left alone.
 Hard refresh on `loom.dord.dev` is the Check.
+
+### 2026-09-04 — PDCA, owner-ruled
+
+Plan is planning. Do is the coding. Do ends when the
+commit is on the remote and the weave is on
+`loom.dord.dev`. Check is the owner looking. What is
+wrong gets annotated, not fixed in that sitting. Act is
+the next iteration, working that collection. Issue
+`do-includes-push` now holds the full loop. Owner is
+happy with the hand-back. This sitting is Check.
