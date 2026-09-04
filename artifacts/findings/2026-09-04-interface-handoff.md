@@ -93,3 +93,10 @@ wrong gets annotated, not fixed in that sitting. Act is
 the next iteration, working that collection. Issue
 `do-includes-push` now holds the full loop. Owner is
 happy with the hand-back. This sitting is Check.
+
+### 2026-09-04 — Tablet tap does not type
+
+Owner, Chrome on a tablet. Loadout credential: tap selects
+the field, no keyboard, cannot type. Then sometimes it
+works. Desktop is fine. Not paste. Issue
+`tablet-credential-keyboard`. Left for Act.

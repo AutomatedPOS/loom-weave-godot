@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Hand-back is live on loom.dord.dev. Owner is happy. PDCA ruled: Plan plans, Do codes and pushes, Check is the owner look, Act works the annotated bugs.",
-  "next": "Owner Check. Annotate what is wrong. Do not fix in Check. Act is the next sitting.",
+  "justDid": "Check annotation: tablet Chrome tap selects a credential field and does not open the keyboard. Issue tablet-credential-keyboard. Not fixed this sitting.",
+  "next": "Owner Check continues. More marks welcome. Act works the collection.",
   "sourceVerified": false
 }

@@ -1,0 +1,11 @@
+{
+  "guid": "cc786acb-2aaa-4691-a33b-e130f1bbf9e3",
+  "name": "tablet-credential-keyboard",
+  "type": "issue",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "body": "Owner Check, tablet Chrome on loom.dord.dev. Tap a loadout credential field: the field selects, the virtual keyboard does not come up, typing does not start. Intermittent. Works on desktop. Not the paste path; this is focus and IME. Act: make a tap open the keyboard so a key can be typed.",
+  "waitingOn": "Act.",
+  "sourceVerified": false
+}
