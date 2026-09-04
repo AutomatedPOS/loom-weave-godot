@@ -77,3 +77,9 @@ Seat: Grok, `bc-cac43192`. Did not restyle. Files from
 `loomweavegodothandback.zip` landed on
 `cursor/monitor-walk-prep-96e9`. `master` not merged. Deploy
 follows this beat.
+
+### 2026-09-04 — Hand-back live
+
+`./deploy-weave.sh` uploaded worker `dord-dev`. Version
+`c12b7fa6-58e5-4315-a8cd-7ec55980a3b7`. Apex left alone.
+Hard refresh on `loom.dord.dev` is the Check.
