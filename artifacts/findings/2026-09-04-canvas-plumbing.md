@@ -64,6 +64,14 @@ Hours on the timeline do not change the read: nodes are UTC days.
 - GDScript port of `scripts/canvas_model.py` waits until this
   seat may touch the engine side of the window.
 
+### 2026-09-04 — Painting merged, rails join the tree
+
+Owner merged PR 15. Plumbing had one conflict: a wrap in the spec.
+Took master's wrap. Rails no longer use stand-in names. They read
+the roster parents. Tools is empty. Walk, Close, Capture, Tree,
+Checkers are off the window. Docked chips still live in memory;
+shape save on the browser still waits.
+
 ## Owed, still
 
 Spec OPEN 3, 4, 5. Inbox format. Authored processes besides brief.
@@ -72,11 +80,11 @@ rule it does not).
 
 ## Close-out
 
-- **justDid**: Plan plus plumbing Do. Primitives researched. Rosters
-  in the tree. Pipe, attachment, shape, refill, tests.
-- **next**: Owner Check. Painting reads the guids. No deploy; the
-  window did not change.
-- **waitingOn**: The owner on the OPEN list.
+- **justDid**: Merged painting. Rails read the tree. Invented
+  roster names are off the window.
+- **next**: Owner merge of PR 16. Deploy if the joined window is
+  accepted.
+- **waitingOn**: Owner merge. OPEN 1, 3. Inbox format. Any tool.
 - **generic**: A view that must not go stale abstracts to a query:
   store which panes, which attachments, which asks; refill from
   the dated source at T; never copy the rows into the saved view.

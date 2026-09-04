@@ -10,8 +10,12 @@ extends Control
 ##
 ## Draw order follows the slot spec: frames back to front, tiles, the
 ## seat, then the interface track. Tap looks, drag moves. Nothing here
-## writes to the tree. What a drag attaches lives in memory only; the
-## shape store is the other half.
+## writes to the tree. Docked chips live in memory; a saved shape is a
+## query in scripts/canvas_model.py.
+##
+## Rails read the three roster parents in the tree. A rail item is a
+## child with props.rail matching the kind, shown by its folder name.
+## An empty rail is a valid source.
 ##
 ## Every colour and size is a LoomTokens value. Text draws with the
 ## Theme's default font at token sizes.
@@ -19,11 +23,10 @@ extends Control
 signal persona_tapped(name: String)
 
 const KINDS: Array[StringName] = [&"persona", &"process", &"tool"]
-## Stand-in rosters until the rail pipe lands. Names only.
-const ROSTERS := {
-	&"persona": ["Brains", "Archivus", "Fixer"],
-	&"process": ["Brief", "Walk", "Close"],
-	&"tool": ["Capture", "Tree", "Checkers"],
+const ROSTER_OF := {
+	&"persona": "personas",
+	&"process": "processes",
+	&"tool": "tools",
 }
 const RAIL_TITLES := {&"persona": "personas", &"process": "processes", &"tool": "tools"}
 const PORTS := 3
@@ -91,7 +94,17 @@ func tile_names() -> PackedStringArray:
 
 
 func rail_names(kind: StringName) -> PackedStringArray:
-	return PackedStringArray(ROSTERS.get(kind, []))
+	var out := PackedStringArray()
+	var parent := _roster_parent(str(ROSTER_OF.get(kind, "")))
+	if parent.is_empty():
+		return out
+	var day := position_date()
+	var kids: Array = _loader.kids(parent)
+	kids.sort_custom(_by_date)
+	for child in kids:
+		if _present(child, day):
+			out.append(_rail_label(child))
+	return out
 
 
 func port_count() -> int:
@@ -300,7 +313,7 @@ func _scrub_to(x: float) -> void:
 	else:
 		var frac := clampf((x - _timeline.position.x) / _timeline.size.x, 0.0, 1.0)
 		_scrub = frac * LoomTokens.TIMELINE_DAYS
-	queue_redraw()
+	_relayout()
 
 
 # --- tree ---------------------------------------------------------------------
@@ -377,7 +390,7 @@ func _layout_rails() -> void:
 	for i in KINDS.size():
 		var kind: StringName = KINDS[i]
 		var y0 := _field.position.y + i * band
-		var names: Array = ROSTERS[kind]
+		var names := rail_names(kind)
 		for j in names.size():
 			var cy := y0 + LoomTokens.SPACE_5 + LoomTokens.SPACE_2 + j * (LoomTokens.TOUCH_H + LoomTokens.SPACE_2)
 			_chip_rects["%s/%s" % [kind, names[j]]] = Rect2(LoomTokens.INSET, cy, LoomTokens.RAIL_W, LoomTokens.TOUCH_H)
@@ -547,7 +560,7 @@ func _draw_rails(font: Font) -> void:
 		_caps(font, Vector2(LoomTokens.INSET, y0 + LoomTokens.TEXT_SM), RAIL_TITLES[kind], LoomTokens.DIM)
 		var rule_y := y0 + LoomTokens.SPACE_4 + LoomTokens.SPACE_1
 		draw_line(Vector2(LoomTokens.INSET, rule_y), Vector2(LoomTokens.INSET + LoomTokens.RAIL_W, rule_y), LoomTokens.EDGE, LoomTokens.BORDER)
-		for name in ROSTERS[kind]:
+		for name in rail_names(kind):
 			_chip(font, chip_rect(kind, name), kind, name, LoomTokens.EDGE, false)
 
 
@@ -791,6 +804,74 @@ func _is_live(node: Dictionary) -> bool:
 func _date(node: Dictionary) -> String:
 	var d := str(node.get("actualStart", ""))
 	return d if d != "" else str(node.get("actualEnd", ""))
+
+
+func _day_field(node: Dictionary, key: String) -> String:
+	var d := str(node.get(key, ""))
+	return d if d.length() == 10 else ""
+
+
+## A node has begun by day if any lived date is on or before it.
+func _begun(node: Dictionary, day: String) -> bool:
+	var start := _day_field(node, "actualStart")
+	if start != "":
+		return start <= day
+	var ended := _day_field(node, "actualEnd")
+	if ended != "":
+		return ended <= day
+	var decided := _day_field(node, "decidedDate")
+	if decided != "":
+		return decided <= day
+	return false
+
+
+func _is_ghost(node: Dictionary, day: String) -> bool:
+	if _begun(node, day):
+		return false
+	var start := _day_field(node, "actualStart")
+	var ended := _day_field(node, "actualEnd")
+	var decided := _day_field(node, "decidedDate")
+	var planned := _day_field(node, "plannedStart")
+	var planned_end := _day_field(node, "plannedEnd")
+	if start == "" and ended == "" and decided == "" and planned == "" and planned_end == "":
+		return true
+	if planned != "" and planned <= day:
+		return planned_end == "" or planned_end >= day
+	return false
+
+
+func _present(node: Dictionary, day: String) -> bool:
+	return _begun(node, day) or _is_ghost(node, day)
+
+
+func _prop(node: Dictionary, name: String) -> String:
+	var props: Variant = node.get("props", [])
+	if typeof(props) != TYPE_ARRAY:
+		return ""
+	for item in props:
+		if typeof(item) == TYPE_DICTIONARY and str(item.get("name", "")) == name:
+			return str(item.get("value", ""))
+	return ""
+
+
+func _roster_parent(rail: String) -> Dictionary:
+	if rail == "":
+		return {}
+	for node in _loader.nodes:
+		if _prop(node, "roster") == rail:
+			return node
+	return {}
+
+
+## Folder name, titled. rosters/personas/brains → Brains.
+func _rail_label(node: Dictionary) -> String:
+	var path := str(node.get("_path", ""))
+	var folder := path.get_base_dir().get_file()
+	if folder != "":
+		return folder.capitalize()
+	var name := str(node.get("name", "?"))
+	var bits := name.split("-")
+	return str(bits[bits.size() - 1]).capitalize()
 
 
 func _unix(date: String) -> int:
