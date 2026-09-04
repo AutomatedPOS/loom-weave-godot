@@ -1,0 +1,11 @@
+{
+  "guid": "a237b0ef-81ee-462f-8018-82173507a924",
+  "name": "plans-daydream-cycle-four",
+  "type": "plan",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/daydream-cycle-four/daydream-packet.md",
+  "body": "Daydream packet for cycle four. Talk only. Long lap on talk. Findings come back to the interface. Do waits.",
+  "sourceVerified": false
+}

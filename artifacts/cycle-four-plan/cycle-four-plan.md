@@ -79,5 +79,7 @@ still has no secrets.
 
 ## After
 
-Do of `talk` can start. Not before this Plan is the thing to
-react to. Do not invent a provider on the way.
+Daydream packet is `artifacts/daydream-cycle-four/`. Owner talks
+it with Claude. Findings come back here. This Plan is revised,
+then Do of `talk` runs. Cycle five is generated on the side in
+`artifacts/daydream-cycle-five/` once that Do starts.
