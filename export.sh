@@ -16,8 +16,9 @@ rm -rf "$ROOT/build/web"
 mkdir -p "$ROOT/build/web"
 "$GODOT" --headless --path "$ROOT" --export-release Web "$ROOT/build/web/index.html"
 
-# Cloudflare Pages rejects files over 25 MiB. Serve gzipped wasm/pck with a
-# Content-Encoding header instead of shrinking the engine.
+# Godot wasm is over the 25 MiB asset cap. Gzip the file on disk.
+# Do not advertise Content-Encoding here: Workers would gzip it again
+# and tablets freeze on the splash. workers/serve.mjs serves it once.
 python3 - "$ROOT/build/web" << 'PY'
 from pathlib import Path
 import gzip
@@ -37,16 +38,16 @@ for path in sorted(root.iterdir()):
             shutil.copyfileobj(src, dst)
         gz.replace(path)
         print(f"gzipped {path.name} -> {path.stat().st_size} bytes")
+    if path.suffix == ".wasm":
         headers += [
             f"/{path.name}",
-            "  Content-Encoding: gzip",
-            "  Cache-Control: public, max-age=3600",
+            "  Content-Type: application/wasm",
+            "  Cache-Control: public, max-age=0, must-revalidate, no-transform",
             "",
         ]
-    if path.suffix == ".wasm":
-        headers += [f"/{path.name}", "  Content-Type: application/wasm", ""]
 (root / "_headers").write_text("\n".join(headers).rstrip() + "\n", encoding="utf-8")
 print("wrote", root / "_headers")
 PY
+python3 "$ROOT/scripts/patch_web_export.py" "$ROOT/build/web/index.js"
 echo "export ok: $ROOT/build/web"
 ls -lh "$ROOT/build/web"

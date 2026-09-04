@@ -10,7 +10,8 @@ Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
 worker `dord` (apex / www).
 
 The first weave is this window: a black screen. The interface track
-holds one settings gear, bottom-right, subdued gray. Cards are off.
+holds one settings gear, bottom-right, subdued gray. The gear opens
+the loadout. Cards are off.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in
@@ -19,9 +20,11 @@ that produced it points across at the file. Validate with the four
 checkers in `loom-warp`.
 
 The render loop is PDCA. A spec is the plan step of a turn, not a
-plan of its own. Cycle two Plan is `plans/cycle-two`. The Do is
-`first-screen`: black backdrop, no card forms, settings gear on the
-interface track.
+plan of its own. Cycle three Do is `loadout`. Chat, speech, and hear
+are set after deploy, not in the base. Save stays on that browser.
+Export writes a file; import brings it back after a wipe. No vendor.
+The Do includes commit and push. Check waits until the commit is on
+the remote. The owner reviews from a tablet.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 

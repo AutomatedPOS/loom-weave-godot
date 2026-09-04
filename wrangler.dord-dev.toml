@@ -1,11 +1,14 @@
 # Weave only. Do not wrangler pages deploy.
 # Do not point this file at dord.dev / www — those are worker dord.
+# custom_domain stays on the worker already. This token can upload
+# scripts, not zone routes.
 name = "dord-dev"
+main = "workers/serve.mjs"
 compatibility_date = "2026-09-03"
+workers_dev = false
+preview_urls = false
 
 [assets]
 directory = "./build/web"
-
-[[routes]]
-pattern = "loom.dord.dev"
-custom_domain = true
+binding = "ASSETS"
+run_worker_first = ["/index.wasm"]

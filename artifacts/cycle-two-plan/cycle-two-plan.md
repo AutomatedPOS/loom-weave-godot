@@ -45,6 +45,9 @@ This repo's operation seat is the interface for cycle two.
 - Files findings in `artifacts/findings/`.
 - The Do runs from the cloud agent. The owner does not sit at the
   desktop for this turn.
+- The Do includes commit and push. The owner sees the turn from a
+  tablet. Unpushed work is invisible. Check waits until the commit
+  is on the remote. Issue: `issues/do-includes-push`.
 
 ## Success bar
 
@@ -55,5 +58,5 @@ just-did line, status line, or paper card is a fail.
 
 ## After
 
-The first screen is ruled. Later turns can put content back on slots
-or open what the gear means. Not before this Check.
+The first screen is ruled. Act closed 2026-09-03: owner confirmed
+the live weave on a tablet. Cycle three Plan is the loadout.

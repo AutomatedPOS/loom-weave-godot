@@ -1,7 +1,7 @@
 class_name SettingsGear
-extends Control
+extends Button
 
-## Interface-track chrome. A settings cog, nothing else.
+## Interface-track chrome. A settings cog. Opens the loadout.
 const INK := Color(0.68, 0.68, 0.70, 1)
 const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const TEETH := 8
@@ -10,8 +10,15 @@ var _hover := false
 
 
 func _ready() -> void:
+	flat = true
+	focus_mode = Control.FOCUS_NONE
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var empty := StyleBoxEmpty.new()
+	add_theme_stylebox_override("normal", empty)
+	add_theme_stylebox_override("hover", empty)
+	add_theme_stylebox_override("pressed", empty)
+	add_theme_stylebox_override("focus", empty)
 	mouse_entered.connect(_on_enter)
 	mouse_exited.connect(_on_exit)
 
