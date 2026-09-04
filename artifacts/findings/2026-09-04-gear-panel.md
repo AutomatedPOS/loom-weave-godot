@@ -4,6 +4,9 @@ Date: 2026-09-04. Seat: Claude Code, cloud session. Branch
 `claude/interface-files-organization-5hfvis`. Owner sitting outside.
 Check is tablet refresh on `loom.dord.dev` after merge and deploy.
 
+Later beats: Grok, cloud agent
+`bc-be1797ae-e3f0-4168-b159-724603a018b9`, from the Cursor handoff.
+
 ## Beats
 
 ### 2026-09-04 — Read pass
@@ -74,3 +77,34 @@ stays as a guard.
 `first_screen_smoke`, `loadout_smoke`, `theme_smoke` exit zero.
 After captures beside the plan. Pushed to the branch. PR to the
 owner. No merge from this seat.
+
+### 2026-09-04 — 3.1 smokes and window
+
+Handoff check on a branch off PR #10. All three smokes print SMOKE
+and exit 0. Native window: black field, one gray gear bottom-right,
+panel opens above the gear. Save of `abc` reads `saved on this
+browser. chat endpoint has no http:// or https://`. Save of
+`https://example.invalid/v1` reads `saved on this browser`. Typed
+text survives close then open. Escape did not close while a
+LineEdit had focus; `_input` replaces `_unhandled_input`. Recheck:
+Escape closes.
+
+### 2026-09-04 — 3.2 web Import
+
+`./export.sh` wrote `build/web/`. Served locally with COOP/COEP and
+`Content-Encoding: gzip` on the on-disk wasm. Chrome opened the
+file picker from Import, filled chat endpoint and model, status
+`imported. Save to keep it on this browser.` Safari is not on this
+Linux seat. Nothing was deployed.
+
+### 2026-09-04 — 3.3 capture flip
+
+`weave/capture.gd` flips only when the gear rect (INSET, GEAR_SIZE)
+has no ink. Under Xvfb + opengl3 the image was already upright.
+Copy: `artifacts/gear-panel-plan/after-capture-upright.png`.
+
+### 2026-09-04 — 3.4 ThreadCard
+
+`weave/ThreadCard.gd` is referenced by nothing and still carries
+its own palette. Not deleted. Waiting on Seth: delete it, or keep
+it for the parked card view. `TreeLoader.gd` left alone.

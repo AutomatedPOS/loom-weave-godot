@@ -99,6 +99,25 @@ func _scene_checks(b: Loadout) -> void:
 		push_error("panel did not show the saved endpoint")
 		quit(1)
 		return
+	shown.text = "abc"
+	panel._on_save()
+	if panel.status_text() != "saved on this browser. chat endpoint has no http:// or https://":
+		push_error("bare endpoint status is %s" % panel.status_text())
+		quit(1)
+		return
+	shown.text = "https://example.invalid/v1"
+	panel._on_save()
+	if panel.status_text() != "saved on this browser":
+		push_error("schemed endpoint status is %s" % panel.status_text())
+		quit(1)
+		return
+	shown.text = "keep-me"
+	panel.close()
+	panel.open()
+	if panel.field_edit("chat", "endpoint").text != "keep-me":
+		push_error("typed text did not survive toggle")
+		quit(1)
+		return
 	panel.close()
 	if panel.visible:
 		push_error("panel did not close")

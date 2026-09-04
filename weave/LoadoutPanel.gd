@@ -42,12 +42,17 @@ func close() -> void:
 	_note("")
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
 	if event.is_action_pressed(&"ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
+
+
+## Status line under the buttons. Public for the smoke test.
+func status_text() -> String:
+	return _status.text if _status else ""
 
 
 ## The field for one capability and field name. Public for the smoke test.
