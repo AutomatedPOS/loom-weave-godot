@@ -7,7 +7,7 @@
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/Monitor.gd",
   "body": "First visible monitor. Path spine, PDCA line, this repo's tree, read-only node detail. Gear and loadout stay.",
-  "next": "Owner Check: look at the window. Spine and PDCA line should name loadout CHECK, gear-panel CHECK, and monitor DO.",
+  "next": "Owner Check: hard refresh loom.dord.dev. Spine 01 LOOM-WEAVE-GODOT / 02 MONITOR. Right end GEAR-PANEL · CHECK, LOADOUT · CHECK, MONITOR · DO. Tap SPECS. Gear, Paste a key, Save, refresh, it is still there.",
   "props": [
     {
       "name": "pdca",

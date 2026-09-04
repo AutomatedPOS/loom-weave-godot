@@ -10,9 +10,10 @@ Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
 worker `dord` (apex / www).
 
 The first weave is this window: a black backdrop, the monitor on
-it, and one settings gear bottom-right. The monitor is read-only:
-path spine, PDCA line, this repo's tree. The gear opens the
-loadout. Cards stay off.
+it, and one settings gear bottom-right. The monitor is a transit
+map: spine on top, tree in the middle, placard bottom left.
+Click to focus. Read only. The gear opens the loadout. Cards
+stay off.
 
 Every colour, size, and font size the interface uses is a token in
 `weave/theme/Tokens.gd`. `weave/theme/LoomTheme.gd` builds the one

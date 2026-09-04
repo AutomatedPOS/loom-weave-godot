@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "First visible monitor rejected. Grok barred from the interface. Handoff zip for Cloud Code: paste credentials (cycle three hole) then restyle the monitor.",
-  "next": "Cloud Code / Claude Code takes weave/. Paste first. Monitor look second. Hand back to Grok for deploy. Owner Check is a hard refresh.",
+  "justDid": "Cloud Code hand-back taken. Paste and monitor restyle landed as written. Not restyled here. Deploy to dord-dev is this sitting.",
+  "next": "Owner hard refresh on loom.dord.dev. Paste a key. Tap SPECS. That is Check for loadout and monitor.",
   "sourceVerified": false
 }
