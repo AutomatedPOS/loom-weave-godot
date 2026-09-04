@@ -5,7 +5,7 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Act closed. Owner accepted loadout and monitor. Merging this loop. Next Do is tablet-credential-keyboard.",
-  "next": "Do of tablet-credential-keyboard. Tap on tablet Chrome must open the keyboard so a key can be typed.",
+  "justDid": "Do of tablet-credential-keyboard: web IME overlay. A tap focuses a real page input so the tablet keyboard opens.",
+  "next": "Owner Check on a tablet. Tap a credential. Keyboard must come up. Type a key. Save.",
   "sourceVerified": false
 }

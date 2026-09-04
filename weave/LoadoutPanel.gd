@@ -21,6 +21,12 @@ var _web_paste: JavaScriptObject
 var _web_paste_text_cb: JavaScriptObject
 var _web_paste_fail_cb: JavaScriptObject
 
+# Web IME: a real <input> over the focused field so the tablet
+# keyboard opens. Godot's canvas LineEdit selects and does not type.
+var _web_ime: JavaScriptObject
+var _web_ime_text_cb: JavaScriptObject
+var _ime_edit: LineEdit
+
 const PASTED := "pasted. Save to keep it on this browser."
 const PASTE_EMPTY := "clipboard is empty"
 const PASTE_BLOCKED := "paste blocked by the browser. tap Paste again, or long-press a field."
@@ -35,6 +41,7 @@ func _ready() -> void:
 	_reload_from_store()
 	if _is_web():
 		_web_paste_setup()
+		_web_ime_setup()
 
 
 func toggle() -> void:
@@ -51,6 +58,7 @@ func open() -> void:
 
 func close() -> void:
 	visible = false
+	_web_ime_hide()
 	_note("")
 
 
@@ -84,6 +92,8 @@ func _place() -> void:
 	offset_top = -(h + bottom)
 	offset_right = -inset
 	offset_bottom = -bottom
+	if _ime_edit:
+		_web_ime_show(_ime_edit)
 
 
 func _reload_from_store() -> void:
@@ -133,7 +143,9 @@ func _build() -> void:
 		col.add_child(section)
 		_sections[cap] = section
 		for field in Loadout.FIELDS:
-			section.edit(field).gui_input.connect(_on_edit_input)
+			var e := section.edit(field)
+			e.gui_input.connect(_on_edit_input.bind(e))
+			e.focus_entered.connect(_web_ime_show.bind(e))
 
 
 func _label(text: String, variation: StringName) -> Label:
@@ -277,6 +289,7 @@ func paste_text(text: String) -> void:
 		target.text = clean
 		target.grab_focus()
 		target.caret_column = target.text.length()
+	_web_ime_show(target)
 	_note(PASTED)
 
 
@@ -302,11 +315,23 @@ func _on_paste() -> void:
 ## Godot's web LineEdit pastes a stale copy of the clipboard on
 ## Ctrl/Cmd+V. The browser paste event carries the real text, so on
 ## web that event feeds paste_text and the built-in action is dropped.
-func _on_edit_input(event: InputEvent) -> void:
+## A tap selects the field and does not open the tablet keyboard;
+## that same gesture attaches a real page input over the field.
+func _on_edit_input(event: InputEvent, edit: LineEdit) -> void:
 	if not _is_web():
 		return
 	if event is InputEventKey and event.is_action(&"ui_paste") and event.is_pressed():
 		accept_event()
+		return
+	if not visible:
+		return
+	var tap := false
+	if event is InputEventScreenTouch and event.pressed:
+		tap = true
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		tap = true
+	if tap:
+		_web_ime_show(edit)
 
 
 static func _is_web() -> bool:
@@ -393,6 +418,114 @@ func _on_web_paste_fail(_args: Array) -> void:
 	if not visible:
 		return
 	_note(PASTE_BLOCKED)
+
+
+# --- web IME: real <input> so a tablet tap opens the keyboard ---------------
+#
+# The canvas LineEdit takes focus and draws a caret. Chrome on a
+# tablet does not open the virtual keyboard for a canvas. A page
+# <input> focused in the same tap does. Font size 16px; smaller
+# and mobile Chrome zooms or refuses the keyboard. The input sits
+# on the field. Keystrokes never get logged.
+
+const WEB_IME_JS := """
+(function () {
+	if (window.loomIme) { return; }
+	var input = document.createElement("input");
+	input.autocomplete = "off";
+	input.autocorrect = "off";
+	input.autocapitalize = "none";
+	input.spellcheck = false;
+	input.style.position = "fixed";
+	input.style.zIndex = "2147483647";
+	input.style.border = "none";
+	input.style.outline = "none";
+	input.style.padding = "0 8px";
+	input.style.margin = "0";
+	input.style.borderRadius = "0";
+	input.style.fontSize = "16px";
+	input.style.fontFamily = "sans-serif";
+	input.style.left = "-9999px";
+	input.style.top = "0";
+	input.style.width = "1px";
+	input.style.height = "1px";
+	document.body.appendChild(input);
+	var p = { onText: null };
+	p.show = function (vx, vy, vw, vh, vpw, vph, text, secret, bg, fg) {
+		var c = document.querySelector("canvas");
+		if (!c) { return; }
+		var br = c.getBoundingClientRect();
+		var x = br.left + (vx / vpw) * br.width;
+		var y = br.top + (vy / vph) * br.height;
+		var w = (vw / vpw) * br.width;
+		var h = (vh / vph) * br.height;
+		input.style.background = bg;
+		input.style.color = fg;
+		input.style.caretColor = fg;
+		input.type = secret ? "password" : "text";
+		input.value = text || "";
+		input.style.left = x + "px";
+		input.style.top = y + "px";
+		input.style.width = Math.max(8, w) + "px";
+		input.style.height = Math.max(16, h) + "px";
+		input.focus();
+		var n = input.value.length;
+		try { input.setSelectionRange(n, n); } catch (e) {}
+	};
+	p.hide = function () {
+		input.blur();
+		input.style.left = "-9999px";
+		input.style.width = "1px";
+		input.style.height = "1px";
+	};
+	p.set = function (text) {
+		input.value = text || "";
+	};
+	input.addEventListener("input", function () {
+		if (p.onText) { p.onText(String(input.value || "")); }
+	});
+	window.loomIme = p;
+})();
+"""
+
+
+func _web_ime_setup() -> void:
+	JavaScriptBridge.eval(WEB_IME_JS, true)
+	_web_ime = JavaScriptBridge.get_interface("loomIme")
+	if _web_ime == null:
+		return
+	_web_ime_text_cb = JavaScriptBridge.create_callback(_on_web_ime_text)
+	_web_ime.onText = _web_ime_text_cb
+
+
+func _web_ime_show(edit: LineEdit) -> void:
+	if not _is_web() or _web_ime == null or not visible or edit == null:
+		return
+	_ime_edit = edit
+	var r := edit.get_global_rect()
+	var vp := get_viewport().get_visible_rect().size
+	_web_ime.show(
+		r.position.x, r.position.y, r.size.x, r.size.y,
+		vp.x, vp.y, edit.text, edit.secret,
+		_css_color(LoomTokens.WELL), _css_color(LoomTokens.INK)
+	)
+
+
+func _css_color(c: Color) -> String:
+	return "#%02x%02x%02x" % [int(c.r * 255.0), int(c.g * 255.0), int(c.b * 255.0)]
+
+
+func _web_ime_hide() -> void:
+	_ime_edit = null
+	if _web_ime:
+		_web_ime.hide()
+
+
+func _on_web_ime_text(args: Array) -> void:
+	if _ime_edit == null or not visible:
+		return
+	_ime_edit.text = str(args[0]) if args.size() > 0 else ""
+	_ime_edit.caret_column = _ime_edit.text.length()
 
 
 # --- web import: browser file picker through JavaScriptBridge ---------------

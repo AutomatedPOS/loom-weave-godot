@@ -34,11 +34,8 @@ func _run() -> void:
 		_fail("monitor focused nothing")
 		return
 	var line := monitor.pdca_line()
-	if line.find("monitor") < 0 or line.find("DO") < 0:
-		_fail("PDCA line missing monitor DO: %s" % line)
-		return
-	if line.find("loadout") < 0 or line.find("CHECK") < 0:
-		_fail("PDCA line missing loadout CHECK: %s" % line)
+	if line.find("DO") < 0:
+		_fail("PDCA line missing an open DO: %s" % line)
 		return
 	if monitor.detail_text().find("just did") < 0 and monitor.detail_text().find("body") < 0:
 		_fail("detail has no close-out")

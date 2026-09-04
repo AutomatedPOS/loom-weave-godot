@@ -68,3 +68,11 @@ hear, and a touch tap on Paste with no keyboard. Safari is not on
 this seat; the read happens inside the browser's own gesture, which
 is the shape Safari asks for, and a refusal shows as
 `paste blocked by the browser`. Owner tablet Check still stands.
+
+### 2026-09-04 — Tablet IME overlay
+
+Do of `tablet-credential-keyboard`. Canvas LineEdit selects
+and does not open Chrome's keyboard. A page `<input>` is
+placed on the field in the same tap, 16px type, password
+when the field is secret. Text syncs back. Nothing logs
+the key. Desktop native unchanged. Check is a tablet tap.
