@@ -57,5 +57,15 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	print("SMOKE first-screen black + monitor + gear")
+	if monitor.visible:
+		push_error("monitor is still on the window")
+		quit(1)
+		return
+	var canvas := main.get_node_or_null("Interface/Canvas")
+	if canvas == null or not canvas.visible:
+		push_error("no visible Interface/Canvas")
+		quit(1)
+		return
+
+	print("SMOKE first-screen black + canvas + gear")
 	quit(0)

@@ -1,6 +1,7 @@
 extends Control
 
-## First screen. Black backdrop. Monitor is the read-only view.
+## First screen. Black backdrop. The canvas is the read-only view;
+## the monitor stays in the scene, hidden, until the owner strikes it.
 ## Gear opens the loadout. Hands the interface Theme to every
 ## Control on the Interface layer. A CanvasLayer stops Theme
 ## propagation, so each root there gets it.
