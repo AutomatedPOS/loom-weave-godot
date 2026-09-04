@@ -35,3 +35,10 @@ without a scroll.
 `./deploy-weave.sh` uploaded worker `dord-dev`. Version
 `4d4b2cb2`. Apex left alone. Hard refresh on `loom.dord.dev` is
 the Check.
+
+### 2026-09-04 — Seat Check on the live weave
+
+This seat opened `https://loom.dord.dev/`. Black field, gear
+bottom-right, no cards, no bar, no chat. Gear opened the loadout.
+Dummy chat endpoint and model saved. Hard refresh kept them. No
+vendor on screen. Owner tablet Check still stands.
