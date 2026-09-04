@@ -1,0 +1,12 @@
+{
+  "guid": "bfb0d48a-9816-40c3-bf29-4760ef44b225",
+  "name": "plans-gear-panel",
+  "type": "plan",
+  "actualStart": "2026-09-04",
+  "actualEnd": "2026-09-04",
+  "state": "done",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/gear-panel-plan/gear-panel-plan.md",
+  "body": "Refinement pass on the interface track. Plan step: one token source for every colour, size, and font size the gear and loadout use; one Theme built from it; the capability block as a component; a theme smoke test. Same screen, same behaviour.",
+  "sourceVerified": false
+}

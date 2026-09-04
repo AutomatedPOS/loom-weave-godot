@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="Inter, system-ui, sans-serif">
+<rect width="900" height="640" fill="#0A0A0B"/>
+<text x="32" y="44" fill="#ADADB2" font-size="20">loom-weave-godot · interface tokens</text>
+<text x="32" y="66" fill="#6B6B70" font-size="12">source: weave/theme/Tokens.gd · applied by weave/theme/LoomTheme.gd</text>
+<text x="32" y="100" fill="#6B6B70" font-size="12">colour</text>
+<rect x="32" y="112" width="104" height="56" fill="#000000" fill-opacity="1.0" stroke="#38383D"/>
+<text x="32" y="186" fill="#ADADB2" font-size="12">BACKDROP</text>
+<text x="32" y="202" fill="#6B6B70" font-size="11">#000000</text>
+<rect x="150" y="112" width="104" height="56" fill="#0A0A0B" fill-opacity="0.96" stroke="#38383D"/>
+<text x="150" y="186" fill="#ADADB2" font-size="12">SURFACE</text>
+<text x="150" y="202" fill="#6B6B70" font-size="11">#0A0A0B @96%</text>
+<rect x="268" y="112" width="104" height="56" fill="#1A1A1C" fill-opacity="1.0" stroke="#38383D"/>
+<text x="268" y="186" fill="#ADADB2" font-size="12">WELL</text>
+<text x="268" y="202" fill="#6B6B70" font-size="11">#1A1A1C</text>
+<rect x="386" y="112" width="104" height="56" fill="#38383D" fill-opacity="1.0" stroke="#38383D"/>
+<text x="386" y="186" fill="#ADADB2" font-size="12">EDGE</text>
+<text x="386" y="202" fill="#6B6B70" font-size="11">#38383D</text>
+<rect x="504" y="112" width="104" height="56" fill="#6B6B70" fill-opacity="1.0" stroke="#38383D"/>
+<text x="504" y="186" fill="#ADADB2" font-size="12">DIM</text>
+<text x="504" y="202" fill="#6B6B70" font-size="11">#6B6B70</text>
+<rect x="622" y="112" width="104" height="56" fill="#ADADB2" fill-opacity="1.0" stroke="#38383D"/>
+<text x="622" y="186" fill="#ADADB2" font-size="12">INK</text>
+<text x="622" y="202" fill="#6B6B70" font-size="11">#ADADB2</text>
+<rect x="740" y="112" width="104" height="56" fill="#C7C7CC" fill-opacity="1.0" stroke="#38383D"/>
+<text x="740" y="186" fill="#ADADB2" font-size="12">INK_HOVER</text>
+<text x="740" y="202" fill="#6B6B70" font-size="11">#C7C7CC</text>
+<text x="32" y="240" fill="#6B6B70" font-size="12">type · Godot default font, no family named</text>
+<text x="32" y="274" fill="#ADADB2" font-size="18">loadout TEXT_LG 18px</text>
+<text x="400" y="274" fill="#6B6B70" font-size="11">TitleLabel</text>
+<text x="32" y="314" fill="#ADADB2" font-size="14">loadout TEXT_MD 14px</text>
+<text x="400" y="314" fill="#6B6B70" font-size="11">Label · LineEdit · Button</text>
+<text x="32" y="354" fill="#ADADB2" font-size="12">loadout TEXT_SM 12px</text>
+<text x="400" y="354" fill="#6B6B70" font-size="11">MutedLabel</text>
+<text x="32" y="400" fill="#6B6B70" font-size="12">spacing</text>
+<rect x="32" y="414" width="12" height="12" fill="#1A1A1C" stroke="#38383D"/>
+<text x="32" y="510" fill="#ADADB2" font-size="12">SPACE_1</text>
+<text x="32" y="526" fill="#6B6B70" font-size="11">4px</text>
+<rect x="142" y="414" width="24" height="24" fill="#1A1A1C" stroke="#38383D"/>
+<text x="142" y="510" fill="#ADADB2" font-size="12">SPACE_2</text>
+<text x="142" y="526" fill="#6B6B70" font-size="11">8px</text>
+<rect x="252" y="414" width="36" height="36" fill="#1A1A1C" stroke="#38383D"/>
+<text x="252" y="510" fill="#ADADB2" font-size="12">SPACE_3</text>
+<text x="252" y="526" fill="#6B6B70" font-size="11">12px</text>
+<rect x="362" y="414" width="48" height="48" fill="#1A1A1C" stroke="#38383D"/>
+<text x="362" y="510" fill="#ADADB2" font-size="12">SPACE_4</text>
+<text x="362" y="526" fill="#6B6B70" font-size="11">16px</text>
+<rect x="472" y="414" width="72" height="72" fill="#1A1A1C" stroke="#38383D"/>
+<text x="472" y="510" fill="#ADADB2" font-size="12">SPACE_5</text>
+<text x="472" y="526" fill="#6B6B70" font-size="11">24px</text>
+<text x="600" y="400" fill="#6B6B70" font-size="12">sizes</text>
+<text x="600" y="420" fill="#ADADB2" font-size="11">BORDER</text>
+<text x="740" y="420" fill="#6B6B70" font-size="11">1px</text>
+<text x="600" y="436" fill="#ADADB2" font-size="11">CONTROL_H</text>
+<text x="740" y="436" fill="#6B6B70" font-size="11">36px</text>
+<text x="600" y="452" fill="#ADADB2" font-size="11">BUTTON_MIN_W</text>
+<text x="740" y="452" fill="#6B6B70" font-size="11">88px</text>
+<text x="600" y="468" fill="#ADADB2" font-size="11">GEAR_SIZE</text>
+<text x="740" y="468" fill="#6B6B70" font-size="11">32px</text>
+<text x="600" y="484" fill="#ADADB2" font-size="11">INSET</text>
+<text x="740" y="484" fill="#6B6B70" font-size="11">16px</text>
+<text x="600" y="500" fill="#ADADB2" font-size="11">PANEL_W</text>
+<text x="740" y="500" fill="#6B6B70" font-size="11">384px</text>
+<text x="600" y="516" fill="#ADADB2" font-size="11">PANEL_H_MAX</text>
+<text x="740" y="516" fill="#6B6B70" font-size="11">760px</text>
+<polygon points="815.0,129.1 816.1,119.5 823.9,119.5 825.0,129.1 831.2,131.7 838.8,125.7 844.3,131.2 838.3,138.8 840.9,145.0 850.5,146.1 850.5,153.9 840.9,155.0 838.3,161.2 844.3,168.8 838.8,174.3 831.2,168.3 825.0,170.9 823.9,180.5 816.1,180.5 815.0,170.9 808.8,168.3 801.2,174.3 795.7,168.8 801.7,161.2 799.1,155.0 789.5,153.9 789.5,146.1 799.1,145.0 801.7,138.8 795.7,131.2 801.2,125.7 808.8,131.7" fill="#ADADB2"/>
+<circle cx="820" cy="150" r="8.6" fill="#000000"/>
+<text x="820" y="208" fill="#6B6B70" font-size="11" text-anchor="middle">SettingsGear · 8 teeth · ink on backdrop</text>
+<text x="32" y="616" fill="#6B6B70" font-size="11">Generated from Tokens.gd by the gear-panel pass. Regenerate if a token changes.</text>
+</svg>
