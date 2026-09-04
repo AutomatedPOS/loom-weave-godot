@@ -39,5 +39,11 @@ func _init() -> void:
 		quit(1)
 		return
 
+	var panel := main.get_node_or_null("Interface/Panel")
+	if panel != null and panel.visible:
+		push_error("loadout panel is on the first screen")
+		quit(1)
+		return
+
 	print("SMOKE first-screen black + gear")
 	quit(0)

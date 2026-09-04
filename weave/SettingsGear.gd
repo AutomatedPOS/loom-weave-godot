@@ -1,7 +1,9 @@
 class_name SettingsGear
 extends Control
 
-## Interface-track chrome. A settings cog, nothing else.
+## Interface-track chrome. A settings cog. Opens the loadout.
+signal pressed
+
 const INK := Color(0.68, 0.68, 0.70, 1)
 const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const TEETH := 8
@@ -24,6 +26,12 @@ func _on_enter() -> void:
 func _on_exit() -> void:
 	_hover = false
 	queue_redraw()
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		pressed.emit()
+		accept_event()
 
 
 func _draw() -> void:

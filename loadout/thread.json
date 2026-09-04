@@ -2,8 +2,10 @@
   "guid": "7af09ba9-80da-4a35-8067-77dc2226d82f",
   "name": "loadout",
   "type": "workItem",
+  "actualStart": "2026-09-04",
   "state": "open",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
-  "body": "Cycle three Do. Waits on the plan. Gear opens configuration for chat, TTS, and transcription. Save locally. Export and import a loadout file. No secrets in the deploy.",
+  "representedBy": "../weave/LoadoutPanel.gd",
+  "body": "Cycle three Do. Gear opens configuration for chat, speech, and hear. Save locally. Export and import a loadout file. No secrets in the deploy. No vendor.",
   "sourceVerified": false
 }
