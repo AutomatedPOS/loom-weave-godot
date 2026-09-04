@@ -1,0 +1,73 @@
+# Findings — canvas plumbing
+
+Date: 2026-09-04. Seat: Grok, cloud agent. Packet
+`canvas-plumbing`. `weave/` not touched. Painting is the other
+half.
+
+## Beats
+
+### 2026-09-04 — Packet landed
+
+Spec, walk findings, and `plans/canvas/` at the paths the packet
+named. Cycle four Plan is `artifacts/canvas-plan/`. Do is
+`canvas-plumbing`.
+
+### 2026-09-04 — Primitives, not invented
+
+Instructional and actionable already sit on Dietz
+informa/performa, Gery instruction/performance, Searle
+assertive/directive, and OPM enable/transform. Malone's
+Create/Destroy/Modify/Preserve specialise actionable. Dietz forma
+is the one extra kind the literature insists on; it was not added.
+It may be the tools rail. Spec OPEN 1 stays open.
+
+### 2026-09-04 — Three rosters in the tree
+
+Parents at `rosters/personas`, `rosters/processes`, `rosters/tools`.
+Address is guid. Personas: Brains, Archivus, Fixer. The only
+process child is `brief`, which the owner named. Tools has no
+children. WALK, CLOSE, CAPTURE, TREE, CHECKERS are not nodes.
+
+### 2026-09-04 — Pipe binds, it does not talk
+
+`bind(persona_guid, loadout)` needs the guid on the personas rail
+and a chat endpoint. The binding is `{ persona, cap: "chat" }`.
+Credential stays in the loadout. No HTTP client. Inbox address
+format is OPEN.
+
+### 2026-09-04 — Shape is a query
+
+Allowlist: windows, attachments, slots, asks. Refill at T reads
+the dated tree and does not write back. A body, a child list, a
+transcript, or a credential in a shape fails
+`scripts/test_canvas_model.py`. Twenty-five tests, all green.
+Hours on the timeline do not change the read: nodes are UTC days.
+
+### 2026-09-04 — Interface, left for painting
+
+- Rails read children of the three roster parents, by the `roster`
+  prop, not by folder name.
+- Save of a shape wants the same two stores as loadout:
+  `user://` on the browser, export a file. That is a `weave/`
+  change. Not done.
+- TreeLoader will now show the roster nodes on the monitor. They
+  are real. Do not hide them by editing `weave/`.
+- GDScript port of `scripts/canvas_model.py` waits until this
+  seat may touch the engine side of the window.
+
+## Owed, still
+
+Spec OPEN 3, 4, 5. Inbox format. Authored processes besides brief.
+Any tool. Time of day. Whether talk persists (under the current
+rule it does not).
+
+## Close-out
+
+- **justDid**: Plan plus plumbing Do. Primitives researched. Rosters
+  in the tree. Pipe, attachment, shape, refill, tests.
+- **next**: Owner Check. Painting reads the guids. No deploy; the
+  window did not change.
+- **waitingOn**: The owner on the OPEN list.
+- **generic**: A view that must not go stale abstracts to a query:
+  store which panes, which attachments, which asks; refill from
+  the dated source at T; never copy the rows into the saved view.

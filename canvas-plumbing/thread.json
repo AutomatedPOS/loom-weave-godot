@@ -1,0 +1,20 @@
+{
+  "guid": "1567208a-8f28-4a5d-b239-68a814499e72",
+  "name": "canvas-plumbing",
+  "type": "workItem",
+  "actualStart": "2026-09-04",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../artifacts/canvas-plumbing/canvas-plumbing.md",
+  "body": "Cycle four Do, plumbing half. Rosters in the tree, persona bind through the loadout, attachment, shape as query, timeline refill. weave/ not touched.",
+  "justDid": "Landed the contract and a query-only shape store with refill tests. Three personas and brief are in the tree. Tools roster is empty on purpose.",
+  "next": "Owner Check. Painting reads the roster guids. GDScript port of the shape store waits on weave/ being allowed.",
+  "waitingOn": "Owner on the OPEN list. Painting of the first screen.",
+  "props": [
+    {
+      "name": "pdca",
+      "value": "check"
+    }
+  ],
+  "sourceVerified": false
+}

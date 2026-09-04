@@ -1,0 +1,10 @@
+{
+  "guid": "7ef39f2a-7c5b-4960-ae81-a6fd86646483",
+  "name": "rosters",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "body": "The three input rails. Children are the persona, process, and tool catalogues. A rail item is addressed by guid. The roster is a source, not a queue.",
+  "sourceVerified": false
+}

@@ -1,0 +1,20 @@
+{
+  "guid": "4a5e6c6b-60bc-423f-8342-010fa057346d",
+  "name": "rosters-processes-brief",
+  "type": "scopeItem",
+  "actualStart": "2026-09-04",
+  "state": "active",
+  "isPartOf": "e498b6ff-9124-4888-926b-146b2367c676",
+  "body": "Brief is a verb. Actionable: runs against an object and reports. Instruction arrives when a persona is attached. Runtime is acts and scenes.",
+  "props": [
+    {
+      "name": "rail",
+      "value": "process"
+    },
+    {
+      "name": "kind",
+      "value": "actionable"
+    }
+  ],
+  "sourceVerified": false
+}

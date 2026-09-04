@@ -1,0 +1,15 @@
+{
+  "guid": "c513761e-1f5a-4cef-9267-a12b79b55b93",
+  "name": "specs-process-primitives",
+  "type": "workItem",
+  "actualStart": "2026-09-04",
+  "actualEnd": "2026-09-04",
+  "state": "done",
+  "isPartOf": "74e67341-176d-4a0c-81af-d018cbfd5baa",
+  "representedBy": "../../artifacts/process-primitives/process-primitives.md",
+  "body": "Process primitives research. Existing taxonomies first. Two kinds named by the owner already written down. Spec OPEN 1 not closed.",
+  "justDid": "Read the well-trodden sets. Landed the reading. Did not invent a third kind.",
+  "next": "Rails build against instructional and actionable. Specialisations wait.",
+  "waitingOn": "Owner: are the two kinds exhaustive, or is forma a third process kind, or is forma the tools rail?",
+  "sourceVerified": false
+}

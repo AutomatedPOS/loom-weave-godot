@@ -30,11 +30,18 @@ that produced it points across at the file. Validate with the four
 checkers in `loom-warp`.
 
 The render loop is PDCA. A spec is the plan step of a turn, not a
-plan of its own. Cycle three Do is `loadout`. Chat, speech, and hear
-are set after deploy, not in the base. Save stays on that browser.
-Export writes a file; import brings it back after a wipe. No vendor.
-The Do includes commit and push. Check waits until the commit is on
-the remote. The owner reviews from a tablet.
+plan of its own. Cycle four Plan is the canvas: a surface the owner
+composes on, with the model beside him. Plumbing is
+`canvas-plumbing`. Painting is the other half and is not this
+seat. A saved shape is a query, not a snapshot. `scripts/canvas_model.py`
+holds the contract; `python3 scripts/test_canvas_model.py` fails if
+a shape carries tree data. Nothing on the canvas writes to the tree.
+
+Cycle three Do is `loadout`. Chat, speech, and hear are set after
+deploy, not in the base. Save stays on that browser. Export writes a
+file; import brings it back after a wipe. No vendor. The Do includes
+commit and push. Check waits until the commit is on the remote. The
+owner reviews from a tablet.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 

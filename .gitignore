@@ -7,4 +7,6 @@ data/loom/
 build/
 *.translation
 *.import
+__pycache__/
+*.pyc
 

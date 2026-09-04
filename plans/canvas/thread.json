@@ -1,0 +1,15 @@
+{
+  "guid": "0baad4c5-bec7-4285-bdd2-323072e1359b",
+  "name": "plans-canvas",
+  "type": "plan",
+  "actualStart": "2026-09-04",
+  "actualEnd": "2026-09-04",
+  "state": "done",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/canvas-plan/canvas-plan.md",
+  "body": "Weaver PDCA cycle four. Plan step of the canvas: a surface the owner composes on. Plumbing is this seat. Painting is the other half. Shape is saved, never data.",
+  "justDid": "Wrote the cycle-four Plan from the canvas spec. Named the Do. Left every OPEN item open.",
+  "next": "Plumbing Do is this sitting. Painting is parallel and not this seat.",
+  "waitingOn": "Owner on the OPEN list. Painting of the first screen.",
+  "sourceVerified": false
+}
