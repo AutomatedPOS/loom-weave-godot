@@ -20,11 +20,12 @@ that produced it points across at the file. Validate with the four
 checkers in `loom-warp`.
 
 The render loop is PDCA. A spec is the plan step of a turn, not a
-plan of its own. Cycle three Do is `loadout`. Chat, speech, and hear
-are set after deploy, not in the base. Save stays on that browser.
-Export writes a file; import brings it back after a wipe. No vendor.
-The Do includes commit and push. Check waits until the commit is on
-the remote. The owner reviews from a tablet.
+plan of its own. Cycle four Plan is `plans/cycle-four`. The Do is
+`talk`. The daydream packet is `artifacts/daydream-cycle-four/`.
+Cycle five is generated on the side in
+`artifacts/daydream-cycle-five/` while four's Do runs. Keys stay
+on that browser and in the user's export file. The Do includes
+commit and push. Check waits until the commit is on the remote.
 
 Artifacts owed from the 2026-09-03 act-one walk:
 

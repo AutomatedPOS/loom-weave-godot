@@ -1,0 +1,9 @@
+{
+  "guid": "20870380-1160-4f4e-8bd5-ff28701742fe",
+  "name": "talk",
+  "type": "workItem",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "body": "Cycle four Do. Waits on the plan. After the loadout is pointed, the window can chat, speak, and hear. Keys stay local. No vendor in the base.",
+  "sourceVerified": false
+}

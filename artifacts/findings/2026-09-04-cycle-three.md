@@ -42,3 +42,24 @@ This seat opened `https://loom.dord.dev/`. Black field, gear
 bottom-right, no cards, no bar, no chat. Gear opened the loadout.
 Dummy chat endpoint and model saved. Hard refresh kept them. No
 vendor on screen. Owner tablet Check still stands.
+
+### 2026-09-04 — Act closed
+
+Owner merged PR #7. Check fine. Not happy with the loadout look.
+Parked. Next named: talk. Chat, speech, TTS, transcription. Keys
+stay on the browser and in the user's export file. Never in the
+worker. Never in a commit unless they put that file in the repo
+themselves.
+
+### 2026-09-04 — Keys do not leave the machine
+
+Save is `user://loadout.json` (this origin's storage on web).
+Export is a local download. Import is a local file read. Deploy
+uploads `build/web` only. The pck never contains `user://`.
+
+### 2026-09-04 — Overlap routine
+
+Owner talks four with Claude from
+`artifacts/daydream-cycle-four/`. Findings come back. Plan is
+revised. Do runs. While that Do runs, owner writes five in
+`artifacts/daydream-cycle-five/`. One cycle on the machine.

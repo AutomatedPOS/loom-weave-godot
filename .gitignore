@@ -5,6 +5,7 @@ trees/
 _incoming/
 data/loom/
 build/
+loadout.json
 *.translation
 *.import
 
