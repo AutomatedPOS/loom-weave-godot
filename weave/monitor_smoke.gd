@@ -34,8 +34,9 @@ func _run() -> void:
 		_fail("monitor focused nothing")
 		return
 	var line := monitor.pdca_line()
-	if line.find("DO") < 0:
-		_fail("PDCA line missing an open DO: %s" % line)
+	# A closed loop has no open PDCA word. That is valid.
+	if line != "no open PDCA" and line.find("PLAN") < 0 and line.find("DO") < 0 and line.find("CHECK") < 0 and line.find("ACT") < 0:
+		_fail("PDCA line is junk: %s" % line)
 		return
 	if monitor.detail_text().find("just did") < 0 and monitor.detail_text().find("body") < 0:
 		_fail("detail has no close-out")

@@ -90,3 +90,8 @@ stealing it. Same 16px input, same secret mask, still no
 log of the key.
 
 Live: `dord-dev` `ce9ed446-5175-4443-b555-36fa58081118`.
+
+### 2026-09-04 — Act closed
+
+Owner: happy, commit, push, merge. `tablet-credential-keyboard`
+is done. Nothing in Do.

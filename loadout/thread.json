@@ -7,7 +7,7 @@
   "state": "done",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../weave/LoadoutPanel.gd",
-  "body": "Cycle three. Gear opens chat, speech, and hear. Save, export, import. Paste control shipped. Tablet keyboard is a new issue.",
+  "body": "Cycle three. Gear opens chat, speech, and hear. Save, export, import. Paste and tablet IME shipped.",
   "justDid": "Owner accepted the loadout. Act closed.",
   "props": [
     {
