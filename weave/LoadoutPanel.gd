@@ -57,6 +57,8 @@ func toggle() -> void:
 func open() -> void:
 	visible = true
 	_web_ime_sync.call_deferred()
+	if is_inside_tree() and not get_tree().process_frame.is_connected(_web_ime_sync):
+		get_tree().process_frame.connect(_web_ime_sync, CONNECT_ONE_SHOT)
 
 
 func close() -> void:
@@ -114,6 +116,8 @@ func _build() -> void:
 
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	pad.add_child(_scroll)
 	_scroll.get_v_scroll_bar().value_changed.connect(_on_ime_scroll)
 
@@ -297,7 +301,7 @@ func paste_text(text: String) -> void:
 		target.caret_column = target.text.length()
 	_web_ime_show(target)
 	if _web_ime:
-		_web_ime.set(target.text)
+		_web_ime.setText(target.text)
 	_note(PASTED)
 
 
@@ -325,8 +329,8 @@ func _on_paste() -> void:
 ## Godot's web LineEdit pastes a stale copy of the clipboard on
 ## Ctrl/Cmd+V. The browser paste event carries the real text, so on
 ## web that event feeds paste_text and the built-in action is dropped.
-## A tap selects the field and does not open the tablet keyboard;
-## that same gesture attaches a real page input over the field.
+## A tap on a field is handled in the page (loomIme touchstart).
+## This Godot path is only a backup if that hit-test missed.
 func _on_edit_input(event: InputEvent, edit: LineEdit) -> void:
 	if not _is_web():
 		return
@@ -546,7 +550,7 @@ const WEB_IME_JS := """
 		input.style.width = "1px";
 		input.style.height = "1px";
 	};
-	p.set = function (text) { input.value = text || ""; };
+	p.setText = function (text) { input.value = text || ""; };
 	function onDown(evt) {
 		if (!p.armed) { return; }
 		if (evt.target === input) { return; }
@@ -621,13 +625,21 @@ func ime_field_ids() -> PackedStringArray:
 
 func _ime_fields() -> Array:
 	var out: Array = []
-	var clip := _scroll.get_global_rect() if _scroll else get_global_rect()
+	var clip := get_global_rect()
+	if _scroll:
+		var sr := _scroll.get_global_rect()
+		if sr.size.x >= 8.0 and sr.size.y >= 8.0:
+			clip = sr
+	var clip_ok := clip.size.x >= 8.0 and clip.size.y >= 8.0
 	for cap in Loadout.CAPS:
 		for field in Loadout.FIELDS:
 			var e := field_edit(cap, field)
 			if e == null:
 				continue
-			var vis: Rect2 = e.get_global_rect().intersection(clip)
+			var r := e.get_global_rect()
+			if r.size.x < 8.0 or r.size.y < 8.0:
+				continue
+			var vis: Rect2 = r.intersection(clip) if clip_ok else r
 			if vis.size.x < 8.0 or vis.size.y < 8.0:
 				continue
 			out.append({

@@ -244,6 +244,7 @@ func _scene_checks(b: Loadout) -> void:
 		quit(1)
 		return
 	blank.open()
+	await process_frame
 	var ids := blank.ime_field_ids()
 	if ids.find("chat/credential") < 0 or ids.find("speech/model") < 0:
 		push_error("IME field list missed a loadout edit: %s" % ", ".join(ids))
