@@ -32,6 +32,69 @@ A minimal valid theme is `meta` + `primitives`. Everything else defaults.
 
 Shipped at `weave/themes/midnight-rink.json`.
 
+```json
+{
+  "$schema": "fence.theme/v1",
+  "meta": {
+    "id": "midnight-rink",
+    "name": "Midnight Rink",
+    "author": "seth",
+    "base": "dark"
+  },
+
+  "primitives": {
+    "color": {
+      "ink-000": "#000000",
+      "ink-100": "#12141a",
+      "ink-200": "#1c1f28",
+      "ink-800": "#c7ccd8",
+      "ink-900": "#ffffff",
+      "brand-500": "#3ba7ff",
+      "warn-500": "#ffb020",
+      "danger-500": "#ff4d4d"
+    },
+    "space": [0, 4, 8, 12, 16, 24, 32, 48],
+    "radius": [0, 2, 6, 12, 999],
+    "font": {
+      "display": "Barlow Condensed",
+      "body": "Barlow",
+      "mono": "IBM Plex Mono"
+    },
+    "size": [12, 14, 16, 20, 28, 40]
+  },
+
+  "semantic": {
+    "surface.base":      "{color.ink-100}",
+    "surface.raised":    "{color.ink-200}",
+    "surface.overlay":   "{color.ink-000}",
+    "text.primary":      "{color.ink-900}",
+    "text.muted":        "{color.ink-800}",
+    "text.inverse":      "{color.ink-100}",
+    "accent.default":    "{color.brand-500}",
+    "accent.text":       "{color.ink-000}",
+    "focus.ring":        "{color.brand-500}",
+    "state.danger":      "{color.danger-500}",
+    "state.warning":     "{color.warn-500}",
+    "border.subtle":     "{color.ink-200}",
+    "radius.control":    "{radius.2}",
+    "space.gutter":      "{space.4}",
+    "font.heading":      "{font.display}",
+    "font.body":         "{font.body}"
+  },
+
+  "components": {
+    "menu.item.bg":            "{surface.base}",
+    "menu.item.bg.hover":      "{surface.raised}",
+    "menu.item.bg.selected":   "{accent.default}",
+    "menu.item.text":          "{text.primary}",
+    "menu.item.text.selected": "{accent.text}",
+    "menu.panel.bg":           "{surface.raised}",
+    "menu.panel.border":       "{border.subtle}",
+    "menu.cursor.color":       "{accent.default}"
+  }
+}
+```
+
 ---
 
 ## Rules that make it LLM-safe
