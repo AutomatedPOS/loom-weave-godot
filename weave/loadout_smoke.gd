@@ -61,9 +61,16 @@ func _init() -> void:
 		quit(1)
 		return
 
+	# Scene checks need a live tree: _enter_tree and _ready have not run
+	# inside SceneTree._init. Defer them one frame.
+	_scene_checks.call_deferred(b)
+
+
+func _scene_checks(b: Loadout) -> void:
 	var packed := load("res://weave/Main.tscn")
 	var main: Control = packed.instantiate()
 	root.add_child(main)
+	await process_frame
 	var panel := main.get_node_or_null("Interface/Panel") as LoadoutPanel
 	if panel == null:
 		push_error("no Interface/Panel")
@@ -87,7 +94,7 @@ func _init() -> void:
 		push_error("panel did not open")
 		quit(1)
 		return
-	var shown: LineEdit = panel._edit("chat", "endpoint")
+	var shown: LineEdit = panel.field_edit("chat", "endpoint")
 	if shown == null or shown.text != "https://example.invalid/v1":
 		push_error("panel did not show the saved endpoint")
 		quit(1)
@@ -99,7 +106,7 @@ func _init() -> void:
 		return
 
 	# Base install has no vendor and no secrets in res://.
-	for path in ["res://weave/Loadout.gd", "res://weave/LoadoutPanel.gd", "res://weave/Main.gd"]:
+	for path in ["res://weave/Loadout.gd", "res://weave/LoadoutPanel.gd", "res://weave/LoadoutSection.gd", "res://weave/Main.gd", "res://weave/theme/Tokens.gd", "res://weave/theme/LoomTheme.gd"]:
 		var res := FileAccess.get_file_as_string(path)
 		for word in ["OpenAI", "Anthropic", "openai", "anthropic", "api.openai"]:
 			if word in res:

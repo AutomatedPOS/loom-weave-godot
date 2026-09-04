@@ -6,12 +6,17 @@ const STORE := "user://loadout.json"
 const VERSION := 1
 const CAPS := ["chat", "speech", "hear"]
 const FIELDS := ["endpoint", "credential", "model"]
+const SECRET_FIELDS := ["credential"]
 
 var data: Dictionary = {}
 
 
 func _init() -> void:
 	data = empty_data()
+
+
+static func is_secret(field: String) -> bool:
+	return field in SECRET_FIELDS
 
 
 static func empty_cap() -> Dictionary:
@@ -52,6 +57,16 @@ func is_empty() -> bool:
 			if str(block.get(field, "")).strip_edges() != "":
 				return false
 	return true
+
+
+## Caps whose endpoint is set but does not start with http:// or https://.
+func endpoints_without_scheme() -> Array[String]:
+	var out: Array[String] = []
+	for cap in CAPS:
+		var ep := get_field(cap, "endpoint").strip_edges()
+		if ep != "" and not (ep.begins_with("http://") or ep.begins_with("https://")):
+			out.append(cap)
+	return out
 
 
 func to_text() -> String:

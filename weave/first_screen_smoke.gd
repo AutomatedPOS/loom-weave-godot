@@ -9,6 +9,12 @@ func _init() -> void:
 		return
 	var main: Control = packed.instantiate()
 	root.add_child(main)
+	# The tree is not live inside _init; wait for _ready to have run.
+	_checks.call_deferred(main)
+
+
+func _checks(main: Control) -> void:
+	await process_frame
 
 	var backdrop := main.get_node_or_null("Backdrop") as ColorRect
 	if backdrop == null:
