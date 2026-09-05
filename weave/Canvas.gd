@@ -48,6 +48,9 @@ var _bench_origin := Vector2.INF   # INF until first layout; then the tile's top
 var _holding_bench := false
 var _dragging_bench := false
 var _bench_grab := Vector2.ZERO    # press minus tile origin
+var _bench_open := false
+var _open_rect := Rect2()
+var _slot_rects: Array[Rect2] = []
 
 # Geometry, rebuilt by _layout().
 var _field := Rect2()
@@ -154,6 +157,18 @@ func bench_rect() -> Rect2:
 	return _bench_rect
 
 
+func bench_open() -> bool:
+	return _bench_open
+
+
+func bench_open_rect() -> Rect2:
+	return _open_rect if _bench_open else Rect2()
+
+
+func bench_slot_count() -> int:
+	return _slot_rects.size() if _bench_open else 0
+
+
 ## What is docked on the seat: kind -> name.
 func docked() -> Dictionary:
 	return _docked.get(seat_guid(), {}).duplicate()
@@ -210,6 +225,15 @@ func drag(from: Vector2, to: Vector2) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			if event.double_click and _bench_rect.has_point(event.position):
+				_bench_open = not _bench_open
+				_holding_bench = false
+				_dragging_bench = false
+				_press = Vector2.INF
+				_layout_bench()
+				queue_redraw()
+				accept_event()
+				return
 			_press = event.position
 			_holding_bench = _bench_rect.has_point(_press)
 			if _holding_bench:
@@ -469,6 +493,25 @@ func _layout_bench() -> void:
 	var max_y := maxf(0.0, size.y - g)
 	_bench_origin = Vector2(clampf(_bench_origin.x, 0.0, max_x), clampf(_bench_origin.y, 0.0, max_y))
 	_bench_rect = Rect2(_bench_origin, Vector2(g, g))
+	_layout_open_box()
+
+
+func _layout_open_box() -> void:
+	_slot_rects.clear()
+	_open_rect = Rect2()
+	if not _bench_open:
+		return
+	var slot := float(LoomTokens.GLYPH_TILE) * 0.5
+	var gap := float(LoomTokens.SPACE_1)
+	var pad := float(LoomTokens.SPACE_2)
+	var w := pad * 2.0 + slot * 3.0 + gap * 2.0
+	var h := pad * 2.0 + slot
+	var pos := Vector2(_bench_rect.end.x + LoomTokens.SPACE_2, _bench_rect.position.y)
+	if pos.x + w > size.x:
+		pos = Vector2(_bench_rect.position.x, _bench_rect.end.y + LoomTokens.SPACE_2)
+	_open_rect = Rect2(pos, Vector2(w, h))
+	for i in 3:
+		_slot_rects.append(Rect2(pos.x + pad + i * (slot + gap), pos.y + pad, slot, slot))
 
 
 func _load_bench_skins() -> void:
@@ -491,6 +534,7 @@ func _draw() -> void:
 		draw_string(font, Vector2(LoomTokens.INSET, LoomTokens.INSET + LoomTokens.TEXT_MD), _error, HORIZONTAL_ALIGNMENT_LEFT, -1, LoomTokens.TEXT_MD, LoomTokens.DIM)
 		return
 	_draw_bench()
+	_draw_open_box()
 
 
 ## Ancestors, outermost first. Only the innermost is one slot back and
@@ -671,6 +715,22 @@ func _draw_bench() -> void:
 	if tex == null:
 		return
 	draw_texture_rect(tex, _bench_rect, false)
+
+
+func _draw_open_box() -> void:
+	if not _bench_open:
+		return
+	_stroke(_open_rect, LoomTokens.EDGE, LoomTokens.BORDER)
+	for r in _slot_rects:
+		_draw_empty_seat(r)
+
+
+## Boxy empty seat: back and pad, stroke only. Empty means no fill.
+func _draw_empty_seat(r: Rect2) -> void:
+	var pad := Rect2(r.position.x, r.position.y + r.size.y * 0.55, r.size.x, r.size.y * 0.45)
+	var back := Rect2(r.position.x + r.size.x * 0.15, r.position.y, r.size.x * 0.70, r.size.y * 0.62)
+	_stroke(pad, LoomTokens.EDGE, LoomTokens.BORDER)
+	_stroke(back, LoomTokens.EDGE, LoomTokens.BORDER)
 
 
 ## The chip in hand during a drag, and its leader back to where it came from.

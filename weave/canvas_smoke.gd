@@ -192,5 +192,30 @@ func _run() -> void:
 		_fail("bench drag wrote a thread.json")
 		return
 
+	# Double-click opens a small box with three empty seats. Again closes.
+	var click := InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	click.double_click = true
+	click.position = canvas.bench_rect().get_center()
+	canvas._gui_input(click)
+	if not canvas.bench_open():
+		_fail("double-click did not open the bench")
+		return
+	if canvas.bench_slot_count() != 3:
+		_fail("open box is not three empty seats: %d" % canvas.bench_slot_count())
+		return
+	var box := canvas.bench_open_rect()
+	if box.size.x < LoomTokens.GLYPH_TILE or box.size.y < LoomTokens.GLYPH_TILE * 0.5:
+		_fail("open box is not a small seat row: %s" % box)
+		return
+	canvas._gui_input(click)
+	if canvas.bench_open() or canvas.bench_slot_count() != 0:
+		_fail("second double-click did not close")
+		return
+	if FileAccess.get_file_as_string("res://thread.json") != before:
+		_fail("bench open wrote a thread.json")
+		return
+
 	print("SMOKE canvas rails + seat + ports + timeline + tap + drag + bench")
 	quit(0)
