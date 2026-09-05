@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <!-- Picture first. White sheet. One empty tile. Not the close-out. Not rails. -->
+  <rect width="1440" height="900" fill="#FFFFFF"/>
+  <rect x="40" y="64" width="320" height="320" fill="none" stroke="#ADADB3" stroke-width="3"/>
+</svg>
