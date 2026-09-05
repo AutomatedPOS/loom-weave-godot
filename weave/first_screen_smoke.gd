@@ -21,8 +21,8 @@ func _checks(main: Control) -> void:
 		push_error("no Backdrop")
 		quit(1)
 		return
-	if backdrop.color != LoomTokens.BACKDROP:
-		push_error("backdrop is not black: %s" % backdrop.color)
+	if backdrop.color != LoomTokens.BLANK:
+		push_error("backdrop is not white: %s" % backdrop.color)
 		quit(1)
 		return
 
@@ -35,22 +35,45 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	var here := main.get_node_or_null("Interface/Here")
-	if here == null or not here.visible:
-		push_error("no visible Interface/Here")
+	var gear := main.get_node_or_null("Interface/Gear")
+	if gear == null:
+		push_error("no Interface/Gear")
+		quit(1)
+		return
+	if gear.get_script() == null:
+		push_error("Gear has no script")
+		quit(1)
+		return
+	if gear.visible:
+		push_error("gear is still on the window")
 		quit(1)
 		return
 
-	for name in ["Gear", "Panel", "Monitor", "Canvas"]:
-		var node := main.get_node_or_null("Interface/%s" % name)
-		if node == null:
-			push_error("no Interface/%s" % name)
-			quit(1)
-			return
-		if node.visible:
-			push_error("%s is still on the window" % name)
-			quit(1)
-			return
+	var panel := main.get_node_or_null("Interface/Panel")
+	if panel != null and panel.visible:
+		push_error("loadout panel is on the first screen")
+		quit(1)
+		return
 
-	print("SMOKE first-screen black + where-am-i")
+	var monitor := main.get_node_or_null("Interface/Monitor")
+	if monitor == null:
+		push_error("no Interface/Monitor")
+		quit(1)
+		return
+
+	if monitor.visible:
+		push_error("monitor is still on the window")
+		quit(1)
+		return
+	var canvas := main.get_node_or_null("Interface/Canvas")
+	if canvas == null:
+		push_error("no Interface/Canvas")
+		quit(1)
+		return
+	if canvas.visible:
+		push_error("canvas is still on the window")
+		quit(1)
+		return
+
+	print("SMOKE first-screen white sheet")
 	quit(0)
