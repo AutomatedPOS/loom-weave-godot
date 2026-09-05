@@ -477,15 +477,7 @@ func _load_bench_skins() -> void:
 	_bench_tex.clear()
 	for i in 4:
 		var path := "res://weave/assets/glyphs/bench_%d.png" % i
-		var bytes := FileAccess.get_file_as_bytes(path)
-		if bytes.is_empty():
-			_bench_tex.append(null)
-			continue
-		var img := Image.new()
-		if img.load_png_from_buffer(bytes) != OK:
-			_bench_tex.append(null)
-			continue
-		_bench_tex.append(ImageTexture.create_from_image(img))
+		_bench_tex.append(load(path) as Texture2D)
 
 
 func _dock_rect(kind: StringName) -> Rect2:
