@@ -162,9 +162,34 @@ func _run() -> void:
 		_fail("canvas wrote a thread.json")
 		return
 
-	# Bench glyph: one 64 tile on the field. No shell.
+	# Bench glyph: one 64 tile. Hold and drag moves it. Nothing writes.
 	if canvas.bench_rect().size != Vector2(LoomTokens.GLYPH_TILE, LoomTokens.GLYPH_TILE):
 		_fail("bench tile is not the bible 64: %s" % canvas.bench_rect())
+		return
+	var before_pos := canvas.bench_rect().position
+	var grab := canvas.bench_rect().get_center()
+	var dest := grab + Vector2(120, 80)
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	press.position = grab
+	canvas._gui_input(press)
+	var motion := InputEventMouseMotion.new()
+	motion.position = dest
+	canvas._gui_input(motion)
+	var rel := InputEventMouseButton.new()
+	rel.button_index = MOUSE_BUTTON_LEFT
+	rel.pressed = false
+	rel.position = dest
+	canvas._gui_input(rel)
+	if canvas.bench_rect().get_center().distance_to(dest) > 1.0:
+		_fail("bench did not follow the drag: %s" % canvas.bench_rect())
+		return
+	if canvas.bench_rect().position == before_pos:
+		_fail("bench stayed put")
+		return
+	if FileAccess.get_file_as_string("res://thread.json") != before:
+		_fail("bench drag wrote a thread.json")
 		return
 
 	print("SMOKE canvas rails + seat + ports + timeline + tap + drag + bench")

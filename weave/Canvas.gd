@@ -44,6 +44,10 @@ var _last_unix := 0                # the last dated day in the tree
 var _scrub := NOW                  # days from the scale's start, or NOW
 var _bench_tex: Array[Texture2D] = []
 var _bench_fill := 1               # part-filled: one bot in, two holes
+var _bench_origin := Vector2.INF   # INF until first layout; then the tile's top-left
+var _holding_bench := false
+var _dragging_bench := false
+var _bench_grab := Vector2.ZERO    # press minus tile origin
 
 # Geometry, rebuilt by _layout().
 var _field := Rect2()
@@ -207,25 +211,38 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_press = event.position
-			_held = _grab_at(_press)
-			_scrubbing = _held.is_empty() and _on_timeline(_press)
+			_holding_bench = _bench_rect.has_point(_press)
+			if _holding_bench:
+				_bench_grab = _press - _bench_rect.position
+				_held = {}
+			else:
+				_held = _grab_at(_press)
+			_scrubbing = not _holding_bench and _held.is_empty() and _on_timeline(_press)
 			if _scrubbing:
 				_scrub_to(_press.x)
 			accept_event()
 		else:
 			if _dragging:
 				_drop(event.position)
-			elif not _scrubbing and _press != Vector2.INF:
+			elif not _dragging_bench and not _scrubbing and _press != Vector2.INF:
 				tap(event.position)
 			_press = Vector2.INF
 			_held = {}
 			_dragging = false
 			_scrubbing = false
+			_holding_bench = false
+			_dragging_bench = false
 			queue_redraw()
 			accept_event()
 	elif event is InputEventMouseMotion and _press != Vector2.INF:
 		if _scrubbing:
 			_scrub_to(event.position.x)
+		elif _holding_bench:
+			if _dragging_bench or _press.distance_to(event.position) > LoomTokens.SPACE_2:
+				_dragging_bench = true
+				_bench_origin = event.position - _bench_grab
+				_layout_bench()
+				queue_redraw()
 		elif not _held.is_empty():
 			_drag_pos = event.position
 			if _dragging or _press.distance_to(event.position) > LoomTokens.SPACE_2:
@@ -446,7 +463,12 @@ func _layout_field() -> void:
 
 func _layout_bench() -> void:
 	var g := float(LoomTokens.GLYPH_TILE)
-	_bench_rect = Rect2(_field.position.x + LoomTokens.SPACE_2, _field.position.y + LoomTokens.SPACE_2, g, g)
+	if _bench_origin == Vector2.INF:
+		_bench_origin = Vector2(_field.position.x + LoomTokens.SPACE_2, _field.position.y + LoomTokens.SPACE_2)
+	var max_x := maxf(0.0, size.x - g)
+	var max_y := maxf(0.0, size.y - g)
+	_bench_origin = Vector2(clampf(_bench_origin.x, 0.0, max_x), clampf(_bench_origin.y, 0.0, max_y))
+	_bench_rect = Rect2(_bench_origin, Vector2(g, g))
 
 
 func _load_bench_skins() -> void:

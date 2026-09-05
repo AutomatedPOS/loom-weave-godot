@@ -50,6 +50,8 @@ mouse_filter = 0
 script = ExtResource("5_canvas")
 
 [node name="Gear" type="Button" parent="Interface"]
+visible = false
+mouse_filter = 2
 script = ExtResource("3_gear")
 
 [node name="Panel" type="PanelContainer" parent="Interface"]

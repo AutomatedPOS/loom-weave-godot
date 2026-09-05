@@ -36,12 +36,8 @@ func _checks(main: Control) -> void:
 		return
 
 	var gear := main.get_node_or_null("Interface/Gear")
-	if gear == null:
-		push_error("no Interface/Gear")
-		quit(1)
-		return
-	if gear.get_script() == null:
-		push_error("Gear has no script")
+	if gear != null and gear.visible:
+		push_error("gear is still on the first screen")
 		quit(1)
 		return
 
@@ -67,5 +63,5 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	print("SMOKE first-screen white + canvas + gear")
+	print("SMOKE first-screen white + canvas, no gear")
 	quit(0)
