@@ -20,16 +20,23 @@ One PDCA cycle at a time. `loom/PROCESS.md`. `loom/DESIGN-BIBLE.md`.
 
 ## Now
 
-**Glyph skins, second pass.** Loop 2026-09-05. Frames unchanged.
-Skins redrawn: sphere on capsule, cube on cube with visor, three
-stations on a rod, open-end spanner. First screen stays the close-out.
-Rails stay off.
+**Live Check: gear and loadout.** Deployed 2026-09-05 to worker
+`dord-dev` from `269adc1` (PR #25 merged into glyph-skins). Version
+`5494a440-1130-4840-af71-a2caaa88b4c8`. Hard-refresh
+`https://loom.dord.dev/`.
 
-Picture: `artifacts/findings/2026-09-05-glyph-skins.png` (Claude
-above, this pass below). Sheets:
-`artifacts/glyph-look/glyph-modes.png`.
+Expect: black field, close-out (`Here`), gear bottom-right. Gear
+opens loadout (chat / speech / hear: endpoint, credential, model).
+Paste a credential, Save. One pasted key fills empty credential
+fields. Talking to a model is not this loop.
 
-Parked: joined rails, loadout, paste, shape query. Open owner
+Canvas, monitor, and rails stay off. Skins: this pass, not Claude's.
+
+Bible: `artifacts/glyph-look/DESIGN-BIBLE.proposed.md` is the file
+to drop into `AutomatedPOS/loom`. This sitting cannot push that
+repo. Stack is not on `master`. #21 and #22 stay open.
+
+Parked: joined rails, talking to a model, shape query. Open owner
 calls stay open. `BLANK` is the pause token.
 
 Stale PRs, not the chew: #19, #17, #13, #8, #5, #9, #1.

@@ -9,10 +9,11 @@ Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
 `loom.dord.dev` only. Do not `wrangler pages deploy`. Do not deploy
 worker `dord` (apex / www).
 
-The first weave is this window: a black field, and the close-out
-of the thing that is yours. Canvas, monitor, gear, and loadout stay
-in the scene, off the window. Owner paused that look 2026-09-05.
-Smaller loops from absence. Cards stay off.
+The first weave is this window: a black field, the close-out
+of the thing that is yours, and the gear for the loadout.
+Canvas and monitor stay in the scene, off the window. Owner
+paused the painted canvas 2026-09-05. Smaller loops from
+absence. Cards stay off.
 
 Tier-one design bible (first pass, living):
 https://github.com/AutomatedPOS/loom/blob/master/DESIGN-BIBLE.md
