@@ -1,0 +1,73 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 0,
+      "steps": 24,
+      "cfg": 5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": ["4", 0],
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    },
+    "_meta": { "title": "KSampler" }
+  },
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "_meta": { "title": "Load Checkpoint" }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 4
+    },
+    "_meta": { "title": "Empty Latent Image" }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "SUBJECT — replace this line. Keep the lock in BRIEF.md.",
+      "clip": ["4", 1]
+    },
+    "_meta": { "title": "SUBJECT — describe the tile" }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "orange, amber, Valve, Portal, Aperture, Hazard Course, photoreal, photograph, 3D render, octane, cinema4d, blender, glossy, bevel, drop shadow, glow, neon, watermark, caption, title, letters, numbers, typography, words, text, logo, app icon skeuomorphic, multiple subjects, collage, clutter, ornate frame, decoration, watercolor, messy sketch, anime, portrait photo, landscape, bokeh, rainbow, yellow, gold, UI window, settings panel, screenshot, map, chart, poster, infographic layout, progress bar fill, pie chart",
+      "clip": ["4", 1]
+    },
+    "_meta": { "title": "NEGATIVE — do not edit" }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["3", 0],
+      "vae": ["4", 2]
+    },
+    "_meta": { "title": "VAE Decode" }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "loom-glyph",
+      "images": ["8", 0]
+    },
+    "_meta": { "title": "Save Image" }
+  },
+  "10": {
+    "class_type": "PreviewImage",
+    "inputs": {
+      "images": ["8", 0]
+    },
+    "_meta": { "title": "Preview" }
+  }
+}

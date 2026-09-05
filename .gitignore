@@ -9,4 +9,6 @@ build/
 *.import
 __pycache__/
 *.pyc
+tools/comfy-glyphs/.last.json
+artifacts/glyphs/raw/
 
