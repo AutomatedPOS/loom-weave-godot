@@ -62,8 +62,10 @@ label a painter needs is a drawing, not a node.
 
 ### Tools
 
-The parent exists. It has no children. The owner did not name a
-tool. An empty roster is a valid source.
+The parent exists. The owner named one tool on 2026-09-05:
+`muster mob`, at `rosters/tools/muster-mob/`. Build is
+`issues/muster-mob/`. The roster is a source, not a queue. No
+other tool is invented from this sitting.
 
 ### How a roster is read at time T
 
@@ -278,7 +280,7 @@ From this sitting, also open:
 
 - Bot-network inbox address format for the three personas.
 - Authored processes besides `brief`.
-- Any tool at all.
+- Tools besides `muster mob`. Named 2026-09-05, not built.
 - Time of day on the timeline.
 - Whether talk must persist. Under the current rule it does not:
   the canvas does not write, and a shape does not carry a

@@ -1,0 +1,16 @@
+{
+  "guid": "1f6642e4-fb27-4595-87f5-599cab643910",
+  "name": "rosters-tools-muster-mob",
+  "type": "scopeItem",
+  "actualStart": "2026-09-05",
+  "state": "active",
+  "isPartOf": "e0fcf2b0-4162-43ce-bbfd-c3b0ed1d5e17",
+  "body": "Muster is a verb. Mob is the noun, and the unslotted broadcast. First named tool. Icon not drawn. Build lives on issues/muster-mob.",
+  "props": [
+    {
+      "name": "rail",
+      "value": "tool"
+    }
+  ],
+  "sourceVerified": false
+}

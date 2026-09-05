@@ -1,0 +1,12 @@
+{
+  "guid": "891ab9a3-0ef4-4028-a971-2cdfac7d15a0",
+  "name": "jury-and-budget",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "Jury mode is opt-in, one token by default. Extra tokens on a bot answer the same prompt; one is flagged primary and compares blind (shuffled A/B/C), with selection tracked after. Cost multiplier is shown plainly. Context budget is a fill bar on the bot, not a cap: persona plus skill file against the window. Crossing it turns red; you can still cross. Demo worth keeping: the models fight it out on screen.",
+  "waitingOn": "Owner Check.",
+  "sourceVerified": false
+}

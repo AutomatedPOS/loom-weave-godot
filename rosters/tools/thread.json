@@ -5,7 +5,7 @@
   "actualStart": "2026-09-04",
   "state": "active",
   "isPartOf": "7ef39f2a-7c5b-4960-ae81-a6fd86646483",
-  "body": "Tools rail. A tool does a thing. Alone it is inert. No children: the owner has not named a tool.",
+  "body": "Tools rail. A tool does a thing. Alone it is inert. First named child is muster mob.",
   "props": [
     {
       "name": "roster",

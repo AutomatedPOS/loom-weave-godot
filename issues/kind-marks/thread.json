@@ -1,0 +1,12 @@
+{
+  "guid": "1571b66e-4cf9-42fa-bfb3-72c819d427e0",
+  "name": "kind-marks",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "Three kinds, visually distinct. Personas are low-poly humanoid robot meshes. Tools are machined housings with an icon faceplate and a nameplate. Processes are drawn as lines and nodes, not a body. Tool naming is verb then noun: icon is the verb, nameplate is the noun. No fourth kind. Tension with bible 4.3 (round human / square machine) is recorded on the spec; do not amend the bible from this issue.",
+  "waitingOn": "Owner Check. Picture before a mesh or a housing is drawn.",
+  "sourceVerified": false
+}
