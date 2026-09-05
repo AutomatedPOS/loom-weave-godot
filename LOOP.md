@@ -20,16 +20,15 @@ One PDCA cycle at a time. `loom/PROCESS.md`. `loom/DESIGN-BIBLE.md`.
 
 ## Now
 
-**Glyph skins, second pass.** Loop 2026-09-05. Frames unchanged.
-Skins redrawn: sphere on capsule, cube on cube with visor, three
-stations on a rod, open-end spanner. First screen stays the close-out.
-Rails stay off.
+**Gear is back for the loadout.** Loop 2026-09-05. Close-out stays.
+Canvas and monitor stay off. Rails stay off. Owner Check of the
+skins: this pass, not Claude's.
 
-Picture: `artifacts/findings/2026-09-05-glyph-skins.png` (Claude
-above, this pass below). Sheets:
-`artifacts/glyph-look/glyph-modes.png`.
+Bible: `artifacts/glyph-look/DESIGN-BIBLE.proposed.md` is the file
+to drop into `AutomatedPOS/loom`. This sitting cannot push that
+repo.
 
-Parked: joined rails, loadout, paste, shape query. Open owner
+Parked: joined rails, talking to a model, shape query. Open owner
 calls stay open. `BLANK` is the pause token.
 
 Stale PRs, not the chew: #19, #17, #13, #8, #5, #9, #1.

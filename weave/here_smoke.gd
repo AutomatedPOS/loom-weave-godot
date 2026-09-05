@@ -1,7 +1,8 @@
 extends SceneTree
 
 ## Here smoke. Black field, the seat's close-out, task accent on the
-## name. No rails, no ports, no child controls, nothing writes.
+## name. Gear is on for the loadout. No rails, no ports, no child
+## controls, nothing writes.
 
 
 func _fail(msg: String) -> void:
@@ -42,6 +43,15 @@ func _run() -> void:
 		_fail("close-out is empty")
 		return
 
+	var gear := main.get_node_or_null("Interface/Gear")
+	if gear == null or not gear.visible:
+		_fail("gear is off the window")
+		return
+	var panel := main.get_node_or_null("Interface/Panel")
+	if panel == null or panel.visible:
+		_fail("loadout is on the window before the gear")
+		return
+
 	var src := FileAccess.get_file_as_string("res://weave/Here.gd")
 	for word in ["add_theme_color_override", "add_theme_font_size_override", "add_theme_stylebox_override"]:
 		if word in src:
@@ -68,5 +78,5 @@ func _run() -> void:
 		_fail("here wrote a thread.json")
 		return
 
-	print("SMOKE here: black field, close-out, task accent, no rails")
+	print("SMOKE here: black field, close-out, task accent, gear on, no rails")
 	quit(0)

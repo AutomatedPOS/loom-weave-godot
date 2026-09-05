@@ -41,7 +41,13 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	for name in ["Gear", "Panel", "Monitor", "Canvas"]:
+	var gear := main.get_node_or_null("Interface/Gear")
+	if gear == null or not gear.visible:
+		push_error("gear is off the window")
+		quit(1)
+		return
+
+	for name in ["Panel", "Monitor", "Canvas"]:
 		var node := main.get_node_or_null("Interface/%s" % name)
 		if node == null:
 			push_error("no Interface/%s" % name)
@@ -52,5 +58,5 @@ func _checks(main: Control) -> void:
 			quit(1)
 			return
 
-	print("SMOKE first-screen black + where-am-i")
+	print("SMOKE first-screen black + where-am-i + gear")
 	quit(0)
