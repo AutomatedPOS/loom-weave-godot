@@ -9,17 +9,16 @@ Web: `./export.sh`. Push the weave with `./deploy-weave.sh` (needs
 `loom.dord.dev` only. Do not `wrangler pages deploy`. Do not deploy
 worker `dord` (apex / www).
 
-The first weave is this window: a black backdrop, the canvas on
-it, and one settings gear bottom-right. Inputs left, work in the
-middle, ports on the right. The monitor stays in the scene, hidden.
-Click to focus. Read only. The gear opens the loadout. Cards
-stay off.
+The first weave is this window: a white sheet. The painted canvas,
+monitor, gear, and loadout stay in the scene, off the window.
+Owner paused that look 2026-09-05. Smaller loops from a blank
+screen. Cards stay off.
 
 Tier-one design bible (first pass, living):
 https://github.com/AutomatedPOS/loom/blob/master/DESIGN-BIBLE.md
-Engine-specific look is tier two. Orange `ACCENT` in
-`weave/theme/Tokens.gd` does not match the bible; see
-`artifacts/findings/2026-09-04-accent-charter.md`.
+Engine-specific look is tier two. Accents are `HAZARD`, `TASK`,
+`CHANGED` in `weave/theme/Tokens.gd`. Orange is out. First screen
+is `BLANK` white while the painted canvas is paused.
 
 Every colour, size, and font size the interface uses is a token in
 `weave/theme/Tokens.gd`. `weave/theme/LoomTheme.gd` builds the one
