@@ -503,13 +503,13 @@ func _draw_tiles(font: Font) -> void:
 		_caps(font, Vector2(_more_rect.get_center().x, _more_rect.get_center().y + LoomTokens.SPACE_1), "+%d" % (_tiles.size() - _tile_rects.size()), LoomTokens.DIM, HORIZONTAL_ALIGNMENT_CENTER)
 
 
-## Slot 0. Surface fill, ink border, the accent along its top edge. The
-## close-out is the largest type on screen.
+## Slot 0. Surface fill, ink border, the task accent along its top edge:
+## this is where you are. The close-out is the largest type on screen.
 func _draw_seat(font: Font) -> void:
 	var r := _seat_rect
 	draw_rect(r, LoomTokens.SURFACE)
 	_stroke(r, LoomTokens.INK, LoomTokens.BORDER)
-	draw_line(r.position, Vector2(r.end.x, r.position.y), LoomTokens.ACCENT, LoomTokens.LINE_W)
+	draw_line(r.position, Vector2(r.end.x, r.position.y), LoomTokens.TASK, LoomTokens.LINE_W)
 	var x := r.position.x + LoomTokens.SEAT_GUTTER
 	var right := r.end.x - LoomTokens.SEAT_GUTTER
 	var title_y := r.position.y + LoomTokens.SPACE_5 + LoomTokens.SPACE_4 + LoomTokens.SPACE_2
@@ -583,7 +583,7 @@ func _draw_clock(font: Font) -> void:
 		var back := int((_last_unix - _position_unix()) / DAY) + 1
 		word = "−%d d" % back
 	var w := _caps(font, Vector2(right, under), word, LoomTokens.DIM, HORIZONTAL_ALIGNMENT_RIGHT)
-	draw_rect(Rect2(right - w - LoomTokens.SPACE_4, under - LoomTokens.SPACE_2, LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.ACCENT)
+	draw_rect(Rect2(right - w - LoomTokens.SPACE_4, under - LoomTokens.SPACE_2, LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.TASK)
 
 
 ## The scale: TIMELINE_DAYS days ending on the last dated day. Dated nodes
@@ -619,13 +619,13 @@ func _draw_timeline(font: Font) -> void:
 	# The selected period, with its handles.
 	var sx0 := tl.position.x + sel * day_w
 	var sel_rect := Rect2(sx0, base - LoomTokens.SPACE_4 - LoomTokens.SPACE_1, day_w, 2 * (LoomTokens.SPACE_4 + LoomTokens.SPACE_1))
-	_stroke(sel_rect, LoomTokens.ACCENT, LoomTokens.BORDER)
+	_stroke(sel_rect, LoomTokens.TASK, LoomTokens.BORDER)
 	for hx in [sx0, sx0 + day_w]:
-		draw_rect(Rect2(hx - LoomTokens.HANDLE_W * 0.5, base - LoomTokens.SPACE_5, LoomTokens.HANDLE_W, 2 * LoomTokens.SPACE_5), LoomTokens.ACCENT)
+		draw_rect(Rect2(hx - LoomTokens.HANDLE_W * 0.5, base - LoomTokens.SPACE_5, LoomTokens.HANDLE_W, 2 * LoomTokens.SPACE_5), LoomTokens.TASK)
 	# The cursor.
 	var cx := tl.end.x if at_now() else tl.position.x + _scrub * day_w
-	draw_line(Vector2(cx, tl.position.y - LoomTokens.SPACE_2), Vector2(cx, tl.end.y + LoomTokens.SPACE_2), LoomTokens.ACCENT, LoomTokens.LINE_W)
-	draw_rect(Rect2(cx - LoomTokens.SPACE_2, tl.position.y - 2 * LoomTokens.SPACE_2, 2 * LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.ACCENT)
+	draw_line(Vector2(cx, tl.position.y - LoomTokens.SPACE_2), Vector2(cx, tl.end.y + LoomTokens.SPACE_2), LoomTokens.TASK, LoomTokens.LINE_W)
+	draw_rect(Rect2(cx - LoomTokens.SPACE_2, tl.position.y - 2 * LoomTokens.SPACE_2, 2 * LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.TASK)
 
 
 ## The chip in hand during a drag, and its leader back to where it came from.
@@ -647,7 +647,7 @@ func _chip(font: Font, r: Rect2, kind: StringName, name: String, border: Color, 
 	var c := Vector2(r.position.x + LoomTokens.SPACE_4 + LoomTokens.SPACE_1, r.get_center().y)
 	if ringed:
 		_glyph(kind, c, LoomTokens.INK, LoomTokens.INK)
-		draw_arc(c, LoomTokens.INTERCHANGE_R, 0.0, TAU, 32, LoomTokens.ACCENT, LoomTokens.GHOST_W)
+		draw_arc(c, LoomTokens.INTERCHANGE_R, 0.0, TAU, 32, LoomTokens.TASK, LoomTokens.GHOST_W)
 	else:
 		_glyph(kind, c, Color.TRANSPARENT, LoomTokens.INK)
 	var x := c.x + LoomTokens.SPACE_4 + LoomTokens.SPACE_1
@@ -685,13 +685,13 @@ func _port_mouth(r: Rect2, fill: Color, edge: Color, tick: Color) -> void:
 	draw_line(Vector2(r.position.x, r.end.y), Vector2(r.position.x + LoomTokens.SPACE_2, r.end.y), tick, LoomTokens.GHOST_W)
 
 
-## Transit bends: out, across, in. Dashed accent, because it is motion
+## Transit bends: out, across, in. Dashed task accent, because it is motion
 ## between slots and not a thing in one.
 func _leader(from: Vector2, to: Vector2) -> void:
 	var mid_x := from.x + LoomTokens.SPACE_5
 	var pts := [from, Vector2(mid_x, from.y), Vector2(mid_x, to.y), to]
 	for i in range(1, pts.size()):
-		draw_dashed_line(pts[i - 1], pts[i], LoomTokens.ACCENT, LoomTokens.GHOST_W, LoomTokens.DASH)
+		draw_dashed_line(pts[i - 1], pts[i], LoomTokens.TASK, LoomTokens.GHOST_W, LoomTokens.DASH)
 
 
 func _stroke(r: Rect2, color: Color, w: float) -> void:

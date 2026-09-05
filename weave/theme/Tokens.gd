@@ -13,8 +13,13 @@ const DIM := Color(0.42, 0.42, 0.44, 1)
 const SURFACE := Color(0.04, 0.04, 0.045, 0.96)
 const WELL := Color(0.10, 0.10, 0.11, 1)
 const EDGE := Color(0.22, 0.22, 0.24, 1)
-## The one colour that is not gray: the actual path and the seat.
-const ACCENT := Color(0.93, 0.45, 0.13, 1)
+## The three accents, bible 4.2. Okabe–Ito minus orange, until the owner
+## swaps one. Each has one job. Nothing else on the field is coloured.
+## Bible 4.7: ranked, not additive. Two show at a time, in ACCENT_RANK
+## order. An accent with nothing to say is unused, and that is correct.
+const HAZARD := Color("#D55E00")   # accent 1: something is broken
+const TASK := Color("#56B4E9")     # accent 2: where you are; look here
+const CHANGED := Color("#CC79A7")  # accent 3: moved since you last looked
 ## DIM at less than half alpha. The planned path and parked stations.
 const GHOST := Color(0.42, 0.42, 0.44, 0.45)
 
@@ -29,9 +34,16 @@ const COLORS := {
 	&"surface": SURFACE,
 	&"well": WELL,
 	&"edge": EDGE,
-	&"accent": ACCENT,
+	&"hazard": HAZARD,
+	&"task": TASK,
+	&"changed": CHANGED,
 	&"ghost": GHOST,
 }
+
+## Precedence when more than one accent wants the same mark. Where you
+## are beats what is wrong beats what moved. The top ACCENT_SHOW draw.
+const ACCENT_RANK: Array[StringName] = [&"task", &"hazard", &"changed"]
+const ACCENT_SHOW := 2
 
 # --- spacing scale, px at design size ---------------------------------------
 const SPACE_1 := 4
