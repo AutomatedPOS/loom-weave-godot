@@ -75,6 +75,7 @@ const LINE_W := 3          # actual path, spine
 const GHOST_W := 2         # planned path, parked edges
 const EDGE_W := 1          # tree edges that carry no path
 const STATION_R := 6       # node circle
+const GLYPH_TILE := 96     # one noun mark, a fixed square tile
 const INTERCHANGE_R := 10  # fork ring, seat ring
 const DASH := 8            # dash length; gap equal
 const SPINE_H := 80        # the spine's band under the top edge

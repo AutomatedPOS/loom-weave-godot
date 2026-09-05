@@ -654,27 +654,10 @@ func _chip(font: Font, r: Rect2, kind: StringName, name: String, border: Color, 
 	_caps(font, Vector2(x, c.y + LoomTokens.SPACE_1 + 1), _fit(font, name, LoomTokens.TEXT_MD, r.end.x - LoomTokens.SPACE_2 - x), LoomTokens.INK, HORIZONTAL_ALIGNMENT_LEFT, LoomTokens.TEXT_MD)
 
 
-## Persona is a circle, process a square, tool a diamond.
+## Noun marks: persona bust, process rectangle, tool square. A hat
+## on the bust is a role. LoomGlyphs owns the drawing.
 func _glyph(kind: StringName, c: Vector2, fill: Color, stroke: Color) -> void:
-	var r := float(LoomTokens.STATION_R)
-	var w := float(LoomTokens.GHOST_W)
-	match kind:
-		&"persona":
-			if fill.a > 0:
-				draw_circle(c, r, fill)
-			draw_arc(c, r, 0.0, TAU, 32, stroke, w)
-		&"process":
-			var box := Rect2(c - Vector2(r, r), Vector2(2 * r, 2 * r))
-			if fill.a > 0:
-				draw_rect(box, fill)
-			_stroke(box, stroke, w)
-		_:
-			var d := r + 1
-			var pts := PackedVector2Array([c + Vector2(0, -d), c + Vector2(d, 0), c + Vector2(0, d), c + Vector2(-d, 0)])
-			if fill.a > 0:
-				draw_colored_polygon(pts, fill)
-			pts.append(pts[0])
-			draw_polyline(pts, stroke, w)
+	LoomGlyphs.draw_on(self, kind, c, float(LoomTokens.STATION_R), fill, stroke)
 
 
 ## A port: three sides drawn, the left open toward the field, two ticks at the mouth.

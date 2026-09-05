@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <rect width="1440" height="900" fill="#000000"/>
+  <!-- personas: bust, round -->
+  <g transform="translate(512,340)" fill="none" stroke="#ADADB3" stroke-width="3" stroke-linejoin="round">
+    <circle cx="48" cy="32" r="14"/>
+    <polygon points="36,42 16,78 80,78 60,42"/>
+  </g>
+  <text x="560" y="460" fill="#6B6B70" font-size="12" letter-spacing="1.0" text-anchor="middle" font-family="Liberation Sans, Helvetica Neue, Helvetica, Arial, sans-serif">PERSONAS</text>
+  <!-- processes: settled rectangle, three bars -->
+  <g transform="translate(672,340)" fill="none" stroke="#ADADB3" stroke-width="3">
+    <rect x="14" y="26" width="68" height="48"/>
+    <line x1="24" y1="38" x2="72" y2="38"/>
+    <line x1="24" y1="50" x2="66" y2="50"/>
+    <line x1="24" y1="62" x2="60" y2="62"/>
+  </g>
+  <text x="720" y="460" fill="#6B6B70" font-size="12" letter-spacing="1.0" text-anchor="middle" font-family="Liberation Sans, Helvetica Neue, Helvetica, Arial, sans-serif">PROCESSES</text>
+  <!-- tools: machine square, wrench -->
+  <g transform="translate(832,340)" fill="none" stroke="#ADADB3" stroke-width="3" stroke-linejoin="round">
+    <rect x="18" y="18" width="60" height="60"/>
+    <line x1="32" y1="62" x2="52" y2="42" stroke-width="4"/>
+    <path d="M48,38 L60,26 M48,38 L56,46 M60,26 L56,46"/>
+  </g>
+  <text x="880" y="460" fill="#6B6B70" font-size="12" letter-spacing="1.0" text-anchor="middle" font-family="Liberation Sans, Helvetica Neue, Helvetica, Arial, sans-serif">TOOLS</text>
+  <!-- same bust, a hat: a role -->
+  <g transform="translate(512,520)" fill="none" stroke="#ADADB3" stroke-width="3" stroke-linejoin="round">
+    <rect x="34" y="8" width="28" height="12"/>
+    <rect x="22" y="20" width="52" height="6"/>
+    <circle cx="48" cy="40" r="14"/>
+    <polygon points="36,50 16,86 80,86 60,50"/>
+  </g>
+  <text x="560" y="640" fill="#6B6B70" font-size="12" letter-spacing="1.0" text-anchor="middle" font-family="Liberation Sans, Helvetica Neue, Helvetica, Arial, sans-serif">A ROLE IS A HAT</text>
+</svg>

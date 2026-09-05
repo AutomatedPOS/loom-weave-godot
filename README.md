@@ -27,8 +27,8 @@ Theme from them. Do not style a node by hand; add a token or a type
 variation. Smoke: `godot --headless --path . --import --quit`, then
 `-s weave/first_screen_smoke.gd`, `-s weave/loadout_smoke.gd`,
 `-s weave/theme_smoke.gd`, `-s weave/monitor_smoke.gd`,
-`-s weave/canvas_smoke.gd`, and `-s weave/here_smoke.gd`. Each
-prints `SMOKE` and exits zero.
+`-s weave/canvas_smoke.gd`, `-s weave/here_smoke.gd`, and
+`-s weave/glyph_smoke.gd`. Each prints `SMOKE` and exits zero.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in
