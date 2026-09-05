@@ -1,12 +1,9 @@
 extends Control
 
 ## First screen. Black field. Where you are is the close-out.
-## Canvas, monitor, gear, and loadout stay in the scene, off the
-## window. Owner paused that look 2026-09-05; this loop puts the
-## bible's first mark back: absence, then the one thing that is
-## yours. Hands the interface Theme to every Control on the
-## Interface layer. A CanvasLayer stops Theme propagation, so each
-## root there gets it.
+## Canvas and monitor stay in the scene, off the window. The gear
+## is on: it opens the loadout so a credential can be pasted.
+## Owner paused the painted canvas 2026-09-05; rails stay off.
 
 @onready var _backdrop: ColorRect = $Backdrop
 @onready var _interface: CanvasLayer = $Interface
@@ -25,7 +22,7 @@ func _ready() -> void:
 	_backdrop.color = LoomTokens.BACKDROP
 	_canvas.visible = false
 	_monitor.visible = false
-	_gear.visible = false
+	_gear.visible = true
 	_panel.visible = false
 	_here.visible = true
 	_gear.pressed.connect(_panel.toggle)
