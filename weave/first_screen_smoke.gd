@@ -21,8 +21,8 @@ func _checks(main: Control) -> void:
 		push_error("no Backdrop")
 		quit(1)
 		return
-	if backdrop.color != Color(0, 0, 0, 1):
-		push_error("backdrop is not black: %s" % backdrop.color)
+	if backdrop.color != LoomTokens.BLANK:
+		push_error("backdrop is not white: %s" % backdrop.color)
 		quit(1)
 		return
 
@@ -44,6 +44,10 @@ func _checks(main: Control) -> void:
 		push_error("Gear has no script")
 		quit(1)
 		return
+	if gear.visible:
+		push_error("gear is still on the window")
+		quit(1)
+		return
 
 	var panel := main.get_node_or_null("Interface/Panel")
 	if panel != null and panel.visible:
@@ -62,10 +66,14 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 	var canvas := main.get_node_or_null("Interface/Canvas")
-	if canvas == null or not canvas.visible:
-		push_error("no visible Interface/Canvas")
+	if canvas == null:
+		push_error("no Interface/Canvas")
+		quit(1)
+		return
+	if canvas.visible:
+		push_error("canvas is still on the window")
 		quit(1)
 		return
 
-	print("SMOKE first-screen black + canvas + gear")
+	print("SMOKE first-screen white sheet")
 	quit(0)

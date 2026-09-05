@@ -7,6 +7,8 @@ extends RefCounted
 
 # --- colour, semantic -------------------------------------------------------
 const BACKDROP := Color(0, 0, 0, 1)
+## First screen while the painted canvas is paused. A blank sheet.
+const BLANK := Color(1, 1, 1, 1)
 const INK := Color(0.68, 0.68, 0.70, 1)
 const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const DIM := Color(0.42, 0.42, 0.44, 1)
@@ -28,6 +30,7 @@ const GHOST := Color(0.42, 0.42, 0.44, 0.45)
 const THEME_TYPE := &"Loom"
 const COLORS := {
 	&"backdrop": BACKDROP,
+	&"blank": BLANK,
 	&"ink": INK,
 	&"ink_hover": INK_HOVER,
 	&"dim": DIM,
