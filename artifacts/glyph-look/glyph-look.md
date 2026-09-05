@@ -56,10 +56,10 @@ hollow; once it is on the field it is solid. That matches what
 
 Bible 4.7 modifiers, ranked task, hazard, changed, two at a time:
 
-- current task: the frame takes `TASK` and a thin ring outside it
-  pulses.
-- broken: the skin takes `HAZARD`; no fill of its own.
-- changed since: the frame takes `CHANGED`.
+- current task: the frame takes `TASK`, amber, and a thin ring
+  outside it pulses.
+- broken: the skin takes `HAZARD`, oxblood; no fill of its own.
+- changed since: the frame takes `CHANGED`, steel blue.
 - task and broken together: frame task, skin hazard. Changed drops.
 
 The null tile, 4.6: a dashed dim square with nothing in it. Broken

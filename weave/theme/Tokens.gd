@@ -13,13 +13,14 @@ const DIM := Color(0.42, 0.42, 0.44, 1)
 const SURFACE := Color(0.04, 0.04, 0.045, 0.96)
 const WELL := Color(0.10, 0.10, 0.11, 1)
 const EDGE := Color(0.22, 0.22, 0.24, 1)
-## The three accents, bible 4.2. Okabe–Ito minus orange, until the owner
-## swaps one. Each has one job. Nothing else on the field is coloured.
-## Bible 4.7: ranked, not additive. Two show at a time, in ACCENT_RANK
-## order. An accent with nothing to say is unused, and that is correct.
-const HAZARD := Color("#D55E00")   # accent 1: something is broken
-const TASK := Color("#56B4E9")     # accent 2: where you are; look here
-const CHANGED := Color("#CC79A7")  # accent 3: moved since you last looked
+## The three accents, bible 4.2, the owner's set: oxblood, amber, and a
+## steel blue that sits with them. Each has one job. Nothing else on the
+## field is coloured. Bible 4.7: ranked, not additive. Two show at a
+## time, in ACCENT_RANK order. An accent with nothing to say is unused,
+## and that is correct.
+const HAZARD := Color("#8B1E1E")   # accent 1: something is broken. Oxblood.
+const TASK := Color("#D99A1F")     # accent 2: where you are; look here. Amber.
+const CHANGED := Color("#6B8FAE")  # accent 3: moved since you last looked. Steel.
 ## DIM at less than half alpha. The planned path and parked stations.
 const GHOST := Color(0.42, 0.42, 0.44, 0.45)
 
