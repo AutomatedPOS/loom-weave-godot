@@ -47,6 +47,14 @@ for path in sorted(root.iterdir()):
         ]
 (root / "_headers").write_text("\n".join(headers).rstrip() + "\n", encoding="utf-8")
 print("wrote", root / "_headers")
+html = root / "index.html"
+if html.is_file():
+    t = html.read_text(encoding="utf-8")
+    t = t.replace("color: white;", "color: black;", 1)
+    t = t.replace("background-color: black;", "background-color: white;", 1)
+    t = t.replace("background-color: #242424;", "background-color: #ffffff;", 1)
+    html.write_text(t, encoding="utf-8")
+    print("patched", html)
 PY
 python3 "$ROOT/scripts/patch_web_export.py" "$ROOT/build/web/index.js"
 echo "export ok: $ROOT/build/web"
