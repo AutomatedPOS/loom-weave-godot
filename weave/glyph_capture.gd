@@ -1,6 +1,6 @@
 extends SceneTree
 
-const OUT := "user://noun-glyphs.png"
+const OUT := "user://glyph-packet.png"
 
 
 func _init() -> void:

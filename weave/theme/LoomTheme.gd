@@ -11,6 +11,10 @@ extends RefCounted
 static var _shared: Theme
 
 
+static func reset() -> void:
+	_shared = null
+
+
 static func shared() -> Theme:
 	if _shared == null:
 		_shared = build()
