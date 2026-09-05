@@ -37,6 +37,12 @@ Do not restore `Here.gd`. Do not name the tile. Do not mint a
 Comfy glyph into it. Do not show TASK until something on the
 field is the current task.
 
+### 2026-09-05 — Live
+
+Worker `dord-dev` refreshed this sitting. Hard-refresh
+`https://loom.dord.dev/` is still the white sheet. The tile is
+not on it until the owner takes the picture.
+
 ## Close-out
 
 - **justDid**: Picture of one empty tile on the white sheet.
