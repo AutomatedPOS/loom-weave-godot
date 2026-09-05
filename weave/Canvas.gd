@@ -10,8 +10,8 @@ extends Control
 ##
 ## Draw order follows the slot spec: frames back to front, tiles, the
 ## seat, then the interface track. Tap looks, drag moves. Nothing here
-## writes to the tree. Docked chips live in memory; a saved shape is a
-## query in scripts/canvas_model.py.
+## writes to the tree. Docked chips and the seat are a query in
+## user://shapes/current.json. The allowlist is LoomShape / canvas_model.
 ##
 ## Rails read the three roster parents in the tree. A rail item is a
 ## child with props.rail matching the kind, shown by its folder name.
@@ -145,6 +145,78 @@ func timeline_rect() -> Rect2:
 ## What is docked on the seat: kind -> name.
 func docked() -> Dictionary:
 	return _docked.get(seat_guid(), {}).duplicate()
+
+
+## The arrangement as a v1 query. No tree bodies, no transcript.
+func query() -> Dictionary:
+	var shape := LoomShape.empty()
+	shape["windows"] = [
+		{"id": "field", "slot": 0, "ask": {"kind": "none"}},
+		{"id": "seat", "slot": 0, "ask": {"kind": "node", "guid": seat_guid()}},
+	]
+	var attachments: Array = []
+	var extra := 1
+	for guid in _docked.keys():
+		var here: Dictionary = _docked[guid]
+		if here.is_empty():
+			continue
+		var wid := "seat"
+		if guid != seat_guid():
+			wid = "w%d" % extra
+			extra += 1
+			(shape["windows"] as Array).append({
+				"id": wid,
+				"slot": 0,
+				"ask": {"kind": "node", "guid": guid},
+			})
+		for kind in here:
+			var rail_guid := _rail_guid(StringName(kind), str(here[kind]))
+			if rail_guid == "":
+				continue
+			attachments.append({
+				"from": {"kind": "roster", "guid": rail_guid},
+				"onto": {"kind": "window", "id": wid},
+			})
+	shape["attachments"] = attachments
+	return shape
+
+
+func apply_query(shape: Dictionary) -> bool:
+	if LoomShape.validate(shape) != "":
+		return false
+	var seat_win := _window_named(shape, "seat")
+	if seat_win.is_empty():
+		seat_win = _first_node_window(shape)
+	var focus_id := str((seat_win.get("ask", {}) as Dictionary).get("guid", ""))
+	if focus_id == "" or not _loader.by_guid.has(focus_id):
+		return false
+	_docked.clear()
+	var windows: Array = shape.get("windows", [])
+	var by_id: Dictionary = {}
+	for window in windows:
+		by_id[str(window.get("id", ""))] = window
+	for att in shape.get("attachments", []):
+		if typeof(att) != TYPE_DICTIONARY:
+			continue
+		var src: Dictionary = att.get("from", {})
+		var dst: Dictionary = att.get("onto", {})
+		if str(src.get("kind", "")) != "roster":
+			continue
+		var win: Dictionary = by_id.get(str(dst.get("id", "")), {})
+		var onto_guid := str((win.get("ask", {}) as Dictionary).get("guid", ""))
+		if onto_guid == "" or not _loader.by_guid.has(onto_guid):
+			continue
+		var rail_guid := str(src.get("guid", ""))
+		var kind := _rail_kind(rail_guid)
+		var name := _rail_name(rail_guid)
+		if kind == &"" or name == "":
+			continue
+		if not _docked.has(onto_guid):
+			_docked[onto_guid] = {}
+		_docked[onto_guid][kind] = name
+	_show(_loader.by_guid[focus_id], false)
+	_keep()
+	return true
 
 
 func focus_guid(guid: String) -> bool:
@@ -293,6 +365,7 @@ func _dock(kind: StringName, name: String) -> void:
 		_docked[guid] = {}
 	_docked[guid][kind] = name
 	queue_redraw()
+	_keep()
 
 
 func _undock(kind: StringName) -> void:
@@ -300,6 +373,7 @@ func _undock(kind: StringName) -> void:
 	if _docked.has(guid):
 		_docked[guid].erase(kind)
 	queue_redraw()
+	_keep()
 
 
 func _on_timeline(point: Vector2) -> bool:
@@ -324,7 +398,9 @@ func _load_tree() -> void:
 		_relayout()
 		return
 	_collect_dates()
-	_show(_start_node())
+	if _restore_query():
+		return
+	_show(_start_node(), false)
 
 
 ## Where the seat is: the node in Do, else the latest live node, deepest
@@ -344,7 +420,7 @@ func _start_node() -> Dictionary:
 	return best
 
 
-func _show(node: Dictionary) -> void:
+func _show(node: Dictionary, keep := true) -> void:
 	_seat = node
 	_path = _loader.path_of(node)
 	_tiles.clear()
@@ -354,6 +430,8 @@ func _show(node: Dictionary) -> void:
 			_tiles.append(kid)
 	_tiles.sort_custom(_by_date)
 	_relayout()
+	if keep:
+		_keep()
 
 
 func _collect_dates() -> void:
@@ -872,6 +950,68 @@ func _rail_label(node: Dictionary) -> String:
 	var name := str(node.get("name", "?"))
 	var bits := name.split("-")
 	return str(bits[bits.size() - 1]).capitalize()
+
+
+func _rail_guid(kind: StringName, name: String) -> String:
+	var parent := _roster_parent(str(ROSTER_OF.get(kind, "")))
+	if parent.is_empty():
+		return ""
+	for child in _loader.kids(parent):
+		if _rail_label(child) == name:
+			return _guid(child)
+	return ""
+
+
+func _rail_name(guid: String) -> String:
+	if not _loader.by_guid.has(guid):
+		return ""
+	return _rail_label(_loader.by_guid[guid])
+
+
+func _rail_kind(guid: String) -> StringName:
+	if not _loader.by_guid.has(guid):
+		return &""
+	var rail := _prop(_loader.by_guid[guid], "rail")
+	match rail:
+		"persona":
+			return &"persona"
+		"process":
+			return &"process"
+		"tool":
+			return &"tool"
+		_:
+			return &""
+
+
+func _window_named(shape: Dictionary, id: String) -> Dictionary:
+	for window in shape.get("windows", []):
+		if typeof(window) == TYPE_DICTIONARY and str(window.get("id", "")) == id:
+			return window
+	return {}
+
+
+func _first_node_window(shape: Dictionary) -> Dictionary:
+	for window in shape.get("windows", []):
+		if typeof(window) != TYPE_DICTIONARY:
+			continue
+		var ask: Dictionary = window.get("ask", {})
+		if str(ask.get("kind", "")) == "node":
+			return window
+	return {}
+
+
+func _keep() -> void:
+	var shape := query()
+	if LoomShape.validate(shape) != "":
+		return
+	LoomShape.write_current(shape)
+
+
+func _restore_query() -> bool:
+	var shape := LoomShape.read_current()
+	if shape.is_empty():
+		return false
+	return apply_query(shape)
 
 
 func _unix(date: String) -> int:

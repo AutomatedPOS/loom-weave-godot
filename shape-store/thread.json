@@ -1,0 +1,20 @@
+{
+  "guid": "3f959cad-804e-44ab-b931-acc336f802ca",
+  "name": "shape-store",
+  "type": "workItem",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../weave/Shape.gd",
+  "body": "Cycle five Do. A saved shape is a query on the browser at user://shapes/. No snapshot. No port labels. File export waits on OPEN 3.",
+  "justDid": "GDScript allowlist matching canvas_model. Auto-keep of seat and docked roster guids. Second canvas restores them.",
+  "next": "Owner Check on loom.dord.dev after deploy. File export of a shape still waits.",
+  "waitingOn": "Owner Check. OPEN 3 for a file leave.",
+  "props": [
+    {
+      "name": "pdca",
+      "value": "do"
+    }
+  ],
+  "sourceVerified": false
+}

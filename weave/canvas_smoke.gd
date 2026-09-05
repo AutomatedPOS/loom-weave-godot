@@ -15,6 +15,7 @@ func _init() -> void:
 
 
 func _run() -> void:
+	LoomShape.clear_current()
 	var packed := load("res://weave/Main.tscn")
 	if packed == null:
 		_fail("no Main.tscn")
@@ -150,6 +151,34 @@ func _run() -> void:
 	if canvas.rail_names(&"persona").find("Brains") < 0:
 		_fail("the roster was consumed")
 		return
+	var query := canvas.query()
+	var qerr := LoomShape.validate(query)
+	if qerr != "":
+		_fail("docked arrangement is not a v1 query: %s" % qerr)
+		return
+	var blob := LoomShape.dumps(query)
+	for word in ["justDid", "waitingOn", "credential", "transcript", "\"body\""]:
+		if word in blob:
+			_fail("query carries data: %s" % word)
+			return
+	if "13bc00fd-1276-498d-9b35-c2980c5fd10f" not in blob:
+		_fail("query missed the brains guid")
+		return
+	var main2: Control = packed.instantiate()
+	root.add_child(main2)
+	await process_frame
+	var canvas2 := main2.get_node_or_null("Interface/Canvas") as LoomCanvas
+	if canvas2 == null:
+		_fail("no second canvas")
+		return
+	if canvas2.docked().get(&"persona", "") != "Brains":
+		_fail("second canvas missed the stored dock: %s" % canvas2.docked())
+		return
+	if canvas2.seat_guid() != canvas.seat_guid():
+		_fail("second canvas did not restore the seat")
+		return
+	main2.queue_free()
+	await process_frame
 	# A process cannot take the persona socket.
 	canvas.drag(canvas.chip_rect(&"process", "Brief").get_center(), canvas.socket_pos(&"persona"))
 	if canvas.docked().has(&"process"):
