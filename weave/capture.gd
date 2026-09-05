@@ -22,7 +22,7 @@ func _snap() -> void:
 		push_error("no viewport image")
 		quit(1)
 		return
-	if not _is_blank(img) and not _gear_shows_ink(img):
+	if not _is_blank(img) and not _is_field(img) and not _gear_shows_ink(img):
 		img.flip_y()
 		if not _gear_shows_ink(img):
 			img.flip_y()
@@ -38,6 +38,11 @@ func _snap() -> void:
 func _is_blank(img: Image) -> bool:
 	var c := img.get_pixel(img.get_width() / 2, img.get_height() / 2)
 	return _near(c, LoomTokens.BLANK)
+
+
+func _is_field(img: Image) -> bool:
+	var c := img.get_pixel(img.get_width() / 2, img.get_height() / 2)
+	return _near(c, LoomTokens.BACKDROP)
 
 
 ## Gear sits bottom-right, INSET in, GEAR_SIZE square. Hub is backdrop;
