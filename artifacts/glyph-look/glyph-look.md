@@ -9,9 +9,9 @@ bible: personas (human and robot), processes, tools. Look at
 64-unit square tile. `PACKET.md` is the handoff index; `tokens.json`
 carries both palettes and the tile rules.
 
-This is a picture for the owner's Check. Nothing under `weave/` draws
-from these files yet. The canvas still draws its circle, square, and
-diamond at station radius.
+This is a picture for the owner's Check. The interface draws the
+same geometry from `weave/Glyphs.gd`. Frames are borrowed; skins
+swap. Round is human, boxy is machine.
 
 ## The grammar, applied
 
@@ -21,10 +21,10 @@ Round is human, boxy is machine.
 
 | Tile | Outer frame, borrowed from | Skin, default |
 | --- | --- | --- |
-| persona · human | circle, the avatar convention | round head on round shoulders, front-on, no limbs |
-| persona · robot | circle, the same frame; the skin is what changes | boxy head, one visor slot, an antenna, square shoulders |
-| process | flowchart process, the rectangle | a spine with three square stations, left to right |
-| tool | flowchart predefined process, the double-barred rectangle | a spanner at forty-five degrees |
+| persona · human | circle, the avatar convention | sphere on a closed capsule, front-on, neck is the gap |
+| persona · robot | circle, the same frame; the skin is what changes | cube head, visor slot, stub antenna, cube torso |
+| process | flowchart process, the rectangle | three stations on a rod; spine only reads in the gaps |
+| tool | flowchart predefined process, the double-barred rectangle | an open-end spanner at forty-five degrees |
 | null | a dashed square, dim | nothing; the hole is the content |
 
 Why these frames:
@@ -103,11 +103,11 @@ the artwork:
   - human: a sphere on a capsule. One pivot at the neck. Head can
     turn to face the thing it is attached to.
   - robot: a box head on a box torso, the visor an emissive slot
-    that can take the accent, a cylinder antenna. One pivot at the
-    neck, one at the antenna base.
+    that can take the accent, a stub cylinder antenna on the head.
+    One pivot at the neck, one at the antenna base.
   - process: three cubes on a rod. The cubes are the stations; an
     actual arriving slides along the rod and snaps in, per 4.15.
-  - tool: the spanner outline extruded. One pivot at the jaw, so a
+  - tool: the open-end spanner extruded. One pivot at the jaw, so a
     tool "operating" can be a small rotation.
   - null: a wireframe cube, dashed. Nothing inside.
 
