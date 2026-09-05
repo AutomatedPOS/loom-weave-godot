@@ -1,0 +1,17 @@
+{
+  "name": "loom-weave-godot",
+  "install": "./scripts/cloud-agent-install.sh",
+  "terminals": [
+    {
+      "name": "web-preview",
+      "command": "npx --yes wrangler@4 dev --config wrangler.dord-dev.toml --ip 127.0.0.1 --port 8788",
+      "description": "Serves the Godot web export (build/web) through the dord-dev worker on http://127.0.0.1:8788. Rebuild with ./export.sh, then restart this terminal."
+    }
+  ],
+  "ports": [
+    {
+      "name": "web preview",
+      "port": 8788
+    }
+  ]
+}
