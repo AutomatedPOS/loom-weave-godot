@@ -1,17 +1,28 @@
 #!/usr/bin/env python3
 """Reference glyph tiles for the rails, drawn to the bible's grammar.
 One 64-unit square tile. Outer frame borrowed, inner glyph a skin,
-fill carries state. Colours are the Tokens.gd values, nothing else."""
+fill carries state. Two modes, dark and light; same geometry, the
+palette swaps. Every colour here is a token; nothing else is spelled."""
 import math, os, sys
 OUT = sys.argv[1]
-# Tokens.gd, as hex.
-BLACK="#000000"; INK="#ADADB3"; DIM="#6B6B70"; EDGE="#383D3D"; WELL="#1A1A1C"; SURFACE="#0A0A0B"
-GHOST="rgba(107,107,112,0.45)"
-HAZARD="#8B1E1E"; TASK="#D99A1F"; CHANGED="#6B8FAE"
-SW=2      # stroke at 64
-T=64
 
-def frame(kind, stroke=INK, dash=None, sw=SW):
+MODES = {
+    "dark": dict(
+        field="#000000", ink="#ADADB3", ink_hover="#C7C7CC", dim="#6B6B70",
+        surface="#0A0A0B", well="#1A1A1C", edge="#38383D",
+        hazard="#8B1E1E", task="#D99A1F", changed="#6B8FAE"),
+    "light": dict(
+        field="#FFFFFF", ink="#4A4A50", ink_hover="#303036", dim="#8E8E94",
+        surface="#F7F7F8", well="#EDEDEF", edge="#D2D2D6",
+        hazard="#8B1E1E", task="#A06E10", changed="#4F7291"),
+}
+SW = 2   # stroke at 64
+T = 64
+
+class Pal:
+    def __init__(self, d): self.__dict__.update(d)
+
+def frame(P, kind, stroke, sw=SW, dash=None):
     d = f' stroke-dasharray="{dash}"' if dash else ""
     if kind == "persona":
         return f'<circle cx="32" cy="32" r="28" fill="none" stroke="{stroke}" stroke-width="{sw}"{d}/>'
@@ -26,31 +37,26 @@ def frame(kind, stroke=INK, dash=None, sw=SW):
     raise ValueError(kind)
 
 def wrench_path():
-    # Local coords, head up, then rotated 45 deg so the jaw points up-right.
     w=3.5; r=9.0; cy=-12.0; n=3.0
-    yb = cy + math.sqrt(r*r - w*w)   # handle meets head
-    yt = cy - math.sqrt(r*r - n*n)   # notch meets head
+    yb = cy + math.sqrt(r*r - w*w)
+    yt = cy - math.sqrt(r*r - n*n)
     return (f"M {-w},20 L {-w},{yb:.2f} A {r} {r} 0 0 1 {-n},{yt:.2f} "
             f"L {-n},{cy} L {n},{cy} L {n},{yt:.2f} A {r} {r} 0 0 1 {w},{yb:.2f} "
             f"L {w},20 A {w} {w} 0 0 1 {-w},20 Z")
 
-def glyph(kind, fill, stroke, sw=SW):
-    """The skin. fill=None means hollow (stroke only)."""
+def glyph(P, kind, fill, stroke, sw=SW):
     f = fill if fill else "none"
     s = f'fill="{f}" stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round"'
     if kind == "human":
-        # Round head on rounded shoulders. Front-on, no limbs.
         return (f'<circle cx="32" cy="24" r="8" {s}/>'
                 f'<path d="M 17,48 L 17,44 A 9 9 0 0 1 26,35 L 38,35 A 9 9 0 0 1 47,44 L 47,48 Z" {s}/>')
     if kind == "robot":
-        # Boxy head, one visor slot, an antenna, square shoulders.
-        visor = f'<rect x="26" y="20" width="12" height="4" fill="{BLACK if fill else "none"}" stroke="{stroke}" stroke-width="{sw}"/>'
+        visor = f'<rect x="26" y="20" width="12" height="4" fill="{P.field if fill else "none"}" stroke="{stroke}" stroke-width="{sw}"/>'
         return (f'<rect x="22" y="14" width="20" height="18" {s}/>' + visor +
                 f'<line x1="32" y1="14" x2="32" y2="9" stroke="{stroke}" stroke-width="{sw}"/>'
                 f'<circle cx="32" cy="7.5" r="1.5" fill="{stroke}"/>'
                 f'<rect x="17" y="36" width="30" height="12" {s}/>')
     if kind == "process":
-        # A spine with three stations: the plan, left to right.
         out = f'<line x1="14" y1="32" x2="50" y2="32" stroke="{stroke}" stroke-width="{sw}"/>'
         for cx in (18, 32, 46):
             out += f'<rect x="{cx-4}" y="28" width="8" height="8" {s}/>'
@@ -63,108 +69,145 @@ def glyph(kind, fill, stroke, sw=SW):
 
 FRAME_OF = {"human": "persona", "robot": "persona", "process": "process", "tool": "tool"}
 
-def tile(kind, state="hollow", accents=(), x=0, y=0, scale=1.0, chip=False):
-    """state: hollow | solid | subdued | broken. accents: subset of task, changed."""
+def tile(P, kind, state="hollow", accents=(), x=0, y=0, scale=1.0):
     fk = FRAME_OF.get(kind, "null")
-    stroke = INK; fill = None; opacity = 1.0
-    if state == "solid": fill = INK
-    if state == "subdued": fill = INK; opacity = 0.2
-    if state == "broken": fill = HAZARD; stroke = HAZARD if kind == "none" else INK
+    stroke = P.ink; fill = None; opacity = 1.0
+    if state == "solid": fill = P.ink
+    if state == "subdued": fill = P.ink; opacity = 0.2
+    if state == "broken": fill = P.hazard
     parts = []
-    fstroke = INK
-    if "changed" in accents: fstroke = CHANGED
+    fstroke = P.ink
+    if "changed" in accents: fstroke = P.changed
     if "task" in accents:
-        fstroke = TASK
+        fstroke = P.task
         if fk == "persona":
-            parts.append(f'<circle cx="32" cy="32" r="32" fill="none" stroke="{TASK}" stroke-width="1" opacity="0.5"/>')
+            parts.append(f'<circle cx="32" cy="32" r="32" fill="none" stroke="{P.task}" stroke-width="1" opacity="0.5"/>')
         else:
-            parts.append(f'<rect x="0" y="6" width="64" height="52" fill="none" stroke="{TASK}" stroke-width="1" opacity="0.5"/>')
+            parts.append(f'<rect x="0" y="6" width="64" height="52" fill="none" stroke="{P.task}" stroke-width="1" opacity="0.5"/>')
     if kind == "none":
-        parts.append(frame("null", stroke=(HAZARD if state == "broken" else DIM), dash=None))
+        parts.append(frame(P, "null", stroke=(P.hazard if state == "broken" else P.dim)))
     else:
-        parts.append(frame(fk, stroke=fstroke))
-        parts.append(glyph(kind, fill, stroke))
-    inner = "".join(parts)
-    return f'<g transform="translate({x},{y}) scale({scale})" opacity="{opacity}">{inner}</g>'
+        parts.append(frame(P, fk, stroke=fstroke))
+        parts.append(glyph(P, kind, fill, stroke))
+    return f'<g transform="translate({x},{y}) scale({scale})" opacity="{opacity}">{"".join(parts)}</g>'
 
-def svg(w, h, body, bg=BLACK):
+def svg(w, h, body, bg):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
             f'<rect width="{w}" height="{h}" fill="{bg}"/>{body}</svg>')
 
-# --- single tiles, 64 units, hollow (on the rail) ------------------------
-for name, kind in [("persona-human","human"),("persona-robot","robot"),("process","process"),("tool","tool")]:
-    open(os.path.join(OUT, f"{name}.svg"), "w").write(svg(64, 64, tile(kind, "hollow")))
-open(os.path.join(OUT, "null-tile.svg"), "w").write(svg(64, 64, tile("none", "hollow")))
-
-# --- the sheet, 1440 x 900 ------------------------------------------------
-def caps(x, y, text, color=DIM, size=12, anchor="start", weight="normal"):
+def caps(x, y, text, color, size=12, anchor="start"):
     return (f'<text x="{x}" y="{y}" fill="{color}" font-family="Noto Sans, DejaVu Sans, Arial, sans-serif" '
-            f'font-size="{size}" letter-spacing="1" text-anchor="{anchor}" font-weight="{weight}">{text.upper()}</text>')
-def rule(x1, y, x2, color=EDGE):
-    return f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="{color}" stroke-width="1"/>'
+            f'font-size="{size}" letter-spacing="1" text-anchor="{anchor}">{text.upper()}</text>')
 
-b = []
-b.append(caps(64, 52, "glyphs · reference", INK, 18))
-b.append(caps(1376, 52, "bible 4.3 · 4.4 · 4.5 · 4.6 · 4.7", DIM, 12, "end"))
-b.append(rule(64, 64, 1376))
+def rule(P, x1, y, x2):
+    return f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="{P.edge}" stroke-width="1"/>'
 
-# Row 1: the four tiles, large. Outer frame named under each.
-cols = [("human","persona · human","frame: circle, the avatar", "skin: round head, round shoulders"),
+COLS = [("human","persona · human","frame: circle, the avatar", "skin: round head, round shoulders"),
         ("robot","persona · robot","frame: circle, the avatar", "skin: boxy head, one visor, antenna"),
         ("process","process","frame: flowchart process", "skin: a spine, three stations"),
         ("tool","tool","frame: flowchart predefined process", "skin: a spanner")]
-x0 = 64; step = 328; ty = 100; sc = 2.5
-for i,(k,label,f,s) in enumerate(cols):
-    x = x0 + i*step
-    b.append(tile(k, "hollow", x=x, y=ty, scale=sc))
-    b.append(caps(x, ty + 64*sc + 28, label, INK, 14))
-    b.append(caps(x, ty + 64*sc + 48, f, DIM, 11))
-    b.append(caps(x, ty + 64*sc + 64, s, DIM, 11))
-b.append(caps(64, 92, "one glyph per square tile. outer frame is borrowed and says the type. inner glyph is the skin and swaps. round is human, boxy is machine.", DIM, 11))
-
-# Row 2: at rail-chip size, 1:1, plus 32 and 24 px checks.
-ry = 360
-b.append(rule(64, ry, 1376))
-b.append(caps(64, ry + 24, "on the rail, 1:1 · chip 144 × 48 with the tile at 24 px (today's glyph is 12) · then the tile at 32 px and 24 px", DIM, 11))
-names = [("human","Archivus"),("robot","Brains"),("process","Brief"),("tool","")]
-for i,(k,nm) in enumerate(names):
-    x = x0 + i*step; y = ry + 44
-    # a rail chip as Canvas.gd draws it: well fill, edge border, glyph, small caps name
-    b.append(f'<rect x="{x}" y="{y}" width="144" height="48" fill="{WELL}" stroke="{EDGE}" stroke-width="1"/>')
-    g = 24  # glyph box on the chip; today's glyph is 12 px, the tile scales to 24
-    b.append(tile(k, "hollow", x=x+12, y=y+12, scale=g/64))
-    b.append(caps(x+44, y+29, nm, INK, 13) if nm else caps(x+44, y+29, "no tool yet", DIM, 11))
-    # 32 and 24 px
-    b.append(tile(k, "hollow", x=x+172, y=y+8, scale=0.5))
-    b.append(tile(k, "hollow", x=x+220, y=y+12, scale=24/64))
-    b.append(tile(k, "solid", x=x+172, y=y+56, scale=0.5))
-    b.append(tile(k, "solid", x=x+220, y=y+60, scale=24/64))
-b.append(caps(64, ry + 150, "hollow on the rail, solid once it is on the field. the frame, not the skin, is the drop target.", DIM, 11))
-
-# Row 3: state grammar, on the human persona. Fill carries state, accents modify.
-sy = 540
-b.append(rule(64, sy, 1376))
-b.append(caps(64, sy + 24, "state is fill, 4.5. accents are modifiers, ranked task, hazard, changed, two at a time, 4.7. black is nothing; the null tile is a hole that matters, 4.6.", DIM, 11))
-states = [("hollow", (), "not started", "hollow"),
+STATES = [("hollow", (), "not started", "hollow"),
           ("solid", (), "done", "solid"),
           ("subdued", (), "abandoned", "ink at 20 %"),
           ("broken", (), "broken", "skin takes hazard"),
           ("hollow", ("task",), "current task", "frame takes task"),
           ("broken", ("task",), "task + broken", "top two show"),
-          ("hollow", ("changed",), "changed since", "frame takes changed"),
-          ]
-sc2 = 1.5; sx = 64; sstep = 164
-for i,(st,acc,label,how) in enumerate(states):
-    x = sx + i*sstep; y = sy + 44
-    b.append(tile("human", st, acc, x=x, y=y, scale=sc2))
-    b.append(caps(x, y + 64*sc2 + 22, label, INK, 12))
-    b.append(caps(x, y + 64*sc2 + 40, how, DIM, 11))
-# null tiles at the end
-x = sx + 7*sstep; y = sy + 44
-b.append(tile("none", "hollow", x=x, y=y, scale=sc2))
-b.append(caps(x, y + 64*sc2 + 22, "null tile", INK, 12))
-b.append(caps(x, y + 64*sc2 + 40, "a hole that matters", DIM, 11))
-b.append(caps(64, 880, "running is motion, not a fill; a still cannot show it. the task ring pulses. colours are tokens.gd only. no font is chosen; the sheet uses the system sans.", DIM, 11))
+          ("hollow", ("changed",), "changed since", "frame takes changed")]
 
-open(os.path.join(OUT, "glyph-sheet.svg"), "w").write(svg(1440, 900, "".join(b)))
-print("wrote", os.listdir(OUT))
+def sheet(mode):
+    P = Pal(MODES[mode]); b = []
+    b.append(caps(64, 52, f"glyphs · reference · {mode}", P.ink, 18))
+    b.append(caps(1376, 52, "bible 4.3 · 4.4 · 4.5 · 4.6 · 4.7", P.dim, 12, "end"))
+    b.append(rule(P, 64, 64, 1376))
+    b.append(caps(64, 92, "one glyph per square tile. outer frame is borrowed and says the type. inner glyph is the skin and swaps. round is human, boxy is machine.", P.dim, 11))
+    x0 = 64; step = 328; ty = 100; sc = 2.5
+    for i,(k,label,f,s) in enumerate(COLS):
+        x = x0 + i*step
+        b.append(tile(P, k, "hollow", x=x, y=ty, scale=sc))
+        b.append(caps(x, ty + 64*sc + 28, label, P.ink, 14))
+        b.append(caps(x, ty + 64*sc + 48, f, P.dim, 11))
+        b.append(caps(x, ty + 64*sc + 64, s, P.dim, 11))
+    ry = 360
+    b.append(rule(P, 64, ry, 1376))
+    b.append(caps(64, ry + 24, "on the rail, 1:1 · chip 144 × 48 with the tile at 24 px (today's glyph is 12) · then the tile at 32 px and 24 px", P.dim, 11))
+    names = [("human","Archivus"),("robot","Brains"),("process","Brief"),("tool","")]
+    for i,(k,nm) in enumerate(names):
+        x = x0 + i*step; y = ry + 44
+        b.append(f'<rect x="{x}" y="{y}" width="144" height="48" fill="{P.well}" stroke="{P.edge}" stroke-width="1"/>')
+        b.append(tile(P, k, "hollow", x=x+12, y=y+12, scale=24/64))
+        b.append(caps(x+44, y+29, nm, P.ink, 13) if nm else caps(x+44, y+29, "no tool yet", P.dim, 11))
+        b.append(tile(P, k, "hollow", x=x+172, y=y+8, scale=0.5))
+        b.append(tile(P, k, "hollow", x=x+220, y=y+12, scale=24/64))
+        b.append(tile(P, k, "solid", x=x+172, y=y+56, scale=0.5))
+        b.append(tile(P, k, "solid", x=x+220, y=y+60, scale=24/64))
+    b.append(caps(64, ry + 150, "hollow on the rail, solid once it is on the field. the frame, not the skin, is the drop target.", P.dim, 11))
+    sy = 540
+    b.append(rule(P, 64, sy, 1376))
+    b.append(caps(64, sy + 24, "state is fill, 4.5. accents are modifiers, ranked task, hazard, changed, two at a time, 4.7. the field is nothing; the null tile is a hole that matters, 4.6.", P.dim, 11))
+    sc2 = 1.5; sx = 64; sstep = 164
+    for i,(st,acc,label,how) in enumerate(STATES):
+        x = sx + i*sstep; y = sy + 44
+        b.append(tile(P, "human", st, acc, x=x, y=y, scale=sc2))
+        b.append(caps(x, y + 64*sc2 + 22, label, P.ink, 12))
+        b.append(caps(x, y + 64*sc2 + 40, how, P.dim, 11))
+    x = sx + 7*sstep; y = sy + 44
+    b.append(tile(P, "none", "hollow", x=x, y=y, scale=sc2))
+    b.append(caps(x, y + 64*sc2 + 22, "null tile", P.ink, 12))
+    b.append(caps(x, y + 64*sc2 + 40, "a hole that matters", P.dim, 11))
+    # the palette, spelled once, bottom
+    py = 790
+    b.append(rule(P, 64, py, 1376))
+    swatches = [("field", P.field), ("ink", P.ink), ("dim", P.dim), ("edge", P.edge), ("well", P.well),
+                ("hazard", P.hazard), ("task", P.task), ("changed", P.changed)]
+    for i,(nm,c) in enumerate(swatches):
+        x = 64 + i*164
+        b.append(f'<rect x="{x}" y="{py+18}" width="40" height="24" fill="{c}" stroke="{P.edge}" stroke-width="1"/>')
+        b.append(caps(x+48, py+30, nm, P.ink, 11))
+        b.append(caps(x+48, py+44, c, P.dim, 10))
+    b.append(caps(64, 880, "running is motion, not a fill; a still cannot show it. the task ring pulses. no font is chosen; the sheet uses the system sans.", P.dim, 11))
+    return svg(1440, 900, "".join(b), P.field)
+
+def modes_strip():
+    """Both modes on one picture: the four tiles and the seven states, dark over light."""
+    b = []
+    for row, mode in enumerate(["dark", "light"]):
+        P = Pal(MODES[mode]); oy = row * 450
+        b.append(f'<rect x="0" y="{oy}" width="1440" height="450" fill="{P.field}"/>')
+        b.append(caps(64, oy + 44, mode, P.ink, 16))
+        for i,(k,label,_,_) in enumerate(COLS):
+            x = 64 + i*150; y = oy + 70
+            b.append(tile(P, k, "hollow", x=x, y=y, scale=1.75))
+            b.append(caps(x, y + 64*1.75 + 22, label, P.dim, 11))
+        short = ["not started", "done", "abandoned", "broken", "task", "task+broken", "changed"]
+        for i,(st,acc,label,how) in enumerate(STATES):
+            x = 660 + i*96; y = oy + 84
+            b.append(tile(P, "human", st, acc, x=x, y=y, scale=1.25))
+            b.append(caps(x, y + 64*1.25 + 22, short[i], P.dim, 10))
+        x = 660 + 7*96; y = oy + 84
+        b.append(tile(P, "none", "hollow", x=x, y=y, scale=1.25))
+        b.append(caps(x, y + 64*1.25 + 22, "null", P.dim, 10))
+        # rail chips, 1:1
+        names = [("human","Archivus"),("robot","Brains"),("process","Brief"),("tool","")]
+        for i,(k,nm) in enumerate(names):
+            x = 64 + i*160; y = oy + 300
+            b.append(f'<rect x="{x}" y="{y}" width="144" height="48" fill="{P.well}" stroke="{P.edge}" stroke-width="1"/>')
+            b.append(tile(P, k, "hollow", x=x+12, y=y+12, scale=24/64))
+            b.append(caps(x+44, y+29, nm, P.ink, 13) if nm else caps(x+44, y+29, "no tool yet", P.dim, 11))
+        sw = [("hazard", P.hazard), ("task", P.task), ("changed", P.changed)]
+        for i,(nm,c) in enumerate(sw):
+            x = 720 + i*200; y = oy + 300
+            b.append(f'<rect x="{x}" y="{y}" width="48" height="48" fill="{c}"/>')
+            b.append(caps(x+60, y+22, nm, P.ink, 12)); b.append(caps(x+60, y+40, c, P.dim, 11))
+        b.append(caps(64, oy + 400, "same geometry, same three roles. hazard keeps its value; task and changed pull down on white so they read.", P.dim, 11))
+    return svg(1440, 900, "".join(b), MODES["dark"]["field"])
+
+for mode in MODES:
+    P = Pal(MODES[mode])
+    d = os.path.join(OUT, "tiles", mode); os.makedirs(d, exist_ok=True)
+    for name, kind in [("persona-human","human"),("persona-robot","robot"),("process","process"),("tool","tool")]:
+        open(os.path.join(d, f"{name}.svg"), "w").write(svg(64, 64, tile(P, kind, "hollow"), P.field))
+        open(os.path.join(d, f"{name}-solid.svg"), "w").write(svg(64, 64, tile(P, kind, "solid"), P.field))
+    open(os.path.join(d, "null-tile.svg"), "w").write(svg(64, 64, tile(P, "none", "hollow"), P.field))
+    open(os.path.join(OUT, f"glyph-sheet-{mode}.svg"), "w").write(sheet(mode))
+open(os.path.join(OUT, "glyph-modes.svg"), "w").write(modes_strip())
+print("ok")

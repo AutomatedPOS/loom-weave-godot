@@ -2,10 +2,12 @@
 
 Reference icons for the three noun subclasses, drawn to the tier-one
 bible: personas (human and robot), processes, tools. Look at
-`glyph-sheet.png` first, 1440 by 900. The single tiles beside it are
-the deliverable: `persona-human.svg`, `persona-robot.svg`,
-`process.svg`, `tool.svg`, `null-tile.svg`, each one 64-unit square
-tile, hollow, white on black.
+`glyph-modes.png` first, then `glyph-sheet-dark.png` and
+`glyph-sheet-light.png`, 1440 by 900 each. The single tiles are in
+`tiles/dark/` and `tiles/light/`: `persona-human`, `persona-robot`,
+`process`, `tool`, hollow and `-solid`, plus `null-tile`, each one
+64-unit square tile. `PACKET.md` is the handoff index; `tokens.json`
+carries both palettes and the tile rules.
 
 This is a picture for the owner's Check. Nothing under `weave/` draws
 from these files yet. The canvas still draws its circle, square, and
@@ -67,6 +69,16 @@ null takes hazard on the dash.
 
 Running cannot be shown in a still. Candidate from 4.5 is the outline
 animating; that is a build question, not a drawing one.
+
+## Two modes
+
+Dark is the black field. Light is its inverse: a white field, the
+greys mirrored so ink is dark and dim is mid. Geometry is identical.
+Hazard keeps its value in both. Task and changed keep their hue and
+pull down on white, since the dark amber sits at 2.4:1 on white and
+the steel at 3.4:1; the light values sit at 4.4:1 and 5.1:1. The
+palettes are spelled once, in `tokens.json` and at the foot of each
+sheet.
 
 ## Sizes
 
