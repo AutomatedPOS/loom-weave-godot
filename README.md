@@ -15,6 +15,12 @@ middle, ports on the right. The monitor stays in the scene, hidden.
 Click to focus. Read only. The gear opens the loadout. Cards
 stay off.
 
+Tier-one design bible (first pass, living):
+https://github.com/AutomatedPOS/loom/blob/master/DESIGN-BIBLE.md
+Engine-specific look is tier two. Orange `ACCENT` in
+`weave/theme/Tokens.gd` does not match the bible; see
+`artifacts/findings/2026-09-04-accent-charter.md`.
+
 Every colour, size, and font size the interface uses is a token in
 `weave/theme/Tokens.gd`. `weave/theme/LoomTheme.gd` builds the one
 Theme from them. Do not style a node by hand; add a token or a type
