@@ -131,12 +131,11 @@ static func _human(ci: CanvasItem, fill: Color, stroke: Color, sw: float) -> voi
 static func _human_body() -> PackedVector2Array:
 	var pts := PackedVector2Array()
 	pts.append(Vector2(17, 48))
-	pts.append(Vector2(17, 44))
 	for i in 7:
-		var a := PI - i * (PI * 0.5 / 6.0)
+		var a := PI + i * (PI * 0.5 / 6.0)
 		pts.append(Vector2(26, 44) + Vector2(cos(a), sin(a)) * 9.0)
 	pts.append(Vector2(38, 35))
-	for i in 7:
+	for i in range(1, 7):
 		var a := -PI * 0.5 + i * (PI * 0.5 / 6.0)
 		pts.append(Vector2(38, 44) + Vector2(cos(a), sin(a)) * 9.0)
 	pts.append(Vector2(47, 48))
@@ -186,6 +185,8 @@ static func _wrench_pts() -> PackedVector2Array:
 	_append_arc(raw, Vector2(0, -12), 9.0, Vector2(3.0, -20.49), Vector2(3.5, -3.71), 8)
 	raw.append(Vector2(3.5, 20))
 	_append_arc(raw, Vector2(0, 20), 3.5, Vector2(3.5, 20), Vector2(-3.5, 20), 8)
+	if raw.size() > 1 and raw[raw.size() - 1].distance_to(raw[0]) < 0.05:
+		raw.remove_at(raw.size() - 1)
 	var out := PackedVector2Array()
 	var rot := deg_to_rad(45)
 	for p in raw:
