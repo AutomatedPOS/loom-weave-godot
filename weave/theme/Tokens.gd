@@ -6,7 +6,7 @@ extends RefCounted
 ## Nothing else in weave/ may spell out a colour, a size, or a font size.
 
 # --- colour, semantic -------------------------------------------------------
-const BACKDROP := Color(0, 0, 0, 1)
+const BACKDROP := Color(1, 1, 1, 1)
 const INK := Color(0.68, 0.68, 0.70, 1)
 const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
 const DIM := Color(0.42, 0.42, 0.44, 1)
@@ -88,8 +88,6 @@ const TILE_W := 128        # a closed window behind the seat
 const TILE_H := 40
 const TILE_MORE_W := 56    # the overflow tile
 const GLYPH_TILE := 64     # bible 4.3 inner-skin tile
-const WORK_BOX_W := 160    # opened process shell
-const WORK_BOX_H := 128
 const TIMELINE_H := 56     # the band along the bottom
 const TIMELINE_DAYS := 4   # days on the scale until zoom lands
 const HANDLE_W := 12       # the selected period's handles

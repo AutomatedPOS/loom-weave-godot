@@ -21,8 +21,8 @@ func _checks(main: Control) -> void:
 		push_error("no Backdrop")
 		quit(1)
 		return
-	if backdrop.color != Color(0, 0, 0, 1):
-		push_error("backdrop is not black: %s" % backdrop.color)
+	if backdrop.color != Color(1, 1, 1, 1):
+		push_error("backdrop is not white: %s" % backdrop.color)
 		quit(1)
 		return
 
@@ -67,5 +67,5 @@ func _checks(main: Control) -> void:
 		quit(1)
 		return
 
-	print("SMOKE first-screen black + canvas + gear")
+	print("SMOKE first-screen white + canvas + gear")
 	quit(0)

@@ -44,7 +44,6 @@ var _last_unix := 0                # the last dated day in the tree
 var _scrub := NOW                  # days from the scale's start, or NOW
 var _bench_tex: Array[Texture2D] = []
 var _bench_fill := 1               # part-filled: one bot in, two holes
-var _bench_open := false
 
 # Geometry, rebuilt by _layout().
 var _field := Rect2()
@@ -57,7 +56,6 @@ var _port_rects: Array[Rect2] = []
 var _sockets: Dictionary = {}      # kind -> Vector2, on the seat's left edge
 var _timeline := Rect2()
 var _bench_rect := Rect2()
-var _work_rect := Rect2()
 
 # Pointer.
 var _press := Vector2.INF
@@ -152,14 +150,6 @@ func bench_rect() -> Rect2:
 	return _bench_rect
 
 
-func work_rect() -> Rect2:
-	return _work_rect if _bench_open else Rect2()
-
-
-func bench_open() -> bool:
-	return _bench_open
-
-
 ## What is docked on the seat: kind -> name.
 func docked() -> Dictionary:
 	return _docked.get(seat_guid(), {}).duplicate()
@@ -184,10 +174,6 @@ func at_now() -> bool:
 ## A tap at a point. Looks, never moves.
 func tap(point: Vector2) -> void:
 	if _bench_rect.has_point(point):
-		_bench_open = not _bench_open
-		queue_redraw()
-		return
-	if _bench_open and _work_rect.has_point(point):
 		return
 	var tile := _tile_at(point)
 	if not tile.is_empty():
@@ -461,16 +447,8 @@ func _layout_field() -> void:
 
 
 func _layout_bench() -> void:
-	# Upper-left of the field, left of the seat. Expands down into a
-	# small flowchart rect: the opened shell, not a second window.
 	var g := float(LoomTokens.GLYPH_TILE)
 	_bench_rect = Rect2(_field.position.x + LoomTokens.SPACE_2, _field.position.y + LoomTokens.SPACE_2, g, g)
-	_work_rect = Rect2(
-		_bench_rect.position.x,
-		_bench_rect.end.y + LoomTokens.SPACE_2,
-		LoomTokens.WORK_BOX_W,
-		LoomTokens.WORK_BOX_H
-	)
 
 
 func _load_bench_skins() -> void:
@@ -492,16 +470,7 @@ func _draw() -> void:
 	if _error != "":
 		draw_string(font, Vector2(LoomTokens.INSET, LoomTokens.INSET + LoomTokens.TEXT_MD), _error, HORIZONTAL_ALIGNMENT_LEFT, -1, LoomTokens.TEXT_MD, LoomTokens.DIM)
 		return
-	_draw_frames(font)
-	_draw_tiles(font)
-	_draw_seat(font)
-	_draw_docks(font)
-	_draw_rails(font)
-	_draw_ports()
-	_draw_clock(font)
-	_draw_timeline(font)
 	_draw_bench()
-	_draw_carry(font)
 
 
 ## Ancestors, outermost first. Only the innermost is one slot back and
@@ -674,21 +643,14 @@ func _draw_timeline(font: Font) -> void:
 	draw_rect(Rect2(cx - LoomTokens.SPACE_2, tl.position.y - 2 * LoomTokens.SPACE_2, 2 * LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.ACCENT)
 
 
-## Locked inner skin (bible 4.3). Tap opens the process shell: a
-## flowchart rectangle, hairline only. Two verticals are the three
-## bays. No fill — black is absence; that absence is the work space.
+## One inner skin on the field. Light mode: black mark, white is absence.
 func _draw_bench() -> void:
-	if _bench_fill >= 0 and _bench_fill < _bench_tex.size() and _bench_tex[_bench_fill] != null:
-		draw_texture_rect(_bench_tex[_bench_fill], _bench_rect, false)
-	else:
-		_stroke(_bench_rect, LoomTokens.INK, LoomTokens.BORDER)
-	if not _bench_open:
+	if _bench_fill < 0 or _bench_fill >= _bench_tex.size():
 		return
-	_stroke(_work_rect, LoomTokens.INK, LoomTokens.BORDER)
-	var bay := _work_rect.size.x / 3.0
-	for i in range(1, 3):
-		var x := _work_rect.position.x + i * bay
-		draw_line(Vector2(x, _work_rect.position.y), Vector2(x, _work_rect.end.y), LoomTokens.INK, LoomTokens.BORDER)
+	var tex := _bench_tex[_bench_fill]
+	if tex == null:
+		return
+	draw_texture_rect(tex, _bench_rect, false)
 
 
 ## The chip in hand during a drag, and its leader back to where it came from.
