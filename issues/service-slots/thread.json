@@ -1,0 +1,12 @@
+{
+  "guid": "e903d1ca-8159-484f-8b7f-1213d8fc3429",
+  "name": "service-slots",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "Keys are user-supplied. No shipped keys. A pod arrives pre-wired to a service with a link to go get a key. The stable name in code is the service slot; vendors plug in. Named plugs: OpenRouter primary, Gemini and OpenAI as alternatives. weave/ still does not print vendor names. Keys live in the token store, not in the bot file. Status is green only after a live call returns clean. Validate-on-use. Coin-slot as the empty-key mark is an aside, not a ruling.",
+  "waitingOn": "Owner Check. Gear-as-chrome is superseded by this only after Check.",
+  "sourceVerified": false
+}

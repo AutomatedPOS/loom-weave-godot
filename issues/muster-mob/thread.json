@@ -1,0 +1,12 @@
+{
+  "guid": "80f772e0-717a-44e4-86c6-cbd14e535357",
+  "name": "muster-mob",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "Build the first named tool: muster mob. Verb muster, noun mob. Unslotted bots hear the open canvas and answer in waves; slotting quiets them to specific context. Bench has exactly three seats (scope check, not a widget cap). Roster behind it grows in threes. Fourth panel slot is the spend meter (session total plus per-seat spend), not a fourth bot. Power: unpowered / awake / knocked out. Tap opens the panel; press-and-hold toggles power. Tap to silence, double-tap knocks the bot onto the floor. Icon at cell size is unruled; do not invent one. Roster child already exists at rosters/tools/muster-mob/.",
+  "waitingOn": "Owner Check, including tap-opens versus tap-to-silence, and the cell-size icon.",
+  "sourceVerified": false
+}

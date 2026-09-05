@@ -134,9 +134,17 @@ them a face.
 2. **Persona pipe.** How a persona pulled onto the field becomes a
    thing you can tap and talk to. Endpoints exist in the loadout;
    the binding from rail item to live session does not.
-3. Which port is which, and how many.
-4. What a tap does versus what a drag does.
-5. Whether the rails are always visible or summoned.
+3. Which port is which, and how many. The 2026-09-05 pods walk
+   did not close this. Close and minimize on a pod file are not
+   ports.
+4. What a tap does versus what a drag does. The 2026-09-05 walk
+   ruled tap / hold / double-tap for bots, and left a collision
+   (tap opens the panel, tap silences) for the owner. Drag still
+   attaches a process onto a bot. See `artifacts/pods-spec/`.
+5. Whether the rails are always visible or summoned. The
+   2026-09-05 walk answers: kinds are pods, not edge chrome. Not
+   closed until the owner Checks that packet. Do not restore the
+   painted rails because this line moved.
 
 ## What this does not change
 

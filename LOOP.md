@@ -33,3 +33,7 @@ shape query in Python. Bible black-as-absence is not on this
 screen until a loop puts a mark there.
 
 Stale PRs, not the chew: #19, #17, #13, #8, #5, #9, #1.
+
+2026-09-05 interface walk (pods, muster mob, bot file) landed as
+`artifacts/pods-spec/` and six open issues. Not the chew. Do not
+paint from that packet until the owner picks one.

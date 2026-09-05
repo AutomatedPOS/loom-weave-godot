@@ -1,0 +1,12 @@
+{
+  "guid": "c0efb586-6cd1-4e93-a5d0-e9b30d227f53",
+  "name": "bot-file",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "A bot is three markdown fields plus token pointers, saved as JSON. Identity is a persona file. Knowledge is AGENTS.md-shaped project context. Behavior is a list of processes, not a third file; drag a process onto the bot to add one; the list is readable on the info panel. The file holds token references, never keys. No UUID: path plus commit history is the version; the file carries the name only. MCP covers capabilities; do not invent a parallel system. Tree nodes keep their guids; that is loom-warp, not this file.",
+  "waitingOn": "Owner Check.",
+  "sourceVerified": false
+}

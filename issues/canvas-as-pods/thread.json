@@ -1,0 +1,12 @@
+{
+  "guid": "322453f9-c644-4361-9a5c-f766204c7962",
+  "name": "canvas-as-pods",
+  "type": "issue",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "The window is objects on free-form pixel space. No settings tree, no privileged app chrome, no global grid. Every pod is a JSON file: close deletes it, minimize keeps it with a collapsed flag, critical is a field. Hexagon is for planning and directionality only: six neighbors, no diagonal, ring sizes 1 / 7 / 19 / 37. Panels stay rectangular. Do not restore the rails-and-ports chrome. Picture first. Not this sitting's paint job.",
+  "waitingOn": "Owner Check. Picture before Fable builds.",
+  "sourceVerified": false
+}

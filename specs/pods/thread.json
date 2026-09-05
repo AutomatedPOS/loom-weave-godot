@@ -1,0 +1,14 @@
+{
+  "guid": "f6b20996-2a34-44b2-a800-b880f603b5d2",
+  "name": "specs-pods",
+  "type": "workItem",
+  "actualStart": "2026-09-05",
+  "state": "open",
+  "isPartOf": "74e67341-176d-4a0c-81af-d018cbfd5baa",
+  "representedBy": "../../artifacts/pods-spec/pods-spec.md",
+  "body": "Pods composition model from the 2026-09-05 walk. Not a paint job. Owner Check before anyone builds from it.",
+  "justDid": "Wrote the spec and cut six issues from it. Named muster mob on the tools roster.",
+  "next": "Owner Check. Then one issue, with a picture first.",
+  "waitingOn": "Owner Check of the packet.",
+  "sourceVerified": false
+}
