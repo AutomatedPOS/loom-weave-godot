@@ -162,5 +162,28 @@ func _run() -> void:
 		_fail("canvas wrote a thread.json")
 		return
 
-	print("SMOKE canvas rails + seat + ports + timeline + tap + drag")
+	# Bench glyph: locked inner skin. Tap opens a hairline shell.
+	if canvas.bench_rect().size != Vector2(LoomTokens.GLYPH_TILE, LoomTokens.GLYPH_TILE):
+		_fail("bench tile is not the bible 64: %s" % canvas.bench_rect())
+		return
+	if canvas.bench_open() or canvas.work_rect().size.x > 0:
+		_fail("bench shell starts open")
+		return
+	canvas.tap(canvas.bench_rect().get_center())
+	if not canvas.bench_open():
+		_fail("tap on the bench did not open the shell")
+		return
+	var work := canvas.work_rect()
+	if work.size != Vector2(LoomTokens.WORK_BOX_W, LoomTokens.WORK_BOX_H):
+		_fail("opened shell is not the work box: %s" % work)
+		return
+	if work.intersects(canvas.timeline_rect()):
+		_fail("work box overlaps the timeline")
+		return
+	canvas.tap(canvas.bench_rect().get_center())
+	if canvas.bench_open() or canvas.work_rect().size.x > 0:
+		_fail("second tap did not close the shell")
+		return
+
+	print("SMOKE canvas rails + seat + ports + timeline + tap + drag + bench")
 	quit(0)

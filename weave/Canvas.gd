@@ -42,6 +42,9 @@ var _tiles: Array = []             # the seat's siblings, date order
 var _docked: Dictionary = {}       # seat guid -> {kind: name}
 var _last_unix := 0                # the last dated day in the tree
 var _scrub := NOW                  # days from the scale's start, or NOW
+var _bench_tex: Array[Texture2D] = []
+var _bench_fill := 1               # part-filled: one bot in, two holes
+var _bench_open := false
 
 # Geometry, rebuilt by _layout().
 var _field := Rect2()
@@ -53,6 +56,8 @@ var _chip_rects: Dictionary = {}   # "kind/name" -> Rect2, on the rails
 var _port_rects: Array[Rect2] = []
 var _sockets: Dictionary = {}      # kind -> Vector2, on the seat's left edge
 var _timeline := Rect2()
+var _bench_rect := Rect2()
+var _work_rect := Rect2()
 
 # Pointer.
 var _press := Vector2.INF
@@ -67,6 +72,7 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	resized.connect(_relayout)
 	_load_tree()
+	_load_bench_skins()
 
 
 # --- public, read only ------------------------------------------------------
@@ -142,6 +148,18 @@ func timeline_rect() -> Rect2:
 	return _timeline
 
 
+func bench_rect() -> Rect2:
+	return _bench_rect
+
+
+func work_rect() -> Rect2:
+	return _work_rect if _bench_open else Rect2()
+
+
+func bench_open() -> bool:
+	return _bench_open
+
+
 ## What is docked on the seat: kind -> name.
 func docked() -> Dictionary:
 	return _docked.get(seat_guid(), {}).duplicate()
@@ -165,6 +183,12 @@ func at_now() -> bool:
 
 ## A tap at a point. Looks, never moves.
 func tap(point: Vector2) -> void:
+	if _bench_rect.has_point(point):
+		_bench_open = not _bench_open
+		queue_redraw()
+		return
+	if _bench_open and _work_rect.has_point(point):
+		return
 	var tile := _tile_at(point)
 	if not tile.is_empty():
 		_show(tile)
@@ -382,6 +406,7 @@ func _layout() -> void:
 	_layout_rails()
 	_layout_ports()
 	_layout_field()
+	_layout_bench()
 
 
 func _layout_rails() -> void:
@@ -435,6 +460,34 @@ func _layout_field() -> void:
 		_more_rect = Rect2(tx + fit * step, ty, LoomTokens.TILE_MORE_W, LoomTokens.TILE_H)
 
 
+func _layout_bench() -> void:
+	# Upper-left of the field, left of the seat. Expands down into a
+	# small flowchart rect: the opened shell, not a second window.
+	var g := float(LoomTokens.GLYPH_TILE)
+	_bench_rect = Rect2(_field.position.x + LoomTokens.SPACE_2, _field.position.y + LoomTokens.SPACE_2, g, g)
+	_work_rect = Rect2(
+		_bench_rect.position.x,
+		_bench_rect.end.y + LoomTokens.SPACE_2,
+		LoomTokens.WORK_BOX_W,
+		LoomTokens.WORK_BOX_H
+	)
+
+
+func _load_bench_skins() -> void:
+	_bench_tex.clear()
+	for i in 4:
+		var path := "res://weave/assets/glyphs/bench_%d.png" % i
+		var bytes := FileAccess.get_file_as_bytes(path)
+		if bytes.is_empty():
+			_bench_tex.append(null)
+			continue
+		var img := Image.new()
+		if img.load_png_from_buffer(bytes) != OK:
+			_bench_tex.append(null)
+			continue
+		_bench_tex.append(ImageTexture.create_from_image(img))
+
+
 func _dock_rect(kind: StringName) -> Rect2:
 	var s: Vector2 = _sockets.get(kind, Vector2.INF)
 	return Rect2(s.x - LoomTokens.CHIP_W * 0.5, s.y - LoomTokens.CHIP_H * 0.5, LoomTokens.CHIP_W, LoomTokens.CHIP_H)
@@ -455,6 +508,7 @@ func _draw() -> void:
 	_draw_ports()
 	_draw_clock(font)
 	_draw_timeline(font)
+	_draw_bench()
 	_draw_carry(font)
 
 
@@ -626,6 +680,23 @@ func _draw_timeline(font: Font) -> void:
 	var cx := tl.end.x if at_now() else tl.position.x + _scrub * day_w
 	draw_line(Vector2(cx, tl.position.y - LoomTokens.SPACE_2), Vector2(cx, tl.end.y + LoomTokens.SPACE_2), LoomTokens.ACCENT, LoomTokens.LINE_W)
 	draw_rect(Rect2(cx - LoomTokens.SPACE_2, tl.position.y - 2 * LoomTokens.SPACE_2, 2 * LoomTokens.SPACE_2, LoomTokens.SPACE_2), LoomTokens.ACCENT)
+
+
+## Locked inner skin (bible 4.3). Tap opens the process shell: a
+## flowchart rectangle, hairline only. Two verticals are the three
+## bays. No fill — black is absence; that absence is the work space.
+func _draw_bench() -> void:
+	if _bench_fill >= 0 and _bench_fill < _bench_tex.size() and _bench_tex[_bench_fill] != null:
+		draw_texture_rect(_bench_tex[_bench_fill], _bench_rect, false)
+	else:
+		_stroke(_bench_rect, LoomTokens.INK, LoomTokens.BORDER)
+	if not _bench_open:
+		return
+	_stroke(_work_rect, LoomTokens.INK, LoomTokens.BORDER)
+	var bay := _work_rect.size.x / 3.0
+	for i in range(1, 3):
+		var x := _work_rect.position.x + i * bay
+		draw_line(Vector2(x, _work_rect.position.y), Vector2(x, _work_rect.end.y), LoomTokens.INK, LoomTokens.BORDER)
 
 
 ## The chip in hand during a drag, and its leader back to where it came from.
