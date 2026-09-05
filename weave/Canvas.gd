@@ -173,8 +173,6 @@ func at_now() -> bool:
 
 ## A tap at a point. Looks, never moves.
 func tap(point: Vector2) -> void:
-	if _bench_rect.has_point(point):
-		return
 	var tile := _tile_at(point)
 	if not tile.is_empty():
 		_show(tile)
