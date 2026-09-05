@@ -18,6 +18,36 @@ func _init() -> void:
 		if t.get_color(name, LoomTokens.THEME_TYPE) != LoomTokens.COLORS[name]:
 			_fail("theme colour %s is not the token" % name)
 			return
+	# Bible 4.2: three accents, each on the Loom type, none orange, none
+	# the old one-colour ACCENT. Bible 4.7: ranked task, hazard, changed;
+	# two show at a time.
+	if t.has_color(&"accent", LoomTokens.THEME_TYPE):
+		_fail("the old single accent is still published")
+		return
+	var seen: Array[Color] = []
+	for name in LoomTokens.ACCENT_RANK:
+		if not t.has_color(name, LoomTokens.THEME_TYPE):
+			_fail("accent %s is not on the Loom type" % name)
+			return
+		var c := t.get_color(name, LoomTokens.THEME_TYPE)
+		if c.a < 1.0:
+			_fail("accent %s is not opaque" % name)
+			return
+		if c.is_equal_approx(Color(0.93, 0.45, 0.13, 1)):
+			_fail("accent %s is the old orange; orange is out" % name)
+			return
+		if seen.has(c):
+			_fail("accent %s repeats another accent" % name)
+			return
+		seen.append(c)
+	if LoomTokens.ACCENT_RANK != [&"task", &"hazard", &"changed"] or LoomTokens.ACCENT_SHOW != 2:
+		_fail("accent precedence is not task, hazard, changed, top two")
+		return
+	if t.get_color(&"hazard", LoomTokens.THEME_TYPE) != LoomTokens.HAZARD \
+			or t.get_color(&"task", LoomTokens.THEME_TYPE) != LoomTokens.TASK \
+			or t.get_color(&"changed", LoomTokens.THEME_TYPE) != LoomTokens.CHANGED:
+		_fail("an accent on the theme is not its token")
+		return
 	var edit_box := t.get_stylebox(&"normal", &"LineEdit") as StyleBoxFlat
 	if edit_box == null or edit_box.bg_color != LoomTokens.WELL or edit_box.border_width_left != LoomTokens.BORDER:
 		_fail("LineEdit normal box is not the well")

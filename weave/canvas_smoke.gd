@@ -79,6 +79,20 @@ func _run() -> void:
 		if word in src:
 			_fail("canvas styles by hand: %s" % word)
 			return
+	# The marks that say where you are wear the task accent: the seat's top
+	# edge, the arriving chip's ring and leader, the clock's now square, the
+	# timeline's cursor and selected period. Nothing on the canvas is
+	# broken or changed-since today, so hazard and changed stay unused.
+	if "LoomTokens.ACCENT" in src:
+		_fail("canvas still names the old single accent")
+		return
+	if "LoomTokens.TASK" not in src:
+		_fail("canvas does not mark where you are with the task accent")
+		return
+	for word in ["LoomTokens.HAZARD", "LoomTokens.CHANGED"]:
+		if word in src:
+			_fail("canvas paints %s with nothing to say" % word)
+			return
 
 	# The seat sits in the field, between rails and ports, above the timeline.
 	var seat := canvas.seat_rect()

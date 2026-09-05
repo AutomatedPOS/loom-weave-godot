@@ -7,7 +7,7 @@ extends Control
 ## in date order. Lived nodes are stations on a solid trail; nodes with
 ## no date yet are the ghost, dashed, the plan that keeps going. Where
 ## a node has both, it is a fork and wears an interchange ring. The
-## focused node wears the accent ring and speaks on a placard, bottom
+## focused node wears the task ring and speaks on a placard, bottom
 ## left. Click a station to focus it. Nothing here writes.
 ##
 ## Every colour and size is a LoomTokens value. Text draws with the
@@ -238,14 +238,14 @@ func _draw() -> void:
 
 
 func _draw_spine(font: Font) -> void:
-	var accent: Color = LoomTokens.ACCENT
+	var task: Color = LoomTokens.TASK
 	var ghost: Color = LoomTokens.GHOST
 	var last := _spine.size() - 1
 	for i in range(1, _spine.size()):
 		var a: Vector2 = _spine_pos[i - 1]
 		var b: Vector2 = _spine_pos[i]
 		if _lived.get(_guid(_spine[i]), false):
-			draw_line(a, b, accent, LoomTokens.LINE_W)
+			draw_line(a, b, task, LoomTokens.LINE_W)
 		else:
 			draw_dashed_line(a, b, ghost, LoomTokens.GHOST_W, LoomTokens.DASH)
 	for i in _spine.size():
@@ -329,7 +329,7 @@ func _draw_edges() -> void:
 
 ## The actual path: every dated station in date order, one solid line.
 func _draw_trail() -> void:
-	var accent: Color = LoomTokens.ACCENT
+	var task: Color = LoomTokens.TASK
 	for i in range(1, _trail.size()):
 		var a: Vector2 = _pos[_guid(_trail[i - 1])]
 		var b: Vector2 = _pos[_guid(_trail[i])]
@@ -347,7 +347,7 @@ func _draw_trail() -> void:
 			points.append(Vector2(a.x, bus_y))
 			points.append(Vector2(b.x, bus_y))
 			points.append(b)
-		draw_polyline(points, accent, LoomTokens.LINE_W)
+		draw_polyline(points, task, LoomTokens.LINE_W)
 
 
 func _draw_stations(font: Font) -> void:
@@ -374,7 +374,7 @@ func _draw_stations(font: Font) -> void:
 
 ## One station: circle for most, square for a plan. Filled ink when
 ## live, dim when done, hollow dashed ghost when not yet lived. A fork
-## wears an ink ring; the focus wears the accent ring.
+## wears an ink ring; the focus wears the task ring.
 func _draw_mark(p: Vector2, node: Dictionary, focused: bool, fork: bool) -> void:
 	var r := float(LoomTokens.STATION_R)
 	var square := str(node.get("type", "")) == "plan"
@@ -390,7 +390,7 @@ func _draw_mark(p: Vector2, node: Dictionary, focused: bool, fork: bool) -> void
 		draw_arc(p, LoomTokens.INTERCHANGE_R, 0.0, TAU, 32, LoomTokens.INK, LoomTokens.LINE_W)
 	if focused:
 		var ring := float(LoomTokens.INTERCHANGE_R + (LoomTokens.SPACE_1 if fork else 0))
-		draw_arc(p, ring, 0.0, TAU, 32, LoomTokens.ACCENT, LoomTokens.LINE_W)
+		draw_arc(p, ring, 0.0, TAU, 32, LoomTokens.TASK, LoomTokens.LINE_W)
 
 
 func _draw_ghost_mark(p: Vector2, r: float, square: bool) -> void:
