@@ -5,48 +5,108 @@ extends RefCounted
 ## LoomTheme reads these to build the Theme. Scripts read them for layout.
 ## Nothing else in weave/ may spell out a colour, a size, or a font size.
 
-# --- colour, semantic -------------------------------------------------------
-const BACKDROP := Color(0, 0, 0, 1)
+# --- colour, two modes. artifacts/glyph-look/tokens.json is the source. -----
+const MODE_DARK := &"dark"
+const MODE_LIGHT := &"light"
 ## First screen while the painted canvas is paused. A blank sheet.
+## Not the light-mode field; that is BACKDROP after apply_mode(MODE_LIGHT).
 const BLANK := Color(1, 1, 1, 1)
-const INK := Color(0.68, 0.68, 0.70, 1)
-const INK_HOVER := Color(0.78, 0.78, 0.80, 1)
-const DIM := Color(0.42, 0.42, 0.44, 1)
-const SURFACE := Color(0.04, 0.04, 0.045, 0.96)
-const WELL := Color(0.10, 0.10, 0.11, 1)
-const EDGE := Color(0.22, 0.22, 0.24, 1)
-## The three accents, bible 4.2. Okabe–Ito minus orange, until the owner
-## swaps one. Each has one job. Nothing else on the field is coloured.
-## Bible 4.7: ranked, not additive. Two show at a time, in ACCENT_RANK
-## order. An accent with nothing to say is unused, and that is correct.
-const HAZARD := Color("#D55E00")   # accent 1: something is broken
-const TASK := Color("#56B4E9")     # accent 2: where you are; look here
-const CHANGED := Color("#CC79A7")  # accent 3: moved since you last looked
-## DIM at less than half alpha. The planned path and parked stations.
-const GHOST := Color(0.42, 0.42, 0.44, 0.45)
+
+const PALETTE := {
+	MODE_DARK: {
+		&"backdrop": Color("#000000"),
+		&"ink": Color("#ADADB3"),
+		&"ink_hover": Color("#C7C7CC"),
+		&"dim": Color("#6B6B70"),
+		&"surface": Color("#0A0A0B"),
+		&"well": Color("#1A1A1C"),
+		&"edge": Color("#38383D"),
+		&"ghost": Color(107.0 / 255.0, 107.0 / 255.0, 112.0 / 255.0, 0.45),
+		&"hazard": Color("#8B1E1E"),
+		&"task": Color("#D99A1F"),
+		&"changed": Color("#6B8FAE"),
+	},
+	MODE_LIGHT: {
+		&"backdrop": Color("#FFFFFF"),
+		&"ink": Color("#4A4A50"),
+		&"ink_hover": Color("#303036"),
+		&"dim": Color("#8E8E94"),
+		&"surface": Color("#F7F7F8"),
+		&"well": Color("#EDEDEF"),
+		&"edge": Color("#D2D2D6"),
+		&"ghost": Color(142.0 / 255.0, 142.0 / 255.0, 148.0 / 255.0, 0.45),
+		&"hazard": Color("#8B1E1E"),
+		&"task": Color("#A06E10"),
+		&"changed": Color("#4F7291"),
+	},
+}
+
+static var mode: StringName = MODE_DARK
+static var BACKDROP: Color = Color("#000000")
+static var INK: Color = Color("#ADADB3")
+static var INK_HOVER: Color = Color("#C7C7CC")
+static var DIM: Color = Color("#6B6B70")
+static var SURFACE: Color = Color("#0A0A0B")
+static var WELL: Color = Color("#1A1A1C")
+static var EDGE: Color = Color("#38383D")
+static var GHOST: Color = Color(107.0 / 255.0, 107.0 / 255.0, 112.0 / 255.0, 0.45)
+## Accent 1 hazard, 2 current task, 3 changed-since. Ranked, not additive.
+static var HAZARD: Color = Color("#8B1E1E")
+static var TASK: Color = Color("#D99A1F")
+static var CHANGED: Color = Color("#6B8FAE")
 
 ## Names under which the colours are published on the Theme, type "Loom".
 ## Any Control can read them with get_theme_color(name, THEME_TYPE).
 const THEME_TYPE := &"Loom"
-const COLORS := {
-	&"backdrop": BACKDROP,
-	&"blank": BLANK,
-	&"ink": INK,
-	&"ink_hover": INK_HOVER,
-	&"dim": DIM,
-	&"surface": SURFACE,
-	&"well": WELL,
-	&"edge": EDGE,
-	&"hazard": HAZARD,
-	&"task": TASK,
-	&"changed": CHANGED,
-	&"ghost": GHOST,
-}
+static var COLORS: Dictionary = {}
 
 ## Precedence when more than one accent wants the same mark. Where you
 ## are beats what is wrong beats what moved. The top ACCENT_SHOW draw.
 const ACCENT_RANK: Array[StringName] = [&"task", &"hazard", &"changed"]
 const ACCENT_SHOW := 2
+
+## No ink. Skins use this for hollow fill so weave/Glyphs never spells a colour.
+const CLEAR := Color(0, 0, 0, 0)
+
+static func _static_init() -> void:
+	_load_palette(MODE_DARK)
+
+
+## Pick dark or light. Rebuilds the live colour vars and drops the Theme
+## cache so the next shared() is this palette. Default is dark.
+static func apply_mode(which: StringName) -> void:
+	_load_palette(which)
+	LoomTheme.reset()
+
+
+static func _load_palette(which: StringName) -> void:
+	mode = which if PALETTE.has(which) else MODE_DARK
+	var pal: Dictionary = PALETTE[mode]
+	BACKDROP = pal[&"backdrop"]
+	INK = pal[&"ink"]
+	INK_HOVER = pal[&"ink_hover"]
+	DIM = pal[&"dim"]
+	SURFACE = pal[&"surface"]
+	WELL = pal[&"well"]
+	EDGE = pal[&"edge"]
+	GHOST = pal[&"ghost"]
+	HAZARD = pal[&"hazard"]
+	TASK = pal[&"task"]
+	CHANGED = pal[&"changed"]
+	COLORS = {
+		&"backdrop": BACKDROP,
+		&"blank": BLANK,
+		&"ink": INK,
+		&"ink_hover": INK_HOVER,
+		&"dim": DIM,
+		&"surface": SURFACE,
+		&"well": WELL,
+		&"edge": EDGE,
+		&"hazard": HAZARD,
+		&"task": TASK,
+		&"changed": CHANGED,
+		&"ghost": GHOST,
+	}
 
 # --- spacing scale, px at design size ---------------------------------------
 const SPACE_1 := 4
@@ -75,7 +135,11 @@ const LINE_W := 3          # actual path, spine
 const GHOST_W := 2         # planned path, parked edges
 const EDGE_W := 1          # tree edges that carry no path
 const STATION_R := 6       # node circle
-const GLYPH_TILE := 96     # one noun mark, a fixed square tile
+const GLYPH_NATIVE := 64   # one noun tile, as drawn in artifacts/glyph-look
+const GLYPH_STROKE := 2    # stroke at native size
+const GLYPH_CHIP := 24     # rail chip, as the sheet; stroke snaps to 1 px
+const GLYPH_SOCKET := 48   # seat socket, a touch target, the frame is the hit
+const GLYPH_TILE := 64     # alias of native, for the sheet
 const INTERCHANGE_R := 10  # fork ring, seat ring
 const DASH := 8            # dash length; gap equal
 const SPINE_H := 80        # the spine's band under the top edge

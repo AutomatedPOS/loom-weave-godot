@@ -10,6 +10,7 @@ func _fail(msg: String) -> void:
 
 
 func _init() -> void:
+	LoomTokens.apply_mode(LoomTokens.MODE_DARK)
 	var t := LoomTheme.build()
 	for name in LoomTokens.COLORS:
 		if not t.has_color(name, LoomTokens.THEME_TYPE):
@@ -48,6 +49,24 @@ func _init() -> void:
 			or t.get_color(&"changed", LoomTokens.THEME_TYPE) != LoomTokens.CHANGED:
 		_fail("an accent on the theme is not its token")
 		return
+	if LoomTokens.HAZARD != Color("#8B1E1E") or LoomTokens.TASK != Color("#D99A1F") or LoomTokens.CHANGED != Color("#6B8FAE"):
+		_fail("dark accents are not the glyph packet")
+		return
+	LoomTokens.apply_mode(LoomTokens.MODE_LIGHT)
+	var light := LoomTheme.build()
+	if LoomTokens.HAZARD != Color("#8B1E1E"):
+		_fail("light hazard is not oxblood")
+		return
+	if LoomTokens.TASK != Color("#A06E10") or LoomTokens.CHANGED != Color("#4F7291"):
+		_fail("light task/changed are not the pulled-down packet values")
+		return
+	if light.get_color(&"task", LoomTokens.THEME_TYPE) != LoomTokens.TASK \
+			or light.get_color(&"changed", LoomTokens.THEME_TYPE) != LoomTokens.CHANGED \
+			or light.get_color(&"backdrop", LoomTokens.THEME_TYPE) != Color("#FFFFFF"):
+		_fail("light theme did not publish the light palette")
+		return
+	LoomTokens.apply_mode(LoomTokens.MODE_DARK)
+	t = LoomTheme.build()
 	var edit_box := t.get_stylebox(&"normal", &"LineEdit") as StyleBoxFlat
 	if edit_box == null or edit_box.bg_color != LoomTokens.WELL or edit_box.border_width_left != LoomTokens.BORDER:
 		_fail("LineEdit normal box is not the well")

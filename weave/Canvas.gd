@@ -260,8 +260,9 @@ func _frame_at(point: Vector2) -> int:
 	return -1
 
 
-## A drop lands on the nearest socket within reach. It docks only when
-## the socket is of the thing's kind; a persona socket takes a persona.
+## A drop lands on a socket whose frame contains the point. The skin
+## is never the hit. It docks only when the socket is of the thing's
+## kind; a persona socket takes a persona.
 func _drop(point: Vector2) -> void:
 	var kind: StringName = _held.kind
 	var nearest := _socket_at(point)
@@ -276,12 +277,22 @@ func _drop(point: Vector2) -> void:
 				return
 
 
+func _socket_origin(kind: StringName) -> Vector2:
+	var c: Vector2 = _sockets.get(kind, Vector2.INF)
+	var px := float(LoomTokens.GLYPH_SOCKET)
+	return c - Vector2(px, px) * 0.5
+
+
 func _socket_at(point: Vector2) -> StringName:
+	var px := float(LoomTokens.GLYPH_SOCKET)
 	var best := &""
-	var best_d := float(LoomTokens.TOUCH_H)
+	var best_d := INF
 	for kind in _sockets:
-		var d: float = (_sockets[kind] as Vector2).distance_to(point)
-		if d <= best_d:
+		var c: Vector2 = _sockets[kind]
+		if not LoomGlyphs.frame_has_point(kind, _socket_origin(kind), px, point):
+			continue
+		var d: float = c.distance_to(point)
+		if d < best_d:
 			best_d = d
 			best = kind
 	return best
@@ -529,11 +540,12 @@ func _draw_seat(font: Font) -> void:
 			ink = LoomTokens.DIM
 		draw_multiline_string(font, Vector2(x, by + LoomTokens.SPACE_5 + LoomTokens.SPACE_2), val, HORIZONTAL_ALIGNMENT_LEFT, right - x, LoomTokens.TEXT_XL, 2, ink)
 	# The seat carries the field's slots: sockets on its left edge, ports on its right.
+	# Empty sockets are the frame of the kind, no skin. The frame is the drop target.
 	var here: Dictionary = _docked.get(seat_guid(), {})
 	for kind in KINDS:
 		if here.has(kind):
 			continue
-		_glyph(kind, _sockets[kind], LoomTokens.BACKDROP, LoomTokens.DIM)
+		LoomGlyphs.draw_frame_only(self, _socket_origin(kind), float(LoomTokens.GLYPH_SOCKET), kind, LoomTokens.DIM)
 	for k in KINDS.size():
 		var py: float = _sockets[KINDS[k]].y - LoomTokens.SPACE_2
 		_port_mouth(Rect2(r.end.x - LoomTokens.SPACE_2, py, 2 * LoomTokens.SPACE_2, LoomTokens.SPACE_4), LoomTokens.BACKDROP, LoomTokens.DIM, LoomTokens.DIM)
@@ -640,24 +652,26 @@ func _draw_carry(font: Font) -> void:
 
 # --- marks --------------------------------------------------------------------
 
-## A rail chip or a docked chip: well fill, a glyph, a name in small caps.
+## A rail chip or a docked chip: well fill, a 24 px tile, a name.
+## Hollow on the rail, solid once it is on the field. The chip rect
+## stays the tablet grab; the tile's frame is the socket hit.
 func _chip(font: Font, r: Rect2, kind: StringName, name: String, border: Color, ringed: bool) -> void:
 	draw_rect(r, LoomTokens.WELL)
 	_stroke(r, border, LoomTokens.BORDER)
-	var c := Vector2(r.position.x + LoomTokens.SPACE_4 + LoomTokens.SPACE_1, r.get_center().y)
-	if ringed:
-		_glyph(kind, c, LoomTokens.INK, LoomTokens.INK)
-		draw_arc(c, LoomTokens.INTERCHANGE_R, 0.0, TAU, 32, LoomTokens.TASK, LoomTokens.GHOST_W)
-	else:
-		_glyph(kind, c, Color.TRANSPARENT, LoomTokens.INK)
-	var x := c.x + LoomTokens.SPACE_4 + LoomTokens.SPACE_1
+	var px := float(LoomTokens.GLYPH_CHIP)
+	var c := Vector2(r.position.x + LoomTokens.SPACE_2 + px * 0.5, r.get_center().y)
+	var state: StringName = &"solid" if ringed else &"hollow"
+	var accents := [&"task"] if ringed else []
+	_glyph(kind, c, name, state, accents)
+	var x := c.x + px * 0.5 + LoomTokens.SPACE_2
 	_caps(font, Vector2(x, c.y + LoomTokens.SPACE_1 + 1), _fit(font, name, LoomTokens.TEXT_MD, r.end.x - LoomTokens.SPACE_2 - x), LoomTokens.INK, HORIZONTAL_ALIGNMENT_LEFT, LoomTokens.TEXT_MD)
 
 
-## Noun marks: persona bust, process rectangle, tool square. A hat
-## on the bust is a role. LoomGlyphs owns the drawing.
-func _glyph(kind: StringName, c: Vector2, fill: Color, stroke: Color) -> void:
-	LoomGlyphs.draw_on(self, kind, c, float(LoomTokens.STATION_R), fill, stroke)
+## Noun tiles from the packet. Frame is borrowed; skin swaps.
+func _glyph(kind: StringName, c: Vector2, name: String, state: StringName, accents: Array = []) -> void:
+	var px := float(LoomTokens.GLYPH_CHIP)
+	var origin := c - Vector2(px, px) * 0.5
+	LoomGlyphs.draw_tile(self, origin, px, LoomGlyphs.skin_for(kind, name), state, accents)
 
 
 ## A port: three sides drawn, the left open toward the field, two ticks at the mouth.

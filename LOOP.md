@@ -20,15 +20,17 @@ One PDCA cycle at a time. `loom/PROCESS.md`. `loom/DESIGN-BIBLE.md`.
 
 ## Now
 
-**Noun marks are drawn.** Loop 2026-09-05. Personas a bust,
-processes a rectangle, tools a square with a wrench. A hat on the
-bust is a role. First screen stays the close-out. Rails stay off.
+**Glyph packet landed.** Loop 2026-09-05. Four tiles: human, robot,
+process, tool. Diamond retired. Light palette sits beside dark.
+Frame is the hit and the drop. First screen stays the close-out.
+Rails stay off.
 
-Where-am-i is PR #21, still the window. Glyphs sit on that branch
-as the next small loop. Picture:
-`artifacts/findings/2026-09-05-noun-glyphs.png`.
+Picture: `artifacts/glyph-look/glyph-modes.png`. Bible patch for
+loom: `artifacts/glyph-look/BIBLE.md` (this sitting cannot push
+`AutomatedPOS/loom`). Hats from the first noun pass are superseded.
 
-Parked: joined rails, loadout, paste, shape query, role-specific
-hats. `BLANK` is the pause token.
+Parked: joined rails, loadout, paste, shape query. Open owner
+calls stay open (who is human, chip 12 vs 24, held vs pulled-down
+accents). `BLANK` is the pause token.
 
 Stale PRs, not the chew: #19, #17, #13, #8, #5, #9, #1.

@@ -1,8 +1,10 @@
 class_name GlyphSheet
 extends Control
 
-## The three noun marks on a black field. Picture for the owner's
-## Check. Not the first screen. Rails stay off.
+## The four noun tiles and the null on a black field. Picture for
+## the owner's Check. Not the first screen. Rails stay off. The
+## packet sheets in artifacts/glyph-look/ are the reference; this
+## is the live Godot after-image of the same geometry.
 
 
 func _ready() -> void:
@@ -14,20 +16,20 @@ func _draw() -> void:
 	var font := get_theme_default_font()
 	var tile := float(LoomTokens.GLYPH_TILE)
 	var gap := float(LoomTokens.SPACE_5 + LoomTokens.SPACE_5)
-	var total := 3.0 * tile + 2.0 * gap
+	var labels := ["human", "robot", "process", "tool"]
+	var cols := float(LoomGlyphs.SKINS.size())
+	var total := cols * tile + (cols - 1.0) * gap
 	var x0 := (size.x - total) * 0.5
-	var y := size.y * 0.32
-	var r := tile * 0.38
-	var labels := ["personas", "processes", "tools"]
-	for i in LoomGlyphs.KINDS.size():
-		var origin := Vector2(x0 + i * (tile + gap), y)
-		var c := origin + Vector2(tile, tile) * 0.5
-		LoomGlyphs.draw_on(self, LoomGlyphs.KINDS[i], c, r, Color.TRANSPARENT, LoomTokens.INK)
-		_caps(font, Vector2(c.x, origin.y + tile + LoomTokens.SPACE_5), labels[i], LoomTokens.DIM)
-	# Same bust, a hat on it: that is a role, not a second body.
-	var hat_c := Vector2(x0 + tile * 0.5, y + tile + LoomTokens.SPACE_5 * 5 + r)
-	LoomGlyphs.draw_on(self, &"persona", hat_c, r, Color.TRANSPARENT, LoomTokens.INK, LoomGlyphs.HAT_ROLE)
-	_caps(font, Vector2(hat_c.x, hat_c.y + r + LoomTokens.SPACE_4), "a role is a hat", LoomTokens.DIM)
+	var y := size.y * 0.22
+	for i in LoomGlyphs.SKINS.size():
+		var origin := Vector2(x0 + float(i) * (tile + gap), y)
+		LoomGlyphs.draw_tile(self, origin, tile, LoomGlyphs.SKINS[i], &"hollow")
+		_caps(font, Vector2(origin.x + tile * 0.5, origin.y + tile + LoomTokens.SPACE_5), labels[i], LoomTokens.DIM)
+		var solid := origin + Vector2(0, tile + float(LoomTokens.SPACE_5) * 4)
+		LoomGlyphs.draw_tile(self, solid, tile, LoomGlyphs.SKINS[i], &"solid")
+	var null_c := Vector2(size.x * 0.5 - tile * 0.5, y + tile * 2.0 + float(LoomTokens.SPACE_5) * 8)
+	LoomGlyphs.draw_tile(self, null_c, tile, &"null", &"hollow")
+	_caps(font, Vector2(null_c.x + tile * 0.5, null_c.y + tile + LoomTokens.SPACE_4), "null", LoomTokens.DIM)
 
 
 func _caps(font: Font, pos: Vector2, text: String, color: Color) -> void:
