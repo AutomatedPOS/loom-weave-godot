@@ -201,9 +201,11 @@ Any other key on a shape is a fail. In particular: `body`,
 Persistence reuses cycle three's two stores, for shapes, not for
 loadout:
 
-- On the machine: `user://shapes/` in the Godot app. Not this
-  sitting (`weave/` is barred).
-- In a file: export writes the query JSON. Import reads it back.
+- On the machine: `user://shapes/current.json` in the Godot app.
+  `weave/Shape.gd` is the allowlist. The canvas keeps the query
+  when the seat moves or a chip docks or leaves.
+- In a file: export of that JSON waits on OPEN 3. No port is
+  labelled. The dumps path already exists.
 
 The tree is not a shape store. A shape is not a `thread.json`.
 
@@ -286,5 +288,7 @@ From this sitting, also open:
 
 ## What this does not change
 
-`weave/` is untouched. Backdrop, gear, tokens, loadout stay.
-No vendor names. No secrets. No deploy.
+`weave/` look is Fable. Shape store plumbing in `weave/Shape.gd`
+and `Canvas.gd` is Grok, and it does not restyle. Backdrop, gear,
+tokens, loadout stay. No vendor names. No secrets. No deploy.
+Ports stay unlabeled.

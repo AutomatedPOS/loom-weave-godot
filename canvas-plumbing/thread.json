@@ -3,17 +3,17 @@
   "name": "canvas-plumbing",
   "type": "workItem",
   "actualStart": "2026-09-04",
-  "state": "open",
+  "state": "done",
+  "actualEnd": "2026-09-05",
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../artifacts/canvas-plumbing/canvas-plumbing.md",
-  "body": "Cycle four Do, plumbing half. Rosters in the tree, persona bind through the loadout, attachment, shape as query, timeline refill. weave/ not touched.",
-  "justDid": "Merged painting. Pointed the painted rails at the tree rosters. Tools stay empty. Brief is the only process chip.",
-  "next": "Owner merge of this PR. Shape save on the browser and the bind-to-talk still wait.",
-  "waitingOn": "Owner merge.",
+  "body": "Cycle four Do, plumbing half. Rosters in the tree, persona bind through the loadout, attachment, shape as query, timeline refill.",
+  "justDid": "Owner accepted the joined canvas and the bible tokens.",
+  "next": "Shape store is its own workItem.",
   "props": [
     {
       "name": "pdca",
-      "value": "check"
+      "value": "act"
     }
   ],
   "sourceVerified": false

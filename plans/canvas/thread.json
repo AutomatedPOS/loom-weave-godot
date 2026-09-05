@@ -7,8 +7,8 @@
   "isPartOf": "65d82731-e9c3-451a-a223-be0bb4d56b06",
   "representedBy": "../../artifacts/canvas-spec/canvas-spec.md",
   "body": "Weaver PDCA cycle four. Plan step: the canvas. The window stops being a tree renderer and becomes a surface the owner composes on. Two seats cut from one spec: Grok and Cursor take the plumbing, Claude Code takes the painting. The owner sets the scene.",
-  "justDid": "Painting merged from master. Rails now read the three roster parents. Invented Walk/Close/Capture/Tree/Checkers are off the window.",
-  "next": "Owner Check and merge. GDScript shape store and the persona bind-to-loadout still wait.",
-  "waitingOn": "Owner merge. OPEN 1, 3. Inbox format. Any tool.",
+  "justDid": "Owner accepted cycle four. Shape store moved to workItem shape-store.",
+  "next": "Persona bind in Godot after the store Checks. OPEN 1, 3 still wait.",
+  "waitingOn": "Owner Check of shape-store. OPEN 1, 3. Inbox format. Any tool.",
   "sourceVerified": false
 }
