@@ -17,9 +17,12 @@ Smaller loops from absence. Cards stay off.
 Tier-one design bible (first pass, living):
 https://github.com/AutomatedPOS/loom/blob/master/DESIGN-BIBLE.md
 Engine-specific look is tier two. Accents are `HAZARD`, `TASK`,
-`CHANGED` in `weave/theme/Tokens.gd`. Orange is out. First screen
+`CHANGED` in `weave/theme/Tokens.gd`, both modes, source
+`artifacts/glyph-look/tokens.json`. Orange is out. First screen
 is `BACKDROP` black. `BLANK` is the pause token, unused while a
-mark is on the field.
+mark is on the field. `LoomTokens.apply_mode` picks dark or light;
+the window stays dark until the owner asks. Noun tiles are the
+packet's four skins; the diamond is retired.
 
 Every colour, size, and font size the interface uses is a token in
 `weave/theme/Tokens.gd`. `weave/theme/LoomTheme.gd` builds the one
@@ -27,8 +30,8 @@ Theme from them. Do not style a node by hand; add a token or a type
 variation. Smoke: `godot --headless --path . --import --quit`, then
 `-s weave/first_screen_smoke.gd`, `-s weave/loadout_smoke.gd`,
 `-s weave/theme_smoke.gd`, `-s weave/monitor_smoke.gd`,
-`-s weave/canvas_smoke.gd`, and `-s weave/here_smoke.gd`. Each
-prints `SMOKE` and exits zero.
+`-s weave/canvas_smoke.gd`, `-s weave/here_smoke.gd`, and
+`-s weave/glyph_smoke.gd`. Each prints `SMOKE` and exits zero.
 
 Tree: `thread.json` at the root, type `operation`. Operations do not
 end; the render loop is continuous. A spec, once written, lands in

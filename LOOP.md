@@ -20,15 +20,16 @@ One PDCA cycle at a time. `loom/PROCESS.md`. `loom/DESIGN-BIBLE.md`.
 
 ## Now
 
-**Where am I is on the window.** Loop 2026-09-05. Black field,
-close-out of the root (or the live Do), task accent on the name.
-Canvas, monitor, gear, loadout stay in the scene, hidden. Do not
-put the rails-and-ports composition back because it was there.
+**Glyph skins, second pass.** Loop 2026-09-05. Frames unchanged.
+Skins redrawn: sphere on capsule, cube on cube with visor, three
+stations on a rod, open-end spanner. First screen stays the close-out.
+Rails stay off.
 
-Parked, not deleted: bible tokens, joined rails, loadout, paste,
-shape query in Python. `BLANK` is the pause token.
+Picture: `artifacts/findings/2026-09-05-glyph-skins.png` (Claude
+above, this pass below). Sheets:
+`artifacts/glyph-look/glyph-modes.png`.
 
-Next sitting: owner Check of `artifacts/findings/2026-09-05-where-am-i.png`.
-Then the next mark. Picture first.
+Parked: joined rails, loadout, paste, shape query. Open owner
+calls stay open. `BLANK` is the pause token.
 
 Stale PRs, not the chew: #19, #17, #13, #8, #5, #9, #1.
