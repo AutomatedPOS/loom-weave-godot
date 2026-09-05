@@ -25,13 +25,16 @@ black where-am-i loop. PR #21 came off. Do not put it back. The
 window is `BLANK` white. Canvas, monitor, gear, loadout stay in
 the scene, hidden. PR #19 shape store is parked.
 
+Owner is minting glyphs in Comfy, off the weave. Machine:
+`tools/comfy-glyphs/`. Do not paint Godot from those tiles until
+he pulls one and says so.
+
 Next sitting: small loops from white. Picture first. Owner word
-before Fable builds. Do not put rails-and-ports back because they
-were there. Do not put the black close-out back because it was
-there.
+before Fable builds. Do not put rails-and-ports back. Do not put
+the black close-out back.
 
 Parked, not deleted: bible tokens, joined rails, loadout, paste,
 shape query in Python.
 
-Stale PRs, not the chew: #21 (cancelled), #19, #17, #13, #8, #5,
-#9, #1.
+Stale PRs, not the chew: #22 and #26 (stacked on cancelled
+where-am-i), #19, #17, #13, #8, #5, #9, #1.
