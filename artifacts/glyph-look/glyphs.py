@@ -37,32 +37,54 @@ def frame(P, kind, stroke, sw=SW, dash=None):
     raise ValueError(kind)
 
 def wrench_path():
-    w=3.5; r=9.0; cy=-12.0; n=3.0
-    yb = cy + math.sqrt(r*r - w*w)
-    yt = cy - math.sqrt(r*r - n*n)
-    return (f"M {-w},20 L {-w},{yb:.2f} A {r} {r} 0 0 1 {-n},{yt:.2f} "
-            f"L {-n},{cy} L {n},{cy} L {n},{yt:.2f} A {r} {r} 0 0 1 {w},{yb:.2f} "
-            f"L {w},20 A {w} {w} 0 0 1 {-w},20 Z")
+    """Open-end spanner. C-jaw, handle, pivot at the jaw. Local +Y down."""
+    R, ri, w = 11.0, 5.6, 4.4
+    jx, jy = 0.0, -7.2
+    ah = math.radians(40)
+    a0 = -math.pi / 2 - ah
+    a1 = -math.pi / 2 + ah
+    def pt(a, rad):
+        return (jx + rad * math.cos(a), jy + rad * math.sin(a))
+    ol, orr = pt(a0, R), pt(a1, R)
+    il, ir = pt(a0, ri), pt(a1, ri)
+    y_join = jy + math.sqrt(R * R - w * w)
+    hy = 16.8
+    return (
+        f"M {-w},{hy:.2f} L {-w},{y_join:.2f} "
+        f"A {R} {R} 0 0 1 {ol[0]:.2f},{ol[1]:.2f} "
+        f"L {il[0]:.2f},{il[1]:.2f} "
+        f"A {ri} {ri} 0 1 0 {ir[0]:.2f},{ir[1]:.2f} "
+        f"L {orr[0]:.2f},{orr[1]:.2f} "
+        f"A {R} {R} 0 0 1 {w},{y_join:.2f} "
+        f"L {w},{hy:.2f} "
+        f"A {w} {w} 0 0 1 {-w},{hy:.2f} Z"
+    )
 
 def glyph(P, kind, fill, stroke, sw=SW):
     f = fill if fill else "none"
-    s = f'fill="{f}" stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round"'
+    s = f'fill="{f}" stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round" stroke-linecap="round"'
     if kind == "human":
-        return (f'<circle cx="32" cy="24" r="8" {s}/>'
-                f'<path d="M 17,48 L 17,44 A 9 9 0 0 1 26,35 L 38,35 A 9 9 0 0 1 47,44 L 47,48 Z" {s}/>')
+        # Sphere on a wide closed capsule. Neck is the gap. Body does not dump off the tile.
+        return (f'<circle cx="32" cy="22.5" r="6.5" {s}/>'
+                f'<rect x="19.5" y="32" width="25" height="13" rx="6.5" ry="6.5" {s}/>')
     if kind == "robot":
-        visor = f'<rect x="26" y="20" width="12" height="4" fill="{P.field if fill else "none"}" stroke="{stroke}" stroke-width="{sw}"/>'
-        return (f'<rect x="22" y="14" width="20" height="18" {s}/>' + visor +
-                f'<line x1="32" y1="14" x2="32" y2="9" stroke="{stroke}" stroke-width="{sw}"/>'
-                f'<circle cx="32" cy="7.5" r="1.5" fill="{stroke}"/>'
-                f'<rect x="17" y="36" width="30" height="12" {s}/>')
+        # Antenna sits on the head, inside the skin box. Head is a cube. Visor is the face.
+        visor = f'<rect x="26.5" y="25.5" width="11" height="4" fill="{P.field if fill else "none"}" stroke="{stroke}" stroke-width="{sw}"/>'
+        return (
+            f'<circle cx="32" cy="16.5" r="1.6" fill="{stroke}"/>'
+            f'<line x1="32" y1="18" x2="32" y2="20.5" stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round"/>'
+            f'<rect x="23" y="20.5" width="18" height="15.5" {s}/>' + visor +
+            f'<rect x="21" y="38" width="22" height="11.5" {s}/>'
+        )
     if kind == "process":
-        out = f'<line x1="14" y1="32" x2="50" y2="32" stroke="{stroke}" stroke-width="{sw}"/>'
+        # Bigger stations. Spine punched out of them so hollow still reads as three cubes on a rod.
+        out = f'<line x1="13" y1="32" x2="51" y2="32" stroke="{stroke}" stroke-width="{sw}"/>'
         for cx in (18, 32, 46):
-            out += f'<rect x="{cx-4}" y="28" width="8" height="8" {s}/>'
+            out += f'<rect x="{cx-5}" y="27" width="10" height="10" fill="{P.field}" stroke="none"/>'
+            out += f'<rect x="{cx-5}" y="27" width="10" height="10" {s}/>'
         return out
     if kind == "tool":
-        return f'<g transform="translate(32,32) rotate(45) scale(0.78)"><path d="{wrench_path()}" {s}/></g>'
+        return f'<g transform="translate(32,32) rotate(45) scale(0.86)"><path d="{wrench_path()}" {s}/></g>'
     if kind == "none":
         return ""
     raise ValueError(kind)
@@ -102,10 +124,10 @@ def caps(x, y, text, color, size=12, anchor="start"):
 def rule(P, x1, y, x2):
     return f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="{P.edge}" stroke-width="1"/>'
 
-COLS = [("human","persona · human","frame: circle, the avatar", "skin: round head, round shoulders"),
-        ("robot","persona · robot","frame: circle, the avatar", "skin: boxy head, one visor, antenna"),
-        ("process","process","frame: flowchart process", "skin: a spine, three stations"),
-        ("tool","tool","frame: flowchart predefined process", "skin: a spanner")]
+COLS = [("human","persona · human","frame: circle, the avatar", "skin: sphere on a closed capsule"),
+        ("robot","persona · robot","frame: circle, the avatar", "skin: cube on cube, visor, stub antenna"),
+        ("process","process","frame: flowchart process", "skin: three stations on a rod"),
+        ("tool","tool","frame: flowchart predefined process", "skin: open-end spanner")]
 STATES = [("hollow", (), "not started", "hollow"),
           ("solid", (), "done", "solid"),
           ("subdued", (), "abandoned", "ink at 20 %"),
