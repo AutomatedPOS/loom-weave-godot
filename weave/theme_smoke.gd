@@ -84,8 +84,8 @@ func _scene_checks() -> void:
 			_fail("%s on the Interface layer lacks the shared theme" % child.name)
 			return
 	var backdrop := main.get_node("Backdrop") as ColorRect
-	if backdrop.color != LoomTokens.BLANK:
-		_fail("backdrop is not the blank token")
+	if backdrop.color != LoomTokens.BACKDROP:
+		_fail("backdrop is not the token")
 		return
 
 	var gear := main.get_node("Interface/Gear") as SettingsGear

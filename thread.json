@@ -5,8 +5,8 @@
   "actualStart": "2026-09-03",
   "state": "active",
   "isPartOf": "",
-  "justDid": "Owner paused the painted canvas. First screen is a white sheet.",
-  "next": "Small loops. Picture first. Do not restore rails-and-ports because it was there.",
-  "waitingOn": "Owner Check of the white window. Then the next mark.",
+  "justDid": "Black field. Where you are is the close-out. Rails and ports stay off.",
+  "next": "Owner Check of the picture. Then the next mark.",
+  "waitingOn": "The owner's look.",
   "sourceVerified": false
 }
